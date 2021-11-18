@@ -3,7 +3,7 @@
 Ever wanted to launch your EGS games installed through [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) directly from the terminal, Lutris or any other frontend game launcher?
 Heroic Bash Launcher lets you do exactly that. 
 
-If you want to know the launch commands of a game, you need to run `heroic` from the terminal. Instead, you can now launch your game directly without having to open Heroic at all.
+You can now launch your game directly without having to open Heroic at all. There's no need to run `heroic` to find the game's launch command.
 
 
 ## Pre-requisites
@@ -19,14 +19,14 @@ Every game's launch file will contain all the launch parameters according to the
 
 All these launch files will be available in the `GamesFiles` folder. 
 
-You can execute the game's launch file using the terminal like `./Sugar.sh` or your preferred game launcher/manager like Lutris or EmulationStation.
+You can execute a game's launch file using the terminal like `./Sugar.sh` or your preferred game launcher/manager like Lutris or EmulationStation.
 
 **Note: For now, all launch files will be titled according to how [legendary](https://github.com/derrod/legendary) names the games (AppName.sh). You can look for your preferred game's AppName by opening Heroic Games Launcher and navigating to the bottom of the game's "Settings" window.**
 
 
 ## Usage
 
-Open your terminal and execute the program by running `./HeroicBashLauncher.sh`. You may be required to enable executable permissions for this file.
+Execute the program by running `./HeroicBashLauncher.sh` in your terminal. You will be required to enable executable permissions for this file.
 
 **Keep in mind, you have to run this program everytime you change the Settings in the Heroic Games Launcher app. This helps to overwrite the old launch parameters with the new ones.**
 
@@ -37,6 +37,7 @@ Open your terminal and execute the program by running `./HeroicBashLauncher.sh`.
 - Ask user for a default path for saving game launch files
 - Only update game launch files whose setting is changed
 - Additional game launch options support (Eg. ARK)
+- Automatically update launch parameters when executing game launch file
 
 ## Issues
 - Uninstalled games will get detected because of leftover files. (AppName.json files in `~/.config/heroic/GamesConfig`)

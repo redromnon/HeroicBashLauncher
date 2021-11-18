@@ -26,7 +26,7 @@ All these launch files will be available in the `GamesFiles` folder. You can exe
 
 Open your terminal and execute the program by running `./HeroicBashLauncher.sh`. You may be required to enable executable permissions for this file.
 
-**Keep in mind, you have to run this program everytime you change the Settings in the Heroic Games Launcher app. This will be overwrite the old launch parameters with the new ones.**
+**Keep in mind, you have to run this program everytime you change the Settings in the Heroic Games Launcher app. This helps to overwrite the old launch parameters with the new ones.**
 
 
 ## Features Planned

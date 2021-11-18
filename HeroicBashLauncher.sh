@@ -298,4 +298,4 @@ while i != l:
 
 
 #END OF THE PROGRAM
-print("\n...Process finished. Have fun gaming!")
+print("\n...Process finished. Files stored in GamesFiles folder.\n Have fun gaming!")

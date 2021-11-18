@@ -36,6 +36,9 @@ Open your terminal and execute the program by running `./HeroicBashLauncher.sh`.
 - Only update game launch files whose setting is changed
 - Additional game launch options support (Eg. ARK)
 
+## Issues
+- Uninstalled games will get detected because of leftover files. (AppName.json files in `~/.config/heroic/GamesConfig`)
+
 ## Changelog
 
 Version 1.0 - 18/11/21

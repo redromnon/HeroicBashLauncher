@@ -271,7 +271,12 @@ print("Generating a list of installed games... ")
 
 list = glob.glob('./*.json') # List of all available .json game files
 
-l = len(list)
+l = len(list) # No. of games
+
+#EXIT the program if not games are found
+if l == 0:
+  print("No games installed...\nCouldn't create game launch files.")
+  exit()
 
 i = 0
 

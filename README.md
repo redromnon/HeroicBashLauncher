@@ -36,6 +36,10 @@ Open your terminal and execute the program by running `./HeroicBashLauncher.sh`.
 - Only update game launch files whose setting is changed
 - Additional game launch options support (Eg. ARK)
 
+## Changelog
+
+Version 1.0 - 18/11/21
+
 
 ## License
 This project is under the GNU GPLv3 license. You can take a look at the LICENSE.md for more information.

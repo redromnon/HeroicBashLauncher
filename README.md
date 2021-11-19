@@ -5,7 +5,9 @@ Heroic Bash Launcher lets you do exactly that.
 
 You can now launch your game directly without having to open Heroic at all. There's no need to run `heroic` to find the game's launch command.
 
-![My Post](https://user-images.githubusercontent.com/74495920/142612133-f92a69d3-6a8d-451f-bd91-67e5315d11c3.png)
+
+![Heroic Bash Launcher](https://user-images.githubusercontent.com/74495920/142615495-a4e5e811-7ee3-41b8-ae80-d6d008820f2a.png)
+
 
 ## Pre-requisites
 - Heroic Games Launcher 1.10 'Kizaru'

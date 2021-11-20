@@ -21,6 +21,9 @@ print()
 
 global heroic # Heroic's legendary launch
 
+global legendaryinstalledpath # List of installed games
+legendaryinstalledpath = homeuser + "/.config/legendary/installed.json"
+
 #CREATING GAME LAUNCH (.sh) FILES
 def launchfile(list):
 
@@ -35,7 +38,26 @@ def launchfile(list):
   gamekeyarray = [*game] #Keys to array 
   gamename = gamekeyarray[0] #First index contains the game's name
 
-  print("\nPreparing " + gamename + "....")
+  #################################
+
+  #FINDING TITLE NAME OF THE GAME
+  def findgamename(gamename): 
+
+    #Convert the json file into a dictionary called installed
+    with open(legendaryinstalledpath) as f:
+      installed = json.load(f) 
+
+    #Finding the game's title name
+    realgamename = installed[gamename]["title"]
+    #print(realgamename)
+
+    return realgamename
+
+  #################################
+
+  realgamename = findgamename(gamename)
+
+  print("\nPreparing " + realgamename + "....")
 
 
   #################################
@@ -51,7 +73,7 @@ def launchfile(list):
     f = open(gameFile, "w")
 
     #Writing the contents
-    f.write("#!/bin/bash \n\n" + cloudsync + "\n\n" + launchcommand)
+    f.write("#!/bin/bash \n\n" + "#Game Name = " + realgamename + "\n\n" + cloudsync + "\n\n" + launchcommand)
 
     #Closing the file
     f.close()
@@ -182,6 +204,8 @@ def launchfile(list):
       launcherArgs = ""
     else:
       launcherArgs = game[gamename]["launcherArgs"]
+  else:
+    launcherArgs = ""
 
     #print(launcherArgs) 
 
@@ -193,6 +217,8 @@ def launchfile(list):
       otherOptions = ""
     else:
       otherOptions = game[gamename]["otherOptions"]
+  else:
+    otherOptions = ""
 
     #print(otherOptions)
 
@@ -204,6 +230,8 @@ def launchfile(list):
       targetExe = ""
     else:
       targetExe = "--override-exe " + game[gamename]["targetExe"] + " "
+  else:
+    targetExe = ""
 
     #print(targetExe)
 
@@ -269,6 +297,13 @@ def launchfile(list):
 
 print("Generating a list of installed games... ")
 
+
+#Clean leftover files
+print("\nCleaning left over game files if any...")
+os.system("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary cleanup")
+
+
+
 list = glob.glob('./*.json') # List of all available .json game files
 
 l = len(list) # No. of games
@@ -280,21 +315,34 @@ if l == 0:
 
 i = 0
 
+################################
+#Convert the legendary installed json file into a dictionary called installed
+with open(legendaryinstalledpath) as f:
+  installed = json.load(f)
+
+#Converting "installed" keys into array to get game alias
+installedkeyarray = [*installed]
+
+################################
 #launchfile(list[7])
 
-print("Done! Now creating launch files...\n")
+print("\n\nDone! Now creating launch files...\n")
+
 #Loop for generating launch commands for each installed game 
 while i != l:
 	
+  #Convert the json file into a dictionary called game
   with open(list[i]) as f:
     game = json.load(f)
-  		
-  		
-  checkList = game.keys()	
+
+  checkList = [*game] # Keys into array contaning - Name of the game, version and explicit
   	
   #Check if game is installed
   if "version" in checkList:
-    launchfile(list[i])
+
+    if checkList[0] in installedkeyarray:
+    
+      launchfile(list[i])
 	
   i = i+1
 

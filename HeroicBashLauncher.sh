@@ -316,7 +316,7 @@ if l == 0:
 i = 0
 
 ################################
-#Convert the legendary installed json file into a dictionary called installed
+#Convert the legendary installed.json file into a dictionary called installed
 with open(legendaryinstalledpath) as f:
   installed = json.load(f)
 
@@ -351,4 +351,4 @@ while i != l:
 
 
 #END OF THE PROGRAM
-print("\n...Process finished. Files stored in GamesFiles folder.\n Have fun gaming!")
+print("\n...Process finished. Files stored in GameFiles folder.\n Have fun gaming!")

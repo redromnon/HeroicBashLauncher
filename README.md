@@ -31,7 +31,7 @@ Every game's launch file will contain all the launch parameters according to the
 PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/redromnon/.steam/steam STEAM_COMPAT_DATA_PATH='/home/redromnon/.wine' MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --no wine --wrapper "'/home/redromnon/.steam/root/compatibilitytools.d/Proton-6.21-GE-2/proton' run"
 ```
 
-All these launch files will be available in the **GamesFiles** folder. 
+All these launch files will be available in the **GameFiles** folder. 
 
 **For now, all launch files will be titled according to how [legendary](https://github.com/derrod/legendary) names the games (AppName.sh). The game's actual name will be mentioned in the launch file, as seen in the above eg.**
 

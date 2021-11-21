@@ -15,14 +15,14 @@ os.chdir(path)
 print()
 
 
-
-#THE BODY PART
-#####################################################################
-
+#GLOBAL VARIABLES
 global heroic # Heroic's legendary launch
 
 global legendaryinstalledpath # List of installed games
 legendaryinstalledpath = homeuser + "/.config/legendary/installed.json"
+
+#THE BODY PART
+#####################################################################
 
 #CREATING GAME LAUNCH (.sh) FILES
 def launchfile(game):

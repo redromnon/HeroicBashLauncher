@@ -4,7 +4,7 @@ import os
 import glob
 import json
 
-#GETTING PATH OF PRESENT DICTORY
+#GETTING PATH OF PRESENT DIRECTORY
 programfolderpath = os.getcwd()
 
 #ASSIGNING PATH TO HEROIC GAMES CONFIG FILE
@@ -25,14 +25,14 @@ global legendaryinstalledpath # List of installed games
 legendaryinstalledpath = homeuser + "/.config/legendary/installed.json"
 
 #CREATING GAME LAUNCH (.sh) FILES
-def launchfile(list):
+def launchfile(game):
 
   #print(list)
- 
+  '''
   #Convert the json file into a dictionary called game
   with open(list) as f:
     game = json.load(f)
-
+  '''
 
   #Converting keys intro array to get game alias
   gamekeyarray = [*game] #Keys to array 
@@ -308,7 +308,7 @@ list = glob.glob('./*.json') # List of all available .json game files
 
 l = len(list) # No. of games
 
-#EXIT the program if not games are found
+#EXIT the program if no games are found
 if l == 0:
   print("No games installed...\nCouldn't create game launch files.")
   exit()
@@ -342,7 +342,7 @@ while i != l:
 
     if checkList[0] in installedkeyarray:
     
-      launchfile(list[i])
+      launchfile(game)
 	
   i = i+1
 

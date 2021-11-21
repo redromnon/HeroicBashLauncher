@@ -1,9 +1,9 @@
 # HeroicBashLauncher
 
 Ever wanted to launch your EGS games installed through [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) directly from the terminal, Lutris or any other frontend game launcher?
-Heroic Bash Launcher lets you do exactly that. 
+Heroic Bash Launcher lets you this very easily. 
 
-You can now launch your game directly without having to open Heroic at all. There's no need to run `heroic` to find the game's launch command.
+You can now launch your game directly without having to open Heroic at all. There's no need to run `heroic` to find the game's launch command or write your own launch script with [legendary](https://github.com/derrod/legendary)! Thus saving your time!
 
 
 ![Heroic Bash Launcher](https://user-images.githubusercontent.com/74495920/142615495-a4e5e811-7ee3-41b8-ae80-d6d008820f2a.png)
@@ -33,19 +33,21 @@ PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEE
 
 All these launch files will be available in the **GameFiles** folder. 
 
-**For now, all launch files will be titled according to how [legendary](https://github.com/derrod/legendary) names the games (AppName.sh). The game's actual name will be mentioned in the launch file, as seen in the above eg.**
+**For now, all launch files will be titled according to how legendary names the games (AppName.sh). The game's actual name will be mentioned in the launch file, as seen in the above eg.**
 
 
 ## Usage
 
 First, download and extract the project folder by clicking on the green button "Code" and hit "Download Zip". Or use Git to clone.
 
+### Running the Program
 Using your terminal, navigate to this directory and execute the program by running the following command
 ```./HeroicBashLauncher.sh``` 
 You will be required to enable executable permissions for this file.
 
 **Keep in mind, you have to run this program everytime you change the Settings in the Heroic Games Launcher app. This helps to overwrite the old launch parameters with the new ones.**
 
+### Running Games
 You can execute a game's launch file using the terminal like ```./Sugar.sh``` or your preferred game launcher/manager like Lutris or EmulationStation.
 
 

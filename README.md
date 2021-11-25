@@ -29,8 +29,7 @@ Every game's launch file will contain all the launch parameters according to the
 #Game Name = Rocket League®
 
 
-
-PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/redromnon/.steam/steam STEAM_COMPAT_DATA_PATH='/home/redromnon/.wine' MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --no wine --wrapper "'/home/redromnon/.steam/root/compatibilitytools.d/Proton-6.21-GE-2/proton' run"
+PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || echo "NO INTERNET CONNECTION. Running game in offline mode..." && PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine'
 ```
 
 All these launch files will be available in the **GameFiles** folder. 
@@ -72,7 +71,20 @@ Feel free to report any!
 ## Changelog
 
 - Version 1.0 - 18/11/21
+- Version 1.0.1 - 18/11/21
+
+  - *Now detects if no games are installed and displays a relevant message.*  
+
 - Version 1.1 - 20/11/21
+
+  - *Launch files of uninstalled games won't be generated due to left over files.* 
+  - *The game's actual name will be displayed and mentioned in the bash script.*
+
+- Version 1.2 - 25/11/21
+
+  - *Games now run in offline mode if no internet connection is detected.* 
+  - *The save path is also included in the cloud save-sync parameter.* 
+  - *The program ends execution after an interval of 2 sec.*
 
 
 ## License

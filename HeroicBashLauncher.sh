@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-import os
-import glob
-import json
+import os, glob, json, time
+
 
 #GETTING PATH OF PRESENT DIRECTORY
 programfolderpath = os.getcwd()
+
 
 #ASSIGNING PATH TO HEROIC GAMES CONFIG FILE
 homeuser = os.path.expanduser("~")
@@ -21,18 +21,14 @@ global heroic # Heroic's legendary launch
 global legendaryinstalledpath # List of installed games
 legendaryinstalledpath = homeuser + "/.config/legendary/installed.json"
 
+
+
 #THE BODY PART
 #####################################################################
 
 #CREATING GAME LAUNCH (.sh) FILES
 def launchfile(game):
 
-  #print(list)
-  '''
-  #Convert the json file into a dictionary called game
-  with open(list) as f:
-    game = json.load(f)
-  '''
 
   #Converting keys intro array to get game alias
   gamekeyarray = [*game] #Keys to array 
@@ -64,19 +60,14 @@ def launchfile(game):
 
   #CREATING THE LAUNCH FILE
 
-  def gameFile(launchcommand, cloudsync):
+  def gameFile(launchcommand, offline_launchcommand, cloudsync):
     
     #Creating the game file name
     gameFile = programfolderpath + "/GameFiles/" + gamename + ".sh"
 
-    #Creating or opening the game file
-    f = open(gameFile, "w")
-
-    #Writing the contents
-    f.write("#!/bin/bash \n\n" + "#Game Name = " + realgamename + "\n\n" + cloudsync + "\n\n" + launchcommand)
-
-    #Closing the file
-    f.close()
+    #Creating game file
+    with open(gameFile, "w") as g:
+        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand)
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
@@ -145,6 +136,9 @@ def launchfile(game):
     offlineMode = "--offline "
   else:
     offlineMode = ""
+
+  #offlineMode parameter when no internet connection
+  force_offlineMode = "--offline "
 
   #print(offlineMode)
 
@@ -264,14 +258,15 @@ def launchfile(game):
     bin = '--no wine --wrapper "' + wineVersion_bin + ' run" '
 
     launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + launcherArgs
-  
+    offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + launcherArgs
+
   elif "Wine" in game[gamename]["wineVersion"]["name"]:
 
     bin = "--wine " + wineVersion_bin + " "
     wineprefix = "--wine-prefix '" + winePrefix + "' "
 
     launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + wineprefix + launcherArgs
-
+    offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
 
   #savesPath (CloudSync)
   if ifpresent("savesPath") == True:
@@ -279,19 +274,23 @@ def launchfile(game):
     if game[gamename]["savesPath"] == "":
       cloudsync = ""
     else:
-      cloudsync = heroic + "sync-saves " + gamename + " -y"
+      cloudsync = heroic + 'sync-saves --save-path "' + game[gamename]["savesPath"] + '" ' + gamename + ' -y '
 
-    #print(targetExe)
+  #print("CloudSync = " + cloudsync)
 
 
   #The entire launch command
   #print(launchcommand)
 
   #Now create the file
-  gameFile(launchcommand, cloudsync)
+  gameFile(launchcommand,offline_launchcommand, cloudsync)
   print("Done!")
 
+
+
 #####################################################################
+
+
 
 #FINDING THE INSTALLED GAME FILES & GENERATING LAUNCH FILE PER GAME
 
@@ -305,8 +304,10 @@ os.system("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary cle
 
 
 list = glob.glob('./*.json') # List of all available .json game files
+print(list[2])
 
 l = len(list) # No. of games
+
 
 #EXIT the program if no games are found
 if l == 0:
@@ -342,7 +343,7 @@ while i != l:
 
     if checkList[0] in installedkeyarray:
     
-      launchfile(game)
+      launchfile(game) # Call the main function
 	
   i = i+1
 
@@ -351,4 +352,5 @@ while i != l:
 
 
 #END OF THE PROGRAM
+time.sleep(2)# wait for 2 seconds
 print("\n...Process finished. Files stored in GameFiles folder.\n Have fun gaming!")

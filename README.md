@@ -35,13 +35,17 @@ PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEE
 All these launch files will be available in the **GameFiles** folder. 
 
 
+## Installation
+Run the following commands in your terminal -
+```
+git clone https://github.com/redromnon/HeroicBashLauncher.git
+cd HeroicBashLancher
+```
+
 ## Usage
 
-First, download and extract the project folder by clicking on the green button "Code" and hit "Download Zip". Or use Git to clone.
-
-
 ### Running the Program
-Using your terminal, navigate to this directory (~/HeroicBashLauncher) and execute the program by running the following command `./HeroicBashLauncher.sh` or simply double-click this file. 
+Execute the program by running the following command `./HeroicBashLauncher.sh` or simply double-click this file. 
 You will be required to enable executable permissions for this file.
 
 **Keep in mind, you have to run this program everytime you change the Settings in the Heroic Games Launcher app. This helps to overwrite the old launch parameters with the new ones.**
@@ -52,7 +56,7 @@ You can execute a game's launch file using the terminal like ```./Sugar.sh``` or
 
 
 ### Updating the Program
-Again using your terminal, navigate to this directory and run the command `git pull` to get the latest changes.
+Use `git pull` to get the latest changes.
 
 
 ## Features Planned
@@ -84,7 +88,6 @@ Feel free to report any!
 
   - *Games now run in offline mode if no internet connection is detected.* 
   - *The save path is also included in the cloud save-sync parameter.* 
-  - *The program ends execution after an interval of 2 sec.*
 
 
 ## License

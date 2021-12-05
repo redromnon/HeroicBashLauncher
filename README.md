@@ -74,20 +74,25 @@ Feel free to report any!
 
 ## Changelog
 
-- Version 1.0 - 18/11/21
-- Version 1.0.1 - 18/11/21
+- Version 1.3 - 5/12/21
 
-  - *Now detects if no games are installed and displays a relevant message.*  
+  - *Fixed bug that launched two instances of a game*
+
+- Version 1.2 - 25/11/21
+
+  - *Games now run in offline mode if no internet connection is detected.* 
+  - *The save path is also included in the cloud save-sync parameter.* 
 
 - Version 1.1 - 20/11/21
 
   - *Launch files of uninstalled games won't be generated due to left over files.* 
   - *The game's actual name will be displayed and mentioned in the bash script.*
 
-- Version 1.2 - 25/11/21
+- Version 1.0.1 - 18/11/21
 
-  - *Games now run in offline mode if no internet connection is detected.* 
-  - *The save path is also included in the cloud save-sync parameter.* 
+  - *Now detects if no games are installed and displays a relevant message.*  
+
+- Version 1.0 - 18/11/21
 
 
 ## License

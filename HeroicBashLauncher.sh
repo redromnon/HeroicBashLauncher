@@ -67,7 +67,7 @@ def launchfile(game):
 
     #Creating game file
     with open(gameFile, "w") as g:
-        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand)
+        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| (echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand + ')')
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
@@ -353,4 +353,4 @@ while i != l:
 
 #END OF THE PROGRAM
 time.sleep(2)# wait for 2 seconds
-print("\n...Process finished. Files stored in GameFiles folder.\n Have fun gaming!")
+print("\n...Process finished. Launch files stored in GameFiles folder.\n Have fun gaming!")

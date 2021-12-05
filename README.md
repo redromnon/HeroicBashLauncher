@@ -29,7 +29,7 @@ Every game's launch file will contain all the launch parameters according to the
 #Game Name = Rocket League®
 
 
-PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || echo "NO INTERNET CONNECTION. Running game in offline mode..." && PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine'
+PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || (echo "NO INTERNET CONNECTION. Running game in offline mode..." && PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
 ```
 
 All these launch files will be available in the **GameFiles** folder. 

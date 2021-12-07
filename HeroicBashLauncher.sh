@@ -1,5 +1,16 @@
 #!/usr/bin/python3
 
+'''
+Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
+
+Do note that this project is open-source and is under the GPL-3.0 License. More for information, you can check out the LICENSE.md file.
+Moreover, this software does not come without any warranty.
+
+Hope you liked my little project! Have fun gaming!
+
+-- By Redromnon
+'''
+
 import os, glob, json, time
 
 
@@ -67,7 +78,7 @@ def launchfile(game):
 
     #Creating game file
     with open(gameFile, "w") as g:
-        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| (echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand + ')')
+        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + 'cd .. && ./HeroicBashLauncher.sh #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| (echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand + ')')
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
@@ -352,5 +363,5 @@ while i != l:
 
 
 #END OF THE PROGRAM
-time.sleep(2)# wait for 2 seconds
 print("\n...Process finished. Launch files stored in GameFiles folder.\n Have fun gaming!")
+time.sleep(1.5)# wait for 1.5 seconds and then end

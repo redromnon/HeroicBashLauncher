@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
 '''
+VERSION 1.4
+
 Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
 
-Do note that this project is open-source and is under the GPL-3.0 License. More for information, you can check out the LICENSE.md file.
+Do note that this project is open-source and is under the GPL-3.0 License. For more information, you can check out the LICENSE.md file.
 Moreover, this software does not come without any warranty.
 
 Hope you liked my little project! Have fun gaming!

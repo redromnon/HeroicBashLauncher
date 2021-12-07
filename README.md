@@ -32,6 +32,7 @@ Every game's launch file will contain all the launch parameters according to the
 
 #Game Name = Rocket League®
 
+cd .. && ./HeroicBashLauncher.sh #Overrides launch parameters
 
 PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || (echo "NO INTERNET CONNECTION. Running game in offline mode..." && PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
 ```
@@ -50,11 +51,9 @@ cd HeroicBashLancher
 Execute the program by running the following command `./HeroicBashLauncher.sh` or simply double-click this file. 
 You will be required to enable executable permissions for this file.
 
-**_Keep in mind, you have to run this program everytime you change the Settings in the Heroic Games Launcher app. This helps to overwrite the old launch parameters with the new ones._**
-
 
 ### Running Games
-You can execute a game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file. Simple!
+You can run your game by executing the game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file. Simple!
 
 
 ### Updating the Program
@@ -66,7 +65,6 @@ Use `git pull` to get the latest changes.
 - Ask user for a default path for saving game launch files
 - Only update game launch files whose setting is changed
 - Additional game launch options support (Eg. ARK)
-- Automatically update launch parameters when executing game launch file
 
 
 ## Issues
@@ -74,6 +72,11 @@ Feel free to report any!
 
 
 ## Changelog
+
+- Version 1.4 - 7/12/21
+
+  - *Launch parameters auto-update when running any game's launch file. 
+  (**Note** - As of versions 1.3 and below, you had to run the program everytime you changed launch parameters in the Heroic app. Now, you DON'T need to do this.)*
 
 - Version 1.3 - 5/12/21
 

@@ -53,7 +53,9 @@ You will be required to enable executable permissions for this file.
 
 
 ### Running Games
-You can run your game by executing the game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file. Simple!
+You can run your game by executing the game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/game.sh`). Simple!
+
+**Don't copy or move the game files anywhere else, it won't work.**
 
 
 ### Updating the Program
@@ -75,8 +77,8 @@ Feel free to report any!
 
 - Version 1.4 - 7/12/21
 
-  - *Launch parameters auto-update when running any game's launch file. 
-  (**Note** - As of versions 1.3 and below, you had to run the program everytime you changed launch parameters in the Heroic app. Now, you DON'T need to do this.)*
+  - *Launch parameters auto-update when running any game's launch file.*
+  - *(**Note** - As of versions 1.3 and below, you had to run the program everytime you changed launch parameters in the Heroic app. Now, you DON'T need to do this.)*
 
 - Version 1.3 - 5/12/21
 

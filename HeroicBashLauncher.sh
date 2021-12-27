@@ -317,7 +317,6 @@ os.system("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary cle
 
 
 list = glob.glob('./*.json') # List of all available .json game files
-print(list[2])
 
 l = len(list) # No. of games
 

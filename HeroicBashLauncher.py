@@ -210,7 +210,7 @@ def launchfile(game):
     if game[gamename]["launcherArgs"] == "":
       launcherArgs = ""
     else:
-      launcherArgs = game[gamename]["launcherArgs"]
+      launcherArgs = game[gamename]["launcherArgs"] + " "
   else:
     launcherArgs = ""
 
@@ -223,7 +223,7 @@ def launchfile(game):
     if game[gamename]["otherOptions"] == "":
       otherOptions = ""
     else:
-      otherOptions = game[gamename]["otherOptions"]
+      otherOptions = game[gamename]["otherOptions"] + " "
   else:
     otherOptions = ""
 

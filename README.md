@@ -10,7 +10,7 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 
 ## Pre-requisites
-- Heroic Games Launcher 1.10 'Kizaru'
+- Heroic 2.0.0 'Roronoa Zoro' Anniversary Edition
 - Python 3
 - Git
 
@@ -32,7 +32,7 @@ Every game's launch file will contain all the launch parameters according to the
 
 #Game Name = Rocket League®
 
-cd .. && ./HeroicBashLauncher.sh #Overrides launch parameters
+cd .. && ./setup.sh #Overrides launch parameters
 
 PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || (echo "NO INTERNET CONNECTION. Running game in offline mode..." && PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
 ```
@@ -48,12 +48,12 @@ cd HeroicBashLancher
 ## Usage
 
 ### Running the Program
-Execute the program by running the following command `./HeroicBashLauncher.sh` or simply double-click this file. 
+Execute the program by running the following command `./setup.sh` or simply double-click this file. 
 You will be required to enable executable permissions for this file.
 
 
 ### Running Games
-You can run your game by executing the game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/game.sh`). Simple!
+You can run your game by executing the game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/<game name>.sh`). Simple!
 
 **Don't copy or move the game files anywhere else, it won't work.**
 
@@ -74,6 +74,11 @@ Feel free to report any!
 
 
 ## Changelog
+
+- Version 1.5 - 29/12/21
+
+  - *Support for Heroic 2.0.0 version added.*
+  - *The program is now run by the new setup.sh file.*
 
 - Version 1.4 - 7/12/21
 

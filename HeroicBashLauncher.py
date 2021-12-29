@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+
 
 '''
-VERSION 1.4
+VERSION 1.5
 
 Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
 
@@ -44,7 +44,7 @@ def launchfile(game):
 
 
   #Converting keys intro array to get game alias
-  gamekeyarray = [*game] #Keys to array 
+  gamekeyarray = list(game.keys()) #Keys to array 
   gamename = gamekeyarray[0] #First index contains the game's name
 
   #################################
@@ -80,7 +80,7 @@ def launchfile(game):
 
     #Creating game file
     with open(gameFile, "w") as g:
-        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + 'cd .. && ./HeroicBashLauncher.sh #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| (echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand + ')')
+        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + 'cd .. && ./setup.sh #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| (echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand + ')')
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
@@ -316,9 +316,9 @@ os.system("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary cle
 
 
 
-list = glob.glob('./*.json') # List of all available .json game files
+listofgames = glob.glob('./*.json') # List of all available .json game files
 
-l = len(list) # No. of games
+l = len(listofgames) # No. of games
 
 
 #EXIT the program if no games are found
@@ -334,7 +334,7 @@ with open(legendaryinstalledpath) as f:
   installed = json.load(f)
 
 #Converting "installed" keys into array to get game alias
-installedkeyarray = [*installed]
+installedkeyarray = list(installed.keys())
 
 ################################
 #launchfile(list[7])
@@ -345,10 +345,10 @@ print("\n\nDone! Now creating launch files...\n")
 while i != l:
 	
   #Convert the json file into a dictionary called game
-  with open(list[i]) as f:
+  with open(listofgames[i]) as f:
     game = json.load(f)
 
-  checkList = [*game] # Keys into array contaning - Name of the game, version and explicit
+  checkList = list(game.keys()) # Keys into array contaning - Name of the game, version and explicit
   	
   #Check if game is installed
   if "version" in checkList:

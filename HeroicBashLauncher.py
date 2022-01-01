@@ -167,7 +167,7 @@ def launchfile(game):
 
   #showMangohud
   if game[gamename]["showMangohud"] == True:
-    showMangohud = "MANGOHUD=1 "
+    showMangohud = "MANGOHUD=1 --dlsym "
   else:
     showMangohud = ""
 

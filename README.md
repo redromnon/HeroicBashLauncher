@@ -73,6 +73,10 @@ Use `git pull` to get the latest changes.
 Feel free to report any!
 
 
+## FAQ
+Check out the [Wiki!](https://github.com/redromnon/HeroicBashLauncher/wiki)
+
+
 ## Changelog
 
 - Version 1.5 - 29/12/21

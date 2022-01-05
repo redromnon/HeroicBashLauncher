@@ -119,7 +119,7 @@ def launchfile(game):
 
   #enableFSR
   if game[gamename]["enableFSR"] == True:
-    enableFSR = "WINE_FULLSCREEN_FSR=1 "
+    enableFSR = "WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[gamename]["maxSharpness"]) + " "
   else:
     enableFSR = ""
 

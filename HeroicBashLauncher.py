@@ -1,7 +1,7 @@
 
 
 '''
-VERSION 1.5
+VERSION 1.6
 
 Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
 
@@ -78,9 +78,12 @@ def launchfile(game):
     #Creating the game file name
     gameFile = programfolderpath + "/GameFiles/" + gamename + ".sh"
 
+    #Offline Dialog
+    offline_dialog= 'zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2'
+
     #Creating game file
     with open(gameFile, "w") as g:
-        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + 'cd .. && ./setup.sh #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| (echo "NO INTERNET CONNECTION. Running game in offline mode..." && ' + offline_launchcommand + ')')
+        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + 'cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| ( ' + offline_dialog + ' ; ' + offline_launchcommand + ')')
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
@@ -364,5 +367,5 @@ while i != l:
 
 
 #END OF THE PROGRAM
-print("\n...Process finished. Launch files stored in GameFiles folder.\n Have fun gaming!")
+print("\n...Process finished. Launch files stored in GameFiles folder.\nHave fun gaming!")
 time.sleep(1.5)# wait for 1.5 seconds and then end

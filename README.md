@@ -13,6 +13,7 @@ You can now launch your game directly without having to open Heroic at all. Ther
 - Heroic 2.0.0 'Roronoa Zoro' Anniversary Edition
 - Python 3
 - Git
+- Zenity
 
 
 ## Working
@@ -59,7 +60,8 @@ You can run your game by executing the game's launch file using the terminal lik
 
 
 ### Updating the Program
-Use `git pull` to get the latest changes.
+Update the program by running the following command `./update.sh` or simply double-click this file. Or just `git pull` to get the latest changes.
+You will be required to enable executable permissions for this file.
 
 
 ## Features Planned
@@ -78,6 +80,11 @@ Check out the [Wiki!](https://github.com/redromnon/HeroicBashLauncher/wiki)
 
 
 ## Changelog
+
+- Version 1.6 - 8/1/22
+
+  - *GUI dialogs implemented (Using Zenity)*
+  - *Added FSR Sharpness and MangoHUD support for OpenGL games*
 
 - Version 1.5 - 29/12/21
 

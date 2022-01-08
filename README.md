@@ -84,7 +84,7 @@ Check out the [Wiki!](https://github.com/redromnon/HeroicBashLauncher/wiki)
 - Version 1.6 - 8/1/22
 
   - *GUI dialogs implemented (Using Zenity)*
-  - *Added FSR Sharpness and MangoHUD support for OpenGL games*
+  - *Added MangoHUD support for OpenGL games*
 
 - Version 1.5 - 29/12/21
 

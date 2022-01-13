@@ -24,35 +24,31 @@ Heroic Bash Launcher automatically detects installed games and creates a launch 
 All these launch files will be available in the **GameFiles** folder. 
 
 
-**For now, all launch files will be titled according to how legendary names the games (AppName.sh). The game's actual name will be mentioned in the launch file, as seen below.**
+**For now, all launch files will be titled according to how legendary names the games (AppName.sh). The game's actual name will be mentioned in the launch file, as shown below.**
 
-Every game's launch file will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. Here's an example below of "Sugar.sh" -
+Every game's launch file will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. 
+
+Here's an **example** below of "Sugar.sh" -
 
 ```
 #!/bin/bash
 
 #Game Name = Rocket League®
 
-cd .. && ./setup.sh #Overrides launch parameters
+cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters
 
 PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
 ```
 
 
 ## Installation
-Run the following commands in your terminal -
-```
-git clone https://github.com/redromnon/HeroicBashLauncher.git
-cd HeroicBashLancher
-chmod u+x setup.sh
-chmod u+x update.sh
-```
+Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **ZIP** file of the latest release.
 
 ## Usage
 
 ### Running the Program
 Execute the program by running the following command `./setup.sh` or simply double-click this file. 
-You will be required to enable executable permissions for this file.
+You need to enable executable permissions for this file by running `chmod u+x setup.sh`
 
 
 ### Running Games
@@ -61,63 +57,20 @@ You can run your game by executing the game's launch file using the terminal lik
 **Don't copy or move the game files anywhere else, it won't work.**
 
 
-### Updating the Program
-Update the program by running the following command `./update.sh` or simply double-click this file. Or just `git pull` to get the latest changes.
-You will be required to enable executable permissions for this file.
-
-
 ## Features Planned
 
 - Ask user for a default path for saving game launch files
 - Only update game launch files whose setting is changed
 - Additional game launch options support (Eg. ARK)
+- GUI
 
 
 ## Issues
 Feel free to report any!
 
 
-## FAQ
-Check out the [Wiki!](https://github.com/redromnon/HeroicBashLauncher/wiki)
-
-
-## Changelog
-
-- Version 1.6 - 8/1/22
-
-  - *GUI dialogs implemented (Using Zenity)*
-  - *Added MangoHUD support for OpenGL games*
-
-- Version 1.5 - 29/12/21
-
-  - *Support for Heroic 2.0.0 version added.*
-  - *The program is now run by the new setup.sh file.*
-
-- Version 1.4 - 7/12/21
-
-  - *Launch parameters auto-update when running any game's launch file.*
-  - *(**Note** - As of versions 1.3 and below, you had to run the program everytime you changed launch parameters in the Heroic app. Now, you DON'T need to do this.)*
-
-- Version 1.3 - 5/12/21
-
-  - *Fixed bug that launched two instances of a game*
-
-- Version 1.2 - 25/11/21
-
-  - *Games now run in offline mode if no internet connection is detected.* 
-  - *The save path is also included in the cloud save-sync parameter.* 
-
-- Version 1.1 - 20/11/21
-
-  - *Launch files of uninstalled games won't be generated due to left over files.* 
-  - *The game's actual name will be displayed and mentioned in the bash script.*
-
-- Version 1.0.1 - 18/11/21
-
-  - *Now detects if no games are installed and displays a relevant message.*  
-
-- Version 1.0 - 18/11/21
-
-
 ## License
 This project is under the GNU GPLv3 license. You can take a look at the LICENSE.md for more information.
+
+
+## You can check out the Wiki for [FAQs](https://github.com/redromnon/HeroicBashLauncher/wiki/FAQ) and [Changelog](https://github.com/redromnon/HeroicBashLauncher/wiki/Changelog)

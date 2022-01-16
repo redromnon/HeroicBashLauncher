@@ -16,6 +16,7 @@ print()
 
 #GLOBAL VARIABLES
 global heroic # Heroic's legendary launch
+heroic = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
 
 global legendaryinstalledpath # List of installed games
 legendaryinstalledpath = homeuser + "/.config/legendary/installed.json"
@@ -86,6 +87,22 @@ def launchfile(game):
     audioFix = ""
 
   #print(audioFix)
+
+
+  #Auto-Cloud Save Sync
+  if game[gamename]["autoSyncSaves"] == True:
+
+    #print("Auto_Sync True") Delete this
+    
+    if game[gamename]["savesPath"] == "":
+      cloudsync = ""
+    else:
+      cloudsync = heroic + 'sync-saves --save-path "' + game[gamename]["savesPath"] + '" ' + gamename + ' -y '
+
+  else:
+      cloudsync = ""
+
+  #print(cloudsync)
 
 
   #enableEsync
@@ -251,7 +268,6 @@ def launchfile(game):
 
   launchcommand = " "
   launchgame = "launch " + gamename + " " 
-  heroic = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
 
   if "Proton" in game[gamename]["wineVersion"]["name"]:
 
@@ -269,16 +285,6 @@ def launchfile(game):
 
     launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + wineprefix + launcherArgs
     offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
-
-  #savesPath (CloudSync)
-  if ifpresent("savesPath") == True:
-
-    if game[gamename]["savesPath"] == "":
-      cloudsync = ""
-    else:
-      cloudsync = heroic + 'sync-saves --save-path "' + game[gamename]["savesPath"] + '" ' + gamename + ' -y '
-
-  #print("CloudSync = " + cloudsync)
 
 
   #The entire launch command

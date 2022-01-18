@@ -2,7 +2,7 @@
 
 ###################
 
-#VERSION 1.7.0
+#VERSION 1.7.1
 
 #Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
 
@@ -16,7 +16,7 @@
 ###################
 
 #Check if Zenity is installed
-(echo "Checking if Zenity is installed..." ; zenity --version) || (echo "Zenity not installed, now installing it." ; sudo apt install zenity -y)
+(echo "Checking if Zenity is installed..." ; zenity --version) || (echo "Zenity not installed, please consider installing it.")
 
 #Run the Heroic Bash Launcher program
 python3 HeroicBashLauncher.py

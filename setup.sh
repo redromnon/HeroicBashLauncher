@@ -2,7 +2,7 @@
 
 ###################
 
-#VERSION 1.7.2
+#VERSION 1.8.0
 
 #Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
 

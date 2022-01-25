@@ -2,7 +2,7 @@
 
 ###################
 
-#VERSION 1.7.1
+#VERSION 1.7.2
 
 #Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Epic Store games from literally anywhere on Linux!
 
@@ -19,6 +19,5 @@
 (echo "Checking if Zenity is installed..." ; zenity --version) || (echo "Zenity not installed, please consider installing it.")
 
 #Run the Heroic Bash Launcher program
-python3 HeroicBashLauncher.py
-(python3 HeroicBashLauncher.py && zenity --info --title="Process finished" --text="Launch files stored in GameFiles folder.\n\nHave fun gaming!" --width=200 --timeout=3)\
- || zenity --info --title="Process Failed" --text="HeroicBashLauncher failed to create scripts. Please check your console for the error and consider reporting it on Github" --width=400
+(python3 HeroicBashLauncher.py && zenity --info --title="Process finished" --text="Launch files stored in GameFiles folder.\n\nHave fun gaming!" --width=200)\
+ || zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github." --width=400

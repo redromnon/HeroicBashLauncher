@@ -78,83 +78,96 @@ def launchfile(game):
 
   ################################
 
+  #Check if parameters are present (launcherArgs, otherOptions, targetExe)
+  def ifpresent(parameter):
+
+    if parameter in game[gamename].keys():
+      return True
+
   #CONFIGURING BOOLEAN PARAMETERS
 
   #audioFix
-  if game[gamename]["audioFix"] == True:
-    audioFix = "PULSE_LATENCY_MSEC=60 "
-  else:
-    audioFix = ""
+  audioFix = ""
+  if ifpresent("audioFix") == True:
+
+    if game[gamename]["audioFix"] == True:
+      audioFix = "PULSE_LATENCY_MSEC=60 "
 
   #print(audioFix)
 
 
   #Auto-Cloud Save Sync
-  if game[gamename]["autoSyncSaves"] == True:
+  cloudsync = ""
+  if ifpresent("autoSyncSaves") == True:
 
-    #print("Auto_Sync True") Delete this
+    if game[gamename]["autoSyncSaves"] == True:
     
-    if game[gamename]["savesPath"] == "":
-      cloudsync = ""
-    else:
-      cloudsync = heroic + 'sync-saves --save-path "' + game[gamename]["savesPath"] + '" ' + gamename + ' -y '
-
-  else:
-      cloudsync = ""
+      if game[gamename]["savesPath"] == "":
+        cloudsync = ""
+      else:
+        cloudsync = heroic + 'sync-saves --save-path "' + game[gamename]["savesPath"] + '" ' + gamename + ' -y '
 
   #print(cloudsync)
 
 
   #enableEsync
-  if game[gamename]["enableEsync"] == True:
-    enableEsync = "WINEESYNC=1 "
-  else:
-    enableEsync = ""
+  enableEsync = ""
+  if ifpresent("enableEsync") == True:
+
+    if game[gamename]["enableEsync"] == True:
+      enableEsync = "WINEESYNC=1 "
 
   #print(enableEsync)
 
 
   #enableFsync
-  if game[gamename]["enableFsync"] == True:
-    enableFsync = "WINEFSYNC=1 "
-  else:
-    enableFsync = ""
+  enableFsync = ""
+  if ifpresent("enableFsync") == True:
+
+    if game[gamename]["enableFsync"] == True:
+      enableFsync = "WINEFSYNC=1 "
 
   #print(enableFsync)
 
 
-  #enableFSR
-  if game[gamename]["enableFSR"] == True:
-    enableFSR = "WINE_FULLSCREEN_FSR=1 " 
-  else:
-    enableFSR = ""
+  #enableFSR & Sharpness
+  enableFSR = ""
+  maxSharpness = ""
+  if ifpresent("enableFSR") == True:
+
+    if game[gamename]["enableFSR"] == True:
+      enableFSR = "WINE_FULLSCREEN_FSR=1 "
+      maxSharpness = "WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[gamename]["maxSharpness"]) + " " 
 
   #print(enableFSR)
 
 
   #enableResizableBar
-  if game[gamename]["enableResizableBar"] == True:
-    enableResizableBar = "VKD3D_CONFIG=upload_hvv "
-  else:
-    enableResizableBar = ""
+  enableResizableBar = ""
+  if ifpresent("enableResizableBar") == True:
+
+    if game[gamename]["enableResizableBar"] == True:
+      enableResizableBar = "VKD3D_CONFIG=upload_hvv "
 
   #print(enableResizableBar)
 
 
   #nvidiaPrime
-  if game[gamename]["nvidiaPrime"] == True:
-    nvidiaPrime = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
-  else:
-    nvidiaPrime = ""
+  nvidiaPrime = ""
+  if ifpresent("nvidiaPrime") == True:
+
+    if game[gamename]["nvidiaPrime"] == True:
+      nvidiaPrime = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
 
   #print(nvidiaPrime)
 
 
   #offlineMode
-  if game[gamename]["offlineMode"] == True:
-    offlineMode = "--offline "
-  else:
-    offlineMode = ""
+  offlineMode = ""
+  if ifpresent("offlineMode") == True:
+
+    if game[gamename]["offlineMode"] == True:
+      offlineMode = "--offline "
 
   #offlineMode parameter when no internet connection
   force_offlineMode = "--offline "
@@ -163,28 +176,31 @@ def launchfile(game):
 
 
   #showFps
-  if game[gamename]["showFps"] == True:
-    showFps = "DXVK_HUD=fps "
-  else:
-    showFps = ""
+  showFps = ""
+  if ifpresent("showFps") == True:
+
+    if game[gamename]["showFps"] == True:
+      showFps = "DXVK_HUD=fps "
 
   #print(showFps)
 
 
   #showMangohud
-  if game[gamename]["showMangohud"] == True:
-    showMangohud = "mangohud --dlsym "
-  else:
-    showMangohud = ""
+  showMangohud = ""
+  if ifpresent("showMangohud") == True:
+
+    if game[gamename]["showMangohud"] == True:
+      showMangohud = "mangohud --dlsym "
 
   #print(showMangohud)
 
 
   #useGameMode
-  if game[gamename]["useGameMode"] == True:
-    useGameMode = "/usr/bin/gamemoderun "
-  else:
-    useGameMode = ""
+  useGameMode = ""
+  if ifpresent("useGameMode") == True: 
+  
+    if game[gamename]["useGameMode"] == True:
+      useGameMode = "/usr/bin/gamemoderun "
 
   #print(useGameMode)
 
@@ -192,59 +208,39 @@ def launchfile(game):
 
   #CONFIGURING OTHER PARAMETERS
 
-  #Check if parameters are present (launcherArgs, otherOptions, targetExe)
-  def ifpresent(parameter):
-
-    if parameter in game[gamename].keys():
-      return True
-
-
-
-  #maxSharpness
-  if game[gamename]["enableFSR"] == True:
-    maxSharpness = "WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[gamename]["maxSharpness"]) + " "
-  else:
-     maxSharpness = ""
-
-  #print(maxSharpness)
-
 
   #launcherArgs
-  global launcherArgs #Declared this because of reference assignment error
+  launcherArgs = "" #Declared this because of reference assignment error
   if ifpresent("launcherArgs") == True:
 
     if game[gamename]["launcherArgs"] == "":
       launcherArgs = ""
     else:
       launcherArgs = game[gamename]["launcherArgs"] + " "
-  else:
-    launcherArgs = ""
 
     #print(launcherArgs) 
 
 
   #otherOptions
+  otherOptions = ""
   if ifpresent("otherOptions") == True:
 
     if game[gamename]["otherOptions"] == "":
       otherOptions = ""
     else:
       otherOptions = game[gamename]["otherOptions"] + " "
-  else:
-    otherOptions = ""
 
     #print(otherOptions)
 
 
   #targetExe
+  targetExe = ""
   if ifpresent("targetExe") == True:
 
     if game[gamename]["targetExe"] == "":
       targetExe = ""
     else:
       targetExe = "--override-exe " + game[gamename]["targetExe"] + " "
-  else:
-    targetExe = ""
 
     #print(targetExe)
 

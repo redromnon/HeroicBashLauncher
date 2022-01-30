@@ -1,4 +1,4 @@
-<img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?style=for-the-badge">    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/redromnon/HeroicBashLauncher/total?style=for-the-badge">
+<img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?style=for-the-badge">
 
 # HeroicBashLauncher
 

@@ -1,6 +1,6 @@
 
 import os, glob, json, time
-
+from func.gameName import getnameofgame
 
 #GETTING PATH OF PRESENT DIRECTORY
 programfolderpath = os.getcwd()
@@ -32,26 +32,26 @@ def launchfile(game):
 
   #Converting keys intro array to get game alias
   gamekeyarray = list(game.keys()) #Keys to array 
-  gamename = gamekeyarray[0] #First index contains the game's name
+  appname = gamekeyarray[0] #First index contains the game's AppName
 
   #################################
 
   #FINDING TITLE NAME OF THE GAME
-  def findgamename(gamename): 
+  def findgamename(appname): 
 
     #Convert the json file into a dictionary called installed
     with open(legendaryinstalledpath) as f:
       installed = json.load(f) 
 
     #Finding the game's title name
-    realgamename = installed[gamename]["title"]
+    realgamename = installed[appname]["title"]
     #print(realgamename)
 
     return realgamename
 
   #################################
 
-  realgamename = findgamename(gamename)
+  realgamename = findgamename(appname)
 
   print("\nPreparing " + realgamename + "....")
 
@@ -62,15 +62,18 @@ def launchfile(game):
 
   def gameFile(launchcommand, offline_launchcommand, cloudsync):
     
+    #Generating game's name without special characters
+    simplified_gamename = getnameofgame(realgamename)
+
     #Creating the game file name
-    gameFile = programfolderpath + "/GameFiles/" + gamename + ".sh"
+    gameFile = programfolderpath + "/GameFiles/" + simplified_gamename + ".sh"
 
     #Offline Dialog
     offline_dialog= 'zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2'
 
     #Creating game file
     with open(gameFile, "w") as g:
-        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + 'cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| ( ' + offline_dialog + ' ; ' + offline_launchcommand + ')')
+        g.write('#!/bin/bash \n\n' + '#Game Name = ' + realgamename + '\n\n' + '#App Name (Legendary) = ' + appname + '\n\n' + 'cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters' + '\n\n' + cloudsync + '\n\n' + launchcommand + '|| ( ' + offline_dialog + ' ; ' + offline_launchcommand + ')')
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
@@ -81,7 +84,7 @@ def launchfile(game):
   #Check if parameters are present (launcherArgs, otherOptions, targetExe)
   def ifpresent(parameter):
 
-    if parameter in game[gamename].keys():
+    if parameter in game[appname].keys():
       return True
 
   #CONFIGURING BOOLEAN PARAMETERS
@@ -90,7 +93,7 @@ def launchfile(game):
   audioFix = ""
   if ifpresent("audioFix") == True:
 
-    if game[gamename]["audioFix"] == True:
+    if game[appname]["audioFix"] == True:
       audioFix = "PULSE_LATENCY_MSEC=60 "
 
   #print(audioFix)
@@ -100,12 +103,12 @@ def launchfile(game):
   cloudsync = ""
   if ifpresent("autoSyncSaves") == True:
 
-    if game[gamename]["autoSyncSaves"] == True:
+    if game[appname]["autoSyncSaves"] == True:
     
-      if game[gamename]["savesPath"] == "":
+      if game[appname]["savesPath"] == "":
         cloudsync = ""
       else:
-        cloudsync = heroic + 'sync-saves --save-path "' + game[gamename]["savesPath"] + '" ' + gamename + ' -y '
+        cloudsync = heroic + 'sync-saves --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y '
 
   #print(cloudsync)
 
@@ -114,7 +117,7 @@ def launchfile(game):
   enableEsync = ""
   if ifpresent("enableEsync") == True:
 
-    if game[gamename]["enableEsync"] == True:
+    if game[appname]["enableEsync"] == True:
       enableEsync = "WINEESYNC=1 "
 
   #print(enableEsync)
@@ -124,7 +127,7 @@ def launchfile(game):
   enableFsync = ""
   if ifpresent("enableFsync") == True:
 
-    if game[gamename]["enableFsync"] == True:
+    if game[appname]["enableFsync"] == True:
       enableFsync = "WINEFSYNC=1 "
 
   #print(enableFsync)
@@ -135,9 +138,9 @@ def launchfile(game):
   maxSharpness = ""
   if ifpresent("enableFSR") == True:
 
-    if game[gamename]["enableFSR"] == True:
+    if game[appname]["enableFSR"] == True:
       enableFSR = "WINE_FULLSCREEN_FSR=1 "
-      maxSharpness = "WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[gamename]["maxSharpness"]) + " " 
+      maxSharpness = "WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[appname]["maxSharpness"]) + " " 
 
   #print(enableFSR)
 
@@ -146,7 +149,7 @@ def launchfile(game):
   enableResizableBar = ""
   if ifpresent("enableResizableBar") == True:
 
-    if game[gamename]["enableResizableBar"] == True:
+    if game[appname]["enableResizableBar"] == True:
       enableResizableBar = "VKD3D_CONFIG=upload_hvv "
 
   #print(enableResizableBar)
@@ -156,7 +159,7 @@ def launchfile(game):
   nvidiaPrime = ""
   if ifpresent("nvidiaPrime") == True:
 
-    if game[gamename]["nvidiaPrime"] == True:
+    if game[appname]["nvidiaPrime"] == True:
       nvidiaPrime = "__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
 
   #print(nvidiaPrime)
@@ -166,7 +169,7 @@ def launchfile(game):
   offlineMode = ""
   if ifpresent("offlineMode") == True:
 
-    if game[gamename]["offlineMode"] == True:
+    if game[appname]["offlineMode"] == True:
       offlineMode = "--offline "
 
   #offlineMode parameter when no internet connection
@@ -179,7 +182,7 @@ def launchfile(game):
   showFps = ""
   if ifpresent("showFps") == True:
 
-    if game[gamename]["showFps"] == True:
+    if game[appname]["showFps"] == True:
       showFps = "DXVK_HUD=fps "
 
   #print(showFps)
@@ -189,7 +192,7 @@ def launchfile(game):
   showMangohud = ""
   if ifpresent("showMangohud") == True:
 
-    if game[gamename]["showMangohud"] == True:
+    if game[appname]["showMangohud"] == True:
       showMangohud = "mangohud --dlsym "
 
   #print(showMangohud)
@@ -199,7 +202,7 @@ def launchfile(game):
   useGameMode = ""
   if ifpresent("useGameMode") == True: 
   
-    if game[gamename]["useGameMode"] == True:
+    if game[appname]["useGameMode"] == True:
       useGameMode = "/usr/bin/gamemoderun "
 
   #print(useGameMode)
@@ -213,10 +216,10 @@ def launchfile(game):
   launcherArgs = "" #Declared this because of reference assignment error
   if ifpresent("launcherArgs") == True:
 
-    if game[gamename]["launcherArgs"] == "":
+    if game[appname]["launcherArgs"] == "":
       launcherArgs = ""
     else:
-      launcherArgs = game[gamename]["launcherArgs"] + " "
+      launcherArgs = game[appname]["launcherArgs"] + " "
 
     #print(launcherArgs) 
 
@@ -225,10 +228,10 @@ def launchfile(game):
   otherOptions = ""
   if ifpresent("otherOptions") == True:
 
-    if game[gamename]["otherOptions"] == "":
+    if game[appname]["otherOptions"] == "":
       otherOptions = ""
     else:
-      otherOptions = game[gamename]["otherOptions"] + " "
+      otherOptions = game[appname]["otherOptions"] + " "
 
     #print(otherOptions)
 
@@ -237,17 +240,17 @@ def launchfile(game):
   targetExe = ""
   if ifpresent("targetExe") == True:
 
-    if game[gamename]["targetExe"] == "":
+    if game[appname]["targetExe"] == "":
       targetExe = ""
     else:
-      targetExe = "--override-exe " + game[gamename]["targetExe"] + " "
+      targetExe = "--override-exe " + game[appname]["targetExe"] + " "
 
     #print(targetExe)
 
 
 
   #winePrefix
-  winePrefix = game[gamename]["winePrefix"]
+  winePrefix = game[appname]["winePrefix"]
 
   #print(winePrefix)
 
@@ -255,7 +258,7 @@ def launchfile(game):
   #wineVersion (IMPACTS LAUNCH COMMAND)
 
   #bin 
-  wineVersion_bin = game[gamename]["wineVersion"]["bin"]
+  wineVersion_bin = game[appname]["wineVersion"]["bin"]
 
   #print(wineVersion_bin)
 
@@ -263,9 +266,9 @@ def launchfile(game):
   #name(IMPORTANT)
 
   launchcommand = " "
-  launchgame = "launch " + gamename + " " 
+  launchgame = "launch " + appname + " " 
 
-  if "Proton" in game[gamename]["wineVersion"]["name"]:
+  if "Proton" in game[appname]["wineVersion"]["name"]:
 
     steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + homeuser + "/.steam/steam "
     steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
@@ -274,7 +277,7 @@ def launchfile(game):
     launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + launcherArgs
     offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + launcherArgs
 
-  elif "Wine" in game[gamename]["wineVersion"]["name"]:
+  elif "Wine" in game[appname]["wineVersion"]["name"]:
 
     bin = "--wine " + wineVersion_bin + " "
     wineprefix = "--wine-prefix '" + winePrefix + "' "

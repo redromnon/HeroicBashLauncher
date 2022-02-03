@@ -1,4 +1,4 @@
-<img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?style=for-the-badge">
+<img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?color=yellow&style=for-the-badge">  <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/redromnon/HeroicBashLauncher?color=blueviolet&style=for-the-badge">  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/redromnon/HeroicBashLauncher?color=green&style=for-the-badge">
 
 # HeroicBashLauncher
 
@@ -16,6 +16,22 @@ You can now launch your game directly without having to open Heroic at all. Ther
 - Python 3
 - Git
 - Zenity
+
+
+## Installation
+Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **ZIP** file of the latest release.
+
+## Usage
+
+### Running the Program
+Execute the program by running the following command `./setup.sh` or simply double-click this file. 
+You may need to enable executable permissions for this file by running `chmod u+x setup.sh`
+
+
+### Running Games
+You can run your game by executing the game's launch file using the terminal like ```./RocketLeague.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/RocketLeague.sh`). Simple!
+
+**Don't copy or move the game files anywhere else, it won't work.**
 
 
 ## Working
@@ -39,24 +55,10 @@ cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters
 
 
 
-WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 DXVK_FRAME_RATE=45 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 DXVK_FRAME_RATE=45 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
+WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
 ```
 
 
-## Installation
-Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **ZIP** file of the latest release.
-
-## Usage
-
-### Running the Program
-Execute the program by running the following command `./setup.sh` or simply double-click this file. 
-You may need to enable executable permissions for this file by running `chmod u+x setup.sh`
-
-
-### Running Games
-You can run your game by executing the game's launch file using the terminal like ```./RocketLeague.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/RocketLeague.sh`). Simple!
-
-**Don't copy or move the game files anywhere else, it won't work.**
 
 
 ## Features Planned

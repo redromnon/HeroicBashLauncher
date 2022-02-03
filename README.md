@@ -20,26 +20,26 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 ## Working
 
-Heroic Bash Launcher automatically detects installed games and creates a launch file for each game. The launch file is created using the *bash shell script*, i.e. `.sh` files. For example, if I have Rocket League installed, it will create the launch file titled "Sugar.sh".
-
+Heroic Bash Launcher automatically detects installed games and creates a launch file for each game. The launch file is created using the *bash shell script*, i.e. `.sh` files. For example, if I have Rocket League installed, it will create the launch file titled "RocketLeague.sh".
 
 All these launch files will be available in the **GameFiles** folder. 
 
-
-**For now, all launch files will be titled according to how legendary names the games (AppName.sh). The game's actual name will be mentioned in the launch file, as shown below.**
-
 Every game's launch file will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. 
 
-Here's an **example** below of "Sugar.sh" -
+Here's an **example** below of "RocketLeague.sh" -
 
 ```
-#!/bin/bash
+#!/bin/bash 
 
 #Game Name = Rocket League®
 
+#App Name (Legendary) = Sugar
+
 cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters
 
-PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; PULSE_LATENCY_MSEC=60 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=1 WINEESYNC=1 MANGOHUD=1 /usr/bin/gamemoderun /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-6.21-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
+
+
+WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 DXVK_FRAME_RATE=45 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 DXVK_FRAME_RATE=45 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
 ```
 
 
@@ -50,11 +50,11 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 
 ### Running the Program
 Execute the program by running the following command `./setup.sh` or simply double-click this file. 
-You need to enable executable permissions for this file by running `chmod u+x setup.sh`
+You may need to enable executable permissions for this file by running `chmod u+x setup.sh`
 
 
 ### Running Games
-You can run your game by executing the game's launch file using the terminal like ```./Sugar.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/<game name>.sh`). Simple!
+You can run your game by executing the game's launch file using the terminal like ```./RocketLeague.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/RocketLeague.sh`). Simple!
 
 **Don't copy or move the game files anywhere else, it won't work.**
 

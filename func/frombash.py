@@ -3,15 +3,12 @@
 import os,sys
 from createlaunchfile import createlaunchfile
 
-#Take arguments
-gamename = sys.argv[1]
-appname = sys.argv[2]
-gamejson = sys.argv[3]
+def frombash(gamename, appname, gamejson):
 
-#Moving one directory up
-os.chdir(os.path.dirname(os.getcwd()))
+    #Moving one directory up
+    os.chdir(os.path.dirname(os.getcwd()))
 
-#print(gamename + appname + gamejson)
-createlaunchfile(gamename, appname, gamejson)
+    #print(gamename + appname + gamejson)
+    createlaunchfile(gamename, appname, gamejson)
 
-print("Game parameters updated. Now launching game...")
+    print("Game parameters updated. Now launching game...")

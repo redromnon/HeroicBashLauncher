@@ -21,7 +21,7 @@ def createlaunchfile(gamename, appname, gamejson):
 
     #Creating game file
     contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + '\n\n' + '#App Name (Legendary) = ' + appname + 
-                '\n\n' + '#Overrides launch parameters\ncd .. && cd func && python3 frombash.py "' + gamename + '" "' + appname + '" "' + gamejson + '" ' +
+                '\n\n' + '#Overrides launch parameters\ncd .. && cd func && python3 HeroicBashLauncher.py "' + gamename + '" "' + appname + '" "' + gamejson + '" ' +
                 '\n\n' + heroiccommand[2] + '\n\n' + heroiccommand[0] + '|| ( ' + offline_dialog + ' ; ' + heroiccommand[1] + ')')
     
     with open(gameFile, "w") as g:

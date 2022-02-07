@@ -40,5 +40,3 @@ def listinstalled():
 
     #END OF THE PROGRAM
     print("\n...Process finished. Launch files stored in GameFiles folder.\nHave fun gaming!")
-
-listinstalled()

@@ -1,1 +1,13 @@
+#Python
 /func/__pycache__
+
+#PyInstaller
+*.spec
+/func/build
+/func/dist
+
+#Launch Files
+/GameFiles/*.sh
+
+#Executable
+HeroicBashLauncher

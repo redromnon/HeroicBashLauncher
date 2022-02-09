@@ -23,7 +23,7 @@ def listinstalled():
     installedkeyarray = list(installed.keys())
 
     # Moving one directory up
-    os.chdir(os.path.dirname(os.getcwd()))
+    #os.chdir(os.path.dirname(os.getcwd()))
     #print(os.getcwd())
 
     #Proceed to making launch files

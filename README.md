@@ -13,19 +13,16 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 ## Pre-requisites
 - Heroic 2.0.0 'Roronoa Zoro' Anniversary Edition
-- Python 3
-- Git
 - Zenity
 
 
 ## Installation
-Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **ZIP** file of the latest release.
+Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **.zip** file of the latest release.
 
 ## Usage
 
 ### Running the Program
-Execute the program by running the following command `./setup.sh` or simply double-click this file. 
-You may need to enable executable permissions for this file by running `chmod u+x setup.sh`
+Execute the program by simply double-clicking the **HeroicBashLancher** executable. You should be greeted by the _Process Finished_ dialog at the end.
 
 
 ### Running Games
@@ -36,13 +33,13 @@ You can run your game by executing the game's launch file using the terminal lik
 
 ## Working
 
-Heroic Bash Launcher automatically detects installed games and creates a launch file for each game. The launch file is created using the *bash shell script*, i.e. `.sh` files. For example, if I have Rocket League installed, it will create the launch file titled "RocketLeague.sh".
+Heroic Bash Launcher automatically detects installed games and creates a launch file for each game. It basically reads the `.json` files stored in `~/.config/heroic/GamesConfig`. 
 
-All these launch files will be available in the **GameFiles** folder. 
+The launch file is created using the *bash shell script*, i.e. `.sh` files. For example, if I have Rocket League installed, it will create the launch file titled "RocketLeague.sh". All these launch files will be available in the **GameFiles** folder. 
 
 Every game's launch file will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. 
 
-Here's an **example** below of "RocketLeague.sh" -
+Here's an *example* below of "RocketLeague.sh" -
 
 ```
 #!/bin/bash 
@@ -51,26 +48,24 @@ Here's an **example** below of "RocketLeague.sh" -
 
 #App Name (Legendary) = Sugar
 
-cd .. && python3 HeroicBashLauncher.py #Overrides launch parameters
+#Overrides launch parameters
+cd .. && ./HeroicBashLauncher "Rocket League®" "Sugar" "/home/redromnon/.config/heroic/GamesConfig/Sugar.json" 
 
 
 
-WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=4 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' )
+PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' 
 ```
-
-
 
 
 ## Features Planned
 
 - Ask user for a default path for saving game launch files
-- Only update game launch files whose setting is changed
 - Additional game launch options support (Eg. ARK)
 - GUI
 
 
 ## Issues
-Feel free to report any!
+If the program doesn't produce the game bash files (launch files), update the launch parameters or displays an error dialog, consider running the program from the terminal like `./HeroicBashLauncher` and post the log as an issue.
 
 
 ## License

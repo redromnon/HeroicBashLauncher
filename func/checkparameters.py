@@ -203,7 +203,7 @@ def checkparameters(appname, gamejsonfile):
 
       steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "
       steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
-      bin = '--no wine --wrapper "' + wineVersion_bin + ' run" '
+      bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
 
       launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + launcherArgs
       offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + launcherArgs

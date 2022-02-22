@@ -11,5 +11,8 @@ def getnameofgame(realgamename):
         if letter == True:
 
             name = name + char
+    
+    #Labeling this game as a Heroic (or Epic Games) game
+    name = name + "_Heroic"
 
     return name

@@ -1,5 +1,6 @@
 #Checks or updates parameters of a game
 import os, json
+from appimage_binary import getlegendaryappimage
 
 
 def checkparameters(appname, gamejsonfile):
@@ -9,7 +10,10 @@ def checkparameters(appname, gamejsonfile):
       game = json.load(g)
 
   #Heroic-legendary command
-  heroic = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary " 
+  heroic = getlegendaryappimage()
+  
+  if heroic == "":
+    heroic = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary " 
 
   #Check if parameters are present (launcherArgs, otherOptions, targetExe)  
   def ifpresent(parameter):

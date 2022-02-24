@@ -12,7 +12,7 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 
 ## Pre-requisites
-- Heroic 2.0.0 'Roronoa Zoro' Anniversary Edition
+- Heroic 2.0.0+ (AppImage not supported)
 - Zenity
 
 

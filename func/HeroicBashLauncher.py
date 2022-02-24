@@ -4,6 +4,8 @@ import os,sys
 from frombash import frombash
 from listinstalled import listinstalled
 
+#Check if Zenity is installed
+print("Checking if Zenity is installed:")
 checkzenity = os.system('zenity --version')
 
 if os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json") == True and checkzenity == 0:

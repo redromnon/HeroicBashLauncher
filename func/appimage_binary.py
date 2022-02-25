@@ -8,7 +8,7 @@ def getlegendaryappimage():
 
     for i in list:
         if "Heroic" in i:
-            print(i)
+            #print(i)
             heroic_path = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/legendary '
             break
 

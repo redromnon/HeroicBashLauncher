@@ -12,7 +12,7 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 
 ## Pre-requisites
-- Heroic 2.0.0+ (AppImage not supported)
+- Heroic 2.0.0+ (AppImage in development)
 - Zenity
 
 
@@ -61,6 +61,7 @@ PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asa
 
 - Ask user for a default path for saving game launch files
 - Additional game launch options support (Eg. ARK)
+- GOG Games
 - GUI
 
 

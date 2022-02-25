@@ -9,3 +9,5 @@
 #Launch Files
 /GameFiles/*.sh
 
+#Executable
+HeroicBashLauncher

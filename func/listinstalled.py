@@ -36,7 +36,11 @@ def listinstalled():
         #Pointing to the game's json file
         gamejson = heroicjsonpath + "/" + i + ".json"
 
-        createlaunchfile(installed[i]["title"], i, gamejson) # gamename, appname, game's json file path
+        #Removing special characters from the game name (Steam issue)
+        gamename = installed[i]["title"].encode("ascii", "ignore")
+
+        #Preparing launch file
+        createlaunchfile(gamename.decode(), i, gamejson) # gamename, appname, game's json file path
 
     #END OF THE PROGRAM
     print("\n...Process finished. Launch files stored in GameFiles folder.\nHave fun gaming!")

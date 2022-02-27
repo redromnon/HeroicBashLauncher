@@ -21,7 +21,7 @@ def getlegendaryappimage():
     if heroicconfig["defaultSettings"]["altLegendaryBin"] == "":
         
         for i in list:
-            if re.search("Heroic", i) != "None":
+            if re.search("Heroic", i) != None:
                 #print(i)
                 legendary_path = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/legendary '
                 break

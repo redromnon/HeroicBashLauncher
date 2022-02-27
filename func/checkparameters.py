@@ -11,9 +11,6 @@ def checkparameters(appname, gamejsonfile):
 
   #Heroic-legendary command
   heroic = getlegendaryappimage()
-  
-  if heroic == "":
-    heroic = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary " 
 
   #Check if parameters are present (launcherArgs, otherOptions, targetExe)  
   def ifpresent(parameter):

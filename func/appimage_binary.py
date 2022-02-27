@@ -7,7 +7,7 @@ def getlegendaryappimage():
     
     legendary_path = ""
 
-    #Path to heroic's  where each installed game's json is stored
+    #Path to heroic's configuration json file
     heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
 
     #Path to tmp dir
@@ -17,17 +17,22 @@ def getlegendaryappimage():
     with open(heroicconfigpath) as p:
       heroicconfig = json.load(p)
 
-    #If legendary binary doesn't exist, check for temp folder
-    if heroicconfig["defaultSettings"]["altLegendaryBin"] == "":
+    #Check for pre-included binary, then check for alternate binary and lastly for temp folder
+    if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
         
+        legendary_path = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary"
+    elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "":
+        
+
+        legendary_path = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
+    else:
+
         for i in list:
             if "Heroic" in i:
                 #print(i)
                 legendary_path = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/legendary '
                 break
-    else:
-
-        legendary_path = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
+        
 
     return legendary_path
 

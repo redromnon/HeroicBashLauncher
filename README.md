@@ -24,6 +24,8 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 ### Running the Program
 Execute the program by simply double-clicking the **HeroicBashLancher** executable. You should be greeted by the _Process Finished_ dialog at the end.
 
+Using the Heroic Games Launcher **AppImage**? Make sure to [read this.](https://github.com/redromnon/HeroicBashLauncher/wiki/FAQ#why-are-my-games-not-launching-i-use-heroic-via-appimage)
+
 
 ### Running Games
 You can run your game by executing the game's launch file using the terminal like ```./RocketLeague.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/RocketLeague.sh`). Simple!
@@ -61,7 +63,8 @@ PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asa
 
 - Ask user for a default path for saving game launch files
 - Additional game launch options support (Eg. ARK)
-- GOG Games
+- GOG Games Support
+- Flatpak Support
 - GUI
 
 

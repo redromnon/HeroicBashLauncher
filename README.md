@@ -15,6 +15,16 @@ You can now launch your game directly without having to open Heroic at all. Ther
 - Heroic 2.0.0+ (AppImage in development)
 - Zenity
 
+## Building & Testing
+Since the program makes use of an executable, you will need **Python version 3.8+ and PyInstaller** to build the code.
+
+To test the program, open the terminal in the `func` directory and use the following command to build -
+
+```
+pyinstaller HeroicBashLauncher.py --onefile -p <fullpath>/HeroicBashLauncher/func
+```
+
+This will generate an executable stored in the `dist` folder. Copy the executable, paste it in the `~/HeroicBashLauncher` and run it.
 
 ## Installation
 Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **.zip** file of the latest release.
@@ -22,7 +32,7 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 ## Usage
 
 ### Running the Program
-Execute the program by simply double-clicking the **HeroicBashLancher** executable. You should be greeted by the _Process Finished_ dialog at the end.
+Execute the program by simply double-clicking the **HeroicBashLancher** executable (You might need to enable executable permission). You should be greeted by the _Process Finished_ dialog at the end.
 
 Using the Heroic Games Launcher **AppImage**? Make sure to [read this.](https://github.com/redromnon/HeroicBashLauncher/wiki/FAQ#why-are-my-games-not-launching-i-use-heroic-via-appimage)
 

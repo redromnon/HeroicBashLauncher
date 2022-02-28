@@ -20,7 +20,7 @@ def getlegendaryappimage():
     #Check for pre-included binary, then check for alternate binary and lastly for temp folder
     if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
         
-        legendary_path = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary"
+        legendary_path = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
     elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "":
         
 

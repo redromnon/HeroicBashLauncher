@@ -19,5 +19,6 @@
 #(echo "Checking if Zenity is installed..." ; zenity --version) || (echo "Zenity not installed, please consider installing it.")
 
 #Run the Heroic Bash Launcher program
-(python3 func/HeroicBashLauncher.py)\
- || zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github." --width=400
+(./python3 func/HeroicBashLauncher.py)\
+ || echo "HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github."
+ 

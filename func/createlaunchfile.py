@@ -17,7 +17,7 @@ def createlaunchfile(gamename, appname, gamejson):
     gameFile = "GameFiles/" + simplified_gamename + ".sh"
 
     #Offline Dialog
-    offline_dialog= ('zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2')
+    offline_dialog= "Cannot connect to Epic servers. Running game in offline mode."
 
     #Creating game file
     contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + '\n\n' + '#App Name (Legendary) = ' + appname + 

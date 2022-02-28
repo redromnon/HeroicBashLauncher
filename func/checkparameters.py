@@ -220,7 +220,7 @@ def checkparameters(appname, gamejsonfile):
       launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + wineprefix + launcherArgs
       offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
   except:
-    os.system('zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github." --width=400')
+    print("HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github.")
 
   #The entire launch command
   #print(launchcommand)

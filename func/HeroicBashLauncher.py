@@ -18,7 +18,7 @@ if os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json")
         listinstalled()
         os.system('zenity --info --title="Process Finished" --text="Launch files stored in GameFiles folder.\n\nHave fun gaming!" --width=200')
     else:
-        frombash(sys.argv[1], sys.argv[2], sys.argv[3])
+        frombash(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 elif checkzenity != 0:
     
     print("Zenity not installed. Please consider doing so and try again.")

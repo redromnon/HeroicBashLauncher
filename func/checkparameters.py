@@ -1,16 +1,17 @@
-#Checks or updates parameters of a game
+#CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
+
 import os, json
-from appimage_binary import getlegendaryappimage
+from checkbinary import getbinary
 
 
-def checkparameters(appname, gamejsonfile):
+def checkparameters(appname, gamejsonfile, gametype):
 
   #Convert the game's json file to dict
   with open(gamejsonfile) as g:
       game = json.load(g)
 
-  #Heroic-legendary command
-  heroic = getlegendaryappimage()
+  #Check binary (Legendary or gogdl)
+  binary = getbinary(gametype)
 
   #Check if parameters are present (launcherArgs, otherOptions, targetExe)  
   def ifpresent(parameter):
@@ -40,7 +41,7 @@ def checkparameters(appname, gamejsonfile):
         if game[appname]["savesPath"] == "":
           cloudsync = ""
         else:
-          cloudsync = heroic + 'sync-saves --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y '
+          cloudsync = binary + 'sync-saves --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y '
 
     #print(cloudsync)
 
@@ -180,50 +181,85 @@ def checkparameters(appname, gamejsonfile):
       #print(targetExe)
 
 
+    #Get GOG game's installed location
+    if gametype != "epic":
 
-    #winePrefix
-    winePrefix = game[appname]["winePrefix"]
+      #Path to installed games via gog's installed.json file
+      goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
 
-    #print(winePrefix)
+      with open(goginstalledpath) as l:
+        goginstalled = json.load(l)
+
+      goginstalledkeyarray = list(goginstalled['installed'])
+
+      #Get install location
+      for i in goginstalledkeyarray:
+
+        if appname == i['appName']:
+
+          game_loc = '"' + i['install_path'] + '" '
+          break
 
 
-    #wineVersion (IMPACTS LAUNCH COMMAND)
 
-    #bin 
-    wineVersion_bin = game[appname]["wineVersion"]["bin"]
+    #ADD IF-ELSE FOR GOG(LINUX OR WIN) AND EPIC
+    if gametype == "epic" or gametype == "gog-win":
 
-    #print(wineVersion_bin)
+      #winePrefix
+      winePrefix = game[appname]["winePrefix"]
+
+      #print(winePrefix)
 
 
-    #name(IMPORTANT)
+      #wineVersion (IMPACTS LAUNCH COMMAND)
 
-    launchcommand = " "
-    launchgame = "launch " + appname + " " 
+      #bin 
+      wineVersion_bin = game[appname]["wineVersion"]["bin"]
 
-    if "Proton" in game[appname]["wineVersion"]["name"]:
+      #print(wineVersion_bin)
 
-      steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "
-      steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
-      bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
 
-      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + launcherArgs
-      offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + launcherArgs
+      #name(IMPORTANT)
 
-    elif "Wine" in game[appname]["wineVersion"]["name"]:
+      if "Proton" in game[appname]["wineVersion"]["name"]:
 
-      bin = "--wine " + wineVersion_bin + " "
-      wineprefix = "--wine-prefix '" + winePrefix + "' "
+        steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "
+        steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
+        bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
 
-      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + offlineMode + bin + wineprefix + launcherArgs
-      offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + heroic + launchgame + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
+        if gametype == "epic":
+
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + offlineMode + bin + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + force_offlineMode + bin + launcherArgs
+        elif gametype == "gog-win":#Windows GOG
+
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + "--os windows " + launcherArgs
+      elif "Wine" in game[appname]["wineVersion"]["name"]:
+
+        bin = "--wine " + wineVersion_bin + " "
+        wineprefix = "--wine-prefix '" + winePrefix + "' "
+
+        if gametype == "epic":
+
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + offlineMode + bin + wineprefix + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
+        elif gametype == "gog-win":#Windows GOG
+
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + wineprefix + "--os windows " + launcherArgs
+    else:
+
+      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
+      offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + "--platform=linux " + launcherArgs
   except:
-    os.system('zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github." --width=400')
+      os.system('zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check your console for the error and consider reporting it as an issue on Github." --width=400')
 
   #The entire launch command
   #print(launchcommand)
 
   #Return as list
-  return [launchcommand, offline_launchcommand, cloudsync]
+  return [launchcommand, offline_launchcommand, cloudsync, gametype]
 
   #Now create the file
   #createlaunchfile(launchcommand,offline_launchcommand, cloudsync)

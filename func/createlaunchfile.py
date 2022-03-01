@@ -4,10 +4,10 @@ import os
 from checkparameters import checkparameters
 from gameName import getnameofgame
 
-def createlaunchfile(gamename, appname, gamejson):
+def createlaunchfile(gamename, appname, gamejson, gametype):
 
     # Check/Update parameters
-    heroiccommand = checkparameters(appname, gamejson) # returns launchcommand, offline_launchcommand, cloudsync
+    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync, gametype
 
     #Generating game's name without special characters
     simplified_gamename = getnameofgame(gamename)
@@ -22,8 +22,8 @@ def createlaunchfile(gamename, appname, gamejson):
 
     #Creating game file
     contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + '\n\n' + '#App Name (Legendary) = ' + appname + 
-                '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + gamename + '" "' + appname + '" "' + gamejson + '" ' +
-                '\n\n' + heroiccommand[2] + '\n\n(' + heroiccommand[0] + '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + heroiccommand[1] + ')) || (' + fail_dialog + ')')
+                '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' +
+                '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')')
     
     with open(gameFile, "w") as g:
         g.write(contents)

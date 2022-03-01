@@ -16,13 +16,14 @@ def createlaunchfile(gamename, appname, gamejson):
     #print(os.getcwd())
     gameFile = "GameFiles/" + simplified_gamename + ".sh"
 
-    #Offline Dialog
-    offline_dialog= ('zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2')
+    #Launch fail Dialog
+    fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games. Consider posting the log as an issue" --width=200 --timeout=3')
+
 
     #Creating game file
     contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + '\n\n' + '#App Name (Legendary) = ' + appname + 
                 '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + gamename + '" "' + appname + '" "' + gamejson + '" ' +
-                '\n\n' + heroiccommand[2] + '\n\n' + heroiccommand[0] + '|| ( ' + offline_dialog + ' ; ' + heroiccommand[1] + ')')
+                '\n\n' + heroiccommand[2] + '\n\n(' + heroiccommand[0] + '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + heroiccommand[1] + ')) || (' + fail_dialog + ')')
     
     with open(gameFile, "w") as g:
         g.write(contents)

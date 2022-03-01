@@ -47,49 +47,50 @@ def listinstalled():
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
+    if os.path.exists(os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"):
 
-    #Path to installed games via gog's installed.json file
-    goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
+      #Path to installed games via gog's installed.json file
+      goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
 
-    #Path to all games info via gog's library.json file
-    goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
+      #Path to all games info via gog's library.json file
+      goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
 
-    #Convert both json to dict
-    with open(goginstalledpath) as l:
-      goginstalled = json.load(l)
+      #Convert both json to dict
+      with open(goginstalledpath) as l:
+        goginstalled = json.load(l)
 
-    with open(goglibrarypath) as p:
-      goglibrary = json.load(p) 
+      with open(goglibrarypath) as p:
+        goglibrary = json.load(p) 
 
-    #Stored as list 
-    goginstalledkeyarray = list(goginstalled['installed'])
-    goglibrarykeyarray = list(goglibrary['games'])
+      #Stored as list 
+      goginstalledkeyarray = list(goginstalled['installed'])
+      goglibrarykeyarray = list(goglibrary['games'])
 
-    #Proceed to making launch files
-    print("\n\nDone! Now creating launch files for your GOG library ...\n")
-    for i in goginstalledkeyarray:
+      #Proceed to making launch files
+      print("\n\nDone! Now creating launch files for your GOG library ...\n")
+      for i in goginstalledkeyarray:
 
-      for j in goglibrarykeyarray:
+        for j in goglibrarykeyarray:
 
           if i['appName'] == j['app_name']:
 
-              #Print current action
-              print(j['title'] + " [" + i['appName'] + "]...\n")
+            #Print current action
+            print(j['title'] + " [" + i['appName'] + "]...\n")
 
-              #Pointing to the game's json file
-              gamejson = gamesjsonpath + "/" + j['app_name'] + ".json"
+            #Pointing to the game's json file
+            gamejson = gamesjsonpath + "/" + j['app_name'] + ".json"
 
-              #Removing special characters from the game name (Steam issue)
-              gamename = j['title'].encode("ascii", "ignore")
+            #Removing special characters from the game name (Steam issue)
+            gamename = j['title'].encode("ascii", "ignore")
 
-              #Check if game is linux or windows
-              if i['platform'] == "linux":
-                gametype = "gog-linux"
-              else:
-                gametype = "gog-win"
+            #Check if game is linux or windows
+            if i['platform'] == "linux":
+              gametype = "gog-linux"
+            else:
+              gametype = "gog-win"
 
-              #Preparing launch file
-              createlaunchfile(gamename.decode(), j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
+            #Preparing launch file
+            createlaunchfile(gamename.decode(), j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
 
     #END OF THE PROGRAM
     print("\n...Process finished. Launch files stored in GameFiles folder.\nHave fun gaming!")

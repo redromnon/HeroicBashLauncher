@@ -35,7 +35,16 @@ def getbinary(gametype):
                     break
     else:
 
-        binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "    
+        if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
+        
+            binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
+        else:
+
+            for i in list:
+                if "Heroic" in i:
+                    #print(i)
+                    binary = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/gogdl '
+                    break    
 
     return binary
 

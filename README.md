@@ -2,7 +2,7 @@
 
 # HeroicBashLauncher
 
-Ever wanted to launch your Epic Games Store games installed through [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) directly from the terminal, Lutris, Steam or any other frontend game launcher? 
+Ever wanted to launch your Epic Games Store and GOG games installed through [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) directly from the terminal, Lutris, Steam or any other frontend game launcher? 
 Heroic Bash Launcher lets you do this very easily. 
 
 You can now launch your game directly without having to open Heroic at all. There's no need to run `heroic` to find the game's launch command or write your own launch script with [Legendary](https://github.com/derrod/legendary)! Thus saving your time!

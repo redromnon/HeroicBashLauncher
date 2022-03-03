@@ -42,7 +42,7 @@ You can run your game by executing the game's launch file using the terminal lik
 
 [Here's a guide on Adding Heroic games to Steam and Lutris.](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers)
 
-**Don't copy or move the game files anywhere else, it won't work.**
+**Don't copy or move the game files and launch scripts anywhere else, it won't work.**
 
 
 ## Working

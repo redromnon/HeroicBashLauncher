@@ -32,7 +32,7 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 ## Usage
 
 ### Running the Program
-Execute the program by simply double-clicking the **HeroicBashLancher** executable (You might need to enable executable permission). You should be greeted by the _Process Finished_ dialog at the end.
+Execute the program by simply double-clicking the **HeroicBashLancher** executable. You should be greeted by the _Process Finished_ dialog at the end.
 
 Using the Heroic Games Launcher **AppImage**? Make sure to [read this.](https://github.com/redromnon/HeroicBashLauncher/wiki/FAQ#why-are-my-games-not-launching-i-use-heroic-via-appimage)
 

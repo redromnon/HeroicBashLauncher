@@ -12,7 +12,7 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 
 ## Pre-requisites
-- Heroic 2.0.0+ (AppImage in development)
+- Heroic 2.0.0+
 - Zenity
 
 ## Building & Testing
@@ -24,7 +24,7 @@ To test the program, open the terminal in the `func` directory and use the follo
 pyinstaller HeroicBashLauncher.py --onefile -p <fullpath>/HeroicBashLauncher/func
 ```
 
-This will generate an executable stored in the `dist` folder. Copy the executable, paste it in the `~/HeroicBashLauncher` and run it.
+This will generate an executable stored in the `dist` folder. Copy the executable, paste it in `HeroicBashLauncher` and run it.
 
 ## Installation
 Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **.zip** file of the latest release.
@@ -38,7 +38,9 @@ Using the Heroic Games Launcher **AppImage**? Make sure to [read this.](https://
 
 
 ### Running Games
-You can run your game by executing the game's launch file using the terminal like ```./RocketLeague.sh```. Or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/RocketLeague.sh`). Simple!
+You can run your game by executing the game's launch file using the terminal like ```./RocketLeague.sh``` or using your preferred game launcher/manager, just point the executable path to the game's launch file (`~/HeroicBashLauncher/GameFiles/RocketLeague.sh`). Simple!
+
+[Here's a guide on Adding Heroic games to Steam and Lutris.](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers)
 
 **Don't copy or move the game files anywhere else, it won't work.**
 
@@ -51,21 +53,21 @@ The launch file is created using the *bash shell script*, i.e. `.sh` files. For 
 
 Every game's launch file will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. 
 
-Here's an *example* below of "RocketLeague.sh" -
+Here's an example below of _"RocketLeague.sh"_ -
 
 ```
 #!/bin/bash 
 
-#Game Name = Rocket League®
+#Game Name = Rocket League
 
 #App Name (Legendary) = Sugar
 
 #Overrides launch parameters
-cd .. && ./HeroicBashLauncher "Rocket League®" "Sugar" "/home/redromnon/.config/heroic/GamesConfig/Sugar.json" 
+cd .. && ./HeroicBashLauncher "Rocket League" "Sugar" "/home/redromnon/.config/heroic/GamesConfig/Sugar.json" "epic" 
 
 
 
-PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' || ( zenity --warning --title="Offline" --text="Cannot connect to Epic servers. Running game in offline mode." --width=200 --timeout=2 ; PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.local/share/lutris/runners/wine/lutris-ge-7.1-1-x86_64/bin/wine64' --wine-prefix '/home/redromnon/.wine' 
+(WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.config/heroic/tools/wine/Wine-7.2-GE-2/bin/wine64' --wine-prefix '/home/redromnon/.wine' || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.config/heroic/tools/wine/Wine-7.2-GE-2/bin/wine64' --wine-prefix '/home/redromnon/.wine' )) || (zenity --error --title="Error" --text="Failed to launch games. Consider posting the log as an issue" --width=200 --timeout=3)
 ```
 
 
@@ -73,7 +75,6 @@ PULSE_LATENCY_MSEC=60 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asa
 
 - Ask user for a default path for saving game launch files
 - Additional game launch options support (Eg. ARK)
-- GOG Games Support
 - Flatpak Support
 - GUI
 

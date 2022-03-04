@@ -16,7 +16,7 @@ if os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json")
     if len(sys.argv) == 1: #Only name of file as default argument
     
         listinstalled()
-        os.system('zenity --info --title="Process Finished" --text="Launch files stored in GameFiles folder.\n\nHave fun gaming!" --width=200')
+        os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder.\n\nHave fun gaming!" --width=200')
     else:
         frombash(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 elif checkzenity != 0:

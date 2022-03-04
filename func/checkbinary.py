@@ -7,45 +7,37 @@ import os, json, sys
 def getbinary(gametype):
 
     try:
-        if gametype == "epic":
 
-            #Path to heroic's configuration json file
-            heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
+        #Path to heroic's configuration json file
+        heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
 
-            #Path to tmp dir
-            list = os.listdir('/tmp/')
+        #Path to tmp dir
+        list = os.listdir('/tmp/')
 
-            #Convert config json to dict
-            with open(heroicconfigpath) as p:
-                heroicconfig = json.load(p)
+        #Convert config json to dict
+        with open(heroicconfigpath) as p:
+            heroicconfig = json.load(p)
 
-            #Check for pre-included binary, then check for alternate binary and lastly for temp folder
-            if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
-        
-                binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
-            elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "":
-        
+        #Checking
+        if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
 
-                binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
-            else:
-
-                for i in list:
-                    if "Heroic" in i:
-                        #print(i)
-                        binary = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/legendary '
-                        break
-        else:
-
-            if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
-        
+            if gametype != "epic":
                 binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
             else:
+                binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "   
 
-                for i in list:
-                    if "Heroic" in i:
-                        #print(i)
+        elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "":
+            binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
+        else:
+
+            for i in list:
+                if "Heroic" in i:
+                    
+                    if gametype != "epic":
                         binary = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/gogdl '
-                        break    
+                    else:
+                        binary = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/legendary '
+                    break
 
         return binary
     except:

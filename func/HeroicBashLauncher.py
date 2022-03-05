@@ -8,7 +8,7 @@ from listinstalled import listinstalled
 print("Checking if Zenity is installed:")
 checkzenity = os.system('zenity --version')
 
-if os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json") == True and checkzenity == 0:
+if (os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json") == True or os.path.exists(os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json") == True) and checkzenity == 0:
 
     #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
     #   else, update parameters of a game through launch file

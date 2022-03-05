@@ -26,7 +26,7 @@ def getbinary(gametype):
             else:
                 binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "   
 
-        elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "":
+        elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "" and gametype == "epic":
             binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
         else:
 

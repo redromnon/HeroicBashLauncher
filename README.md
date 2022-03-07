@@ -74,6 +74,7 @@ cd .. && ./HeroicBashLauncher "Rocket League" "Sugar" "/home/redromnon/.config/h
 ## Features Planned
 
 - Ask user for a default path for saving game launch scripts
+- Add launch scripts to Steam
 - Additional game launch options support (Eg. ARK)
 - Flatpak Support
 - GUI

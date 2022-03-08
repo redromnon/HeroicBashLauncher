@@ -17,7 +17,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     gameFile = "GameFiles/" + simplified_gamename + ".sh"
 
     #Launch fail Dialog
-    fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games. Consider posting the log as an issue" --width=200 --timeout=3')
+    fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games \n\nConsider posting the log as an issue" --width=200 --timeout=3')
 
 
     #Creating game file

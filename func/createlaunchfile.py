@@ -21,9 +21,11 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
 
     #Creating game file
-    contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + '\n\n' + '#App Name (Legendary) = ' + appname + 
-                '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' +
-                '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')')
+    contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
+                '\n\n' + '#App Name = ' + appname + '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + 
+                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + 
+                '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + 
+                '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')')
     
     with open(gameFile, "w") as g:
         g.write(contents)

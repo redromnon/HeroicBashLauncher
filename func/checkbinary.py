@@ -11,9 +11,6 @@ def getbinary(gametype):
         #Path to heroic's configuration json file
         heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
 
-        #Path to tmp dir
-        list = os.listdir('/tmp/')
-
         #Convert config json to dict
         with open(heroicconfigpath) as p:
             heroicconfig = json.load(p)
@@ -24,20 +21,20 @@ def getbinary(gametype):
             if gametype != "epic":
                 binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
             else:
-                binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "   
-
+                binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
         elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "" and gametype == "epic":
-            binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
-        else:
 
-            for i in list:
-                if "Heroic" in i:
-                    
-                    if gametype != "epic":
-                        binary = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/gogdl '
-                    else:
-                        binary = '/tmp/' + i + '/resources/app.asar.unpacked/build/bin/linux/legendary '
-                    break
+            binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
+        elif heroicconfig["defaultSettings"]["altGogdlBin"] != "" and gametype != "epic":
+
+            binary = heroicconfig["defaultSettings"]["altGogdlBin"] + " "
+        else:#AppImage
+
+            if gametype != "epic":
+                binary = os.getcwd() + "/binaries/gogdl "
+            else:
+                binary = os.getcwd() + "/binaries/legendary "
+            
 
         return binary
     except:

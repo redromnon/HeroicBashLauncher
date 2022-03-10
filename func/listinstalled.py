@@ -32,6 +32,9 @@ def listinstalled():
     #Proceed to making launch files
     print("\n\nDone! Now creating launch files for your Epic Games library ...\n")
     for i in installedkeyarray:
+      
+      #Make sure the entries are games, not DLC
+      if installed[i]["is_dlc"] == False:
 
         #Print current action
         print(installed[i]["title"] + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname

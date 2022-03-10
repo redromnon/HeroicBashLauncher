@@ -1,6 +1,7 @@
 #List installed games
 
 import os, json
+from pickle import FALSE
 from legendaryclean import legendaryclean
 from createlaunchfile import createlaunchfile
 

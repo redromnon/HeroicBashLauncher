@@ -33,14 +33,14 @@ def listinstalled():
     print("\n\nDone! Now creating launch files for your Epic Games library ...\n")
     for i in installedkeyarray:
 
+        #Removing special characters from the game name (Steam issue)
+        gamename = installed[i]["title"].encode("ascii", "ignore")
+        
         #Print current action
-        print(installed[i]["title"] + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname
+        print(gamename.decode() + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname
 
         #Pointing to the game's json file
         gamejson = gamesjsonpath + "/" + i + ".json"
-
-        #Removing special characters from the game name (Steam issue)
-        gamename = installed[i]["title"].encode("ascii", "ignore")
 
         #Preparing launch file
         createlaunchfile(gamename.decode(), i, gamejson, "epic") # gamename, appname, game's json file path
@@ -74,14 +74,14 @@ def listinstalled():
 
           if i['appName'] == j['app_name']:
 
+            #Removing special characters from the game name (Steam issue)
+            gamename = j['title'].encode("ascii", "ignore")
+            
             #Print current action
-            print(j['title'] + " [" + i['appName'] + "]...\n")
+            print(gamename.decode() + " [" + i['appName'] + "]...\n")
 
             #Pointing to the game's json file
             gamejson = gamesjsonpath + "/" + j['app_name'] + ".json"
-
-            #Removing special characters from the game name (Steam issue)
-            gamename = j['title'].encode("ascii", "ignore")
 
             #Check if game is linux or windows
             if i['platform'] == "linux":

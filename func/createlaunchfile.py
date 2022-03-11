@@ -3,6 +3,7 @@
 import os
 from checkparameters import checkparameters
 from gameName import getnameofgame
+from steam import addtoscript
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
@@ -32,3 +33,6 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     #Making the file executable
     os.system("chmod u+x " + gameFile)
+
+    #Add to Steam script
+    addtoscript(simplified_gamename)

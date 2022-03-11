@@ -6,6 +6,9 @@
 /func/build
 /func/dist
 
+#Binaries
+/binaries
+
 #Launch Files
 /GameFiles/*.sh
 

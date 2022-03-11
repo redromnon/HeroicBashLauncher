@@ -32,6 +32,9 @@ def listinstalled():
     #Proceed to making launch files
     print("\n\nDone! Now creating launch files for your Epic Games library ...\n")
     for i in installedkeyarray:
+      
+      #Make sure the entries are games, not DLC
+      if installed[i]["is_dlc"] == False:
 
         #Removing special characters from the game name (Steam issue)
         gamename = installed[i]["title"].encode("ascii", "ignore")

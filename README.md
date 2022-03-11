@@ -12,7 +12,7 @@ You can now launch your game directly without having to open Heroic at all. Ther
 
 
 ## Pre-requisites
-- Heroic 2.0.0+
+- Heroic 2.2.2+
 - Zenity
 
 ## Building & Testing
@@ -34,13 +34,11 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 ### Running the Program
 Execute the program by simply double-clicking the **HeroicBashLancher** executable. You should be greeted by the _Process Finished_ dialog at the end.
 
-Using the Heroic Games Launcher **AppImage**? Make sure to [read this.](https://github.com/redromnon/HeroicBashLauncher/wiki/FAQ#why-are-my-games-not-launching-i-use-heroic-via-appimage)
-
 
 ### Running Games
 You can run your game by executing the game's launch script using the terminal like ```./RocketLeague.sh``` or using your preferred game launcher/manager, just point the executable path to the game's launch script. Simple!
 
-[Here's a guide on Adding Heroic games to Steam and Lutris.](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers)
+[Here's a guide on Adding Heroic games to Steam, Lutris and GameHub.](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers)
 
 **Don't copy or move the game files and launch scripts anywhere else, it won't work.**
 
@@ -58,9 +56,9 @@ Here's an example below of _"RocketLeague.sh"_ -
 ```
 #!/bin/bash 
 
-#Game Name = Rocket League
+#Game Name = Rocket League (EPIC) 
 
-#App Name (Legendary) = Sugar
+#App Name = Sugar
 
 #Overrides launch parameters
 cd .. && ./HeroicBashLauncher "Rocket League" "Sugar" "/home/redromnon/.config/heroic/GamesConfig/Sugar.json" "epic" 

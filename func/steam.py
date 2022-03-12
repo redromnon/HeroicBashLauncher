@@ -1,4 +1,5 @@
 import os, sys
+from gameName import getnameofgame 
 
 #Zenity list box
 contents = ('#!/bin/bash \n\n#Choose a game to be added to Steam \n\n' +
@@ -16,14 +17,14 @@ def createscript():
         os.system("chmod u+x AddToSteam.sh")
 
 
-def addtoscript(simplified_gamename):
+def addtoscript(gamename):
         
         global contents 
 
-        contents = contents + simplified_gamename + " "
+        contents = contents + '"' + gamename + '" '
 
 
-def addtosteam(simplified_gamename):
+def addtosteam(gamename):
 
  try:
 
@@ -42,10 +43,12 @@ def addtosteam(simplified_gamename):
         file.close()
         
 
-
+        #Generating game's name without special characters
+        simplified_gamename = getnameofgame(gamename)
+        print(simplified_gamename)
 
         #SYNTAX FOR ADDING NON-STEAM GAMES
-        curr_dir = os.path.dirname(os.getcwd()) #till .../HeroicBashLauncher
+        curr_dir = os.getcwd() #till .../HeroicBashLauncher
 
         #Unicode Charaters
         nul = '\x00'
@@ -56,7 +59,7 @@ def addtosteam(simplified_gamename):
         #Keys
         srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
         #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
-        AppName = soh + 'AppName' + nul + simplified_gamename + '.sh' + nul
+        AppName = soh + 'AppName' + nul + gamename + nul
         Exe = soh + 'Exe' + nul + '"' + curr_dir + '/GameFiles/' + simplified_gamename + '.sh"' + nul
         StartDir = soh + 'StartDir' + nul + '"' + curr_dir + '/GameFiles/"' + nul
         icon = soh + 'icon' + nul + nul
@@ -83,7 +86,7 @@ def addtosteam(simplified_gamename):
 
 
         #Writing to file
-        print("Adding " + simplified_gamename + " to Steam")
+        print("Adding " + gamename + " to Steam")
 
         f=open(str(os.path.expanduser("~") + '/.steam/debian-installation/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'wb')
         f.write(line[:len(line)-2] + entry.encode() + line[-2:])
@@ -100,4 +103,5 @@ def addtosteam(simplified_gamename):
  except:
         os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check your console for the error and consider reporting it as an issue on Github." --width=400')
         sys.exit()
+        
 

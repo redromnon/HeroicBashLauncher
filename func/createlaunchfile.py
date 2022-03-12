@@ -35,4 +35,4 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     os.system("chmod u+x " + gameFile)
 
     #Add to Steam script
-    addtoscript(simplified_gamename)
+    addtoscript(gamename)

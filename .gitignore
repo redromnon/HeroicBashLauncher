@@ -12,5 +12,8 @@
 #Launch Files
 /GameFiles/*.sh
 
+#Steam Bash script
+AddToSteam.sh
+
 #Executable
 HeroicBashLauncher

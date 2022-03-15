@@ -1,15 +1,17 @@
 #Main file that takes bash arguments
 
 import os,sys
+import configpath
 from frombash import frombash
 from listinstalled import listinstalled
 from steam import createscript, addtosteam
+from flatpak import launchflatpakgame
 
 #Check if Zenity is installed
 print("Checking if Zenity is installed:")
 checkzenity = os.system('zenity --version')
 
-if (os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json") == True or os.path.exists(os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json") == True) and checkzenity == 0:
+if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
 
     #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
     #   else, update parameters of a game through launch file
@@ -26,8 +28,11 @@ if (os.path.exists(os.path.expanduser("~") + "/.config/legendary/installed.json"
                 sys.exit()
         else:
             addtosteam(sys.argv[1])
-    else:
+    elif len(sys.argv) == 5:
+        
         frombash(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    else:
+        launchflatpakgame(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 elif checkzenity != 0:
     
     print("Zenity not installed. Please consider doing so and try again.")

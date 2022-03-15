@@ -1,9 +1,11 @@
 #Creates the bash file
 
 import os
+import configpath
 from checkparameters import checkparameters
 from gameName import getnameofgame
 from steam import addtoscript
+from flatpak import getflatpakpath
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
@@ -20,19 +22,31 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Launch fail Dialog
     fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games \n\nConsider posting the log as an issue" --width=200 --timeout=3')
 
-
-    #Creating game file
-    contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
+    #Launch script contents
+    if configpath.is_flatpak == False:
+        contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + 
                 gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + 
                 '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + 
                 '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')')
     
-    with open(gameFile, "w") as g:
-        g.write(contents)
+        with open(gameFile, "w") as g:
+            g.write(contents)
 
-    #Making the file executable
-    os.system("chmod u+x " + gameFile)
+        #Making the file executable
+        os.system("chmod u+x " + gameFile)
+    else:
+
+        contents = ('#!/bin/bash\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
+                '\n\n' + '#App Name = ' + appname + '\n\n' + '#Override launch parameters and launch game\n' + 
+                'flatpak run --command=./' + 'HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
+                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"')
+        
+        with open(simplified_gamename + ".sh", "w") as g:
+            g.write(contents)
+
+        #Making the file executable
+        os.system("chmod u+x " + simplified_gamename + ".sh")
 
     #Add to Steam script
     addtoscript(gamename)

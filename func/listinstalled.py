@@ -1,13 +1,14 @@
 #List installed games
 
 import os, json
+import configpath
 from legendaryclean import legendaryclean
 from createlaunchfile import createlaunchfile
 
 def listinstalled():
 
     #Path to heroic's GamesConfig dir where each installed game's json is stored
-    gamesjsonpath = os.path.expanduser("~") + "/.config/heroic/GamesConfig"
+    #gamesjsonpath = os.path.expanduser("~") + "/.config/heroic/GamesConfig"
 
   #EPIC GAMES LIBRARY
   #------------------------------------------------------------------------------------
@@ -16,10 +17,10 @@ def listinstalled():
     legendaryclean()
 
     #Path to installed games via legendary's installed.json file
-    legendaryinstalledpath = os.path.expanduser("~") + "/.config/legendary/installed.json"
+    #legendaryinstalledpath = os.path.expanduser("~") + "/.config/legendary/installed.json"
 
     #Convert legendary json to dict
-    with open(legendaryinstalledpath) as l:
+    with open(configpath.legendaryinstalledpath) as l:
       installed = json.load(l) 
 
     #Games' AppNames stored in list 
@@ -43,26 +44,26 @@ def listinstalled():
         print(gamename.decode() + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname
 
         #Pointing to the game's json file
-        gamejson = gamesjsonpath + "/" + i + ".json"
+        gamejson = configpath.gamesjsonpath + "/" + i + ".json"
 
         #Preparing launch file
         createlaunchfile(gamename.decode(), i, gamejson, "epic") # gamename, appname, game's json file path
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
-    if os.path.exists(os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"):
+    if os.path.exists(configpath.goginstalledpath):
 
       #Path to installed games via gog's installed.json file
-      goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
+      #goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
 
       #Path to all games info via gog's library.json file
-      goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
+      #goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
 
       #Convert both json to dict
-      with open(goginstalledpath) as l:
+      with open(configpath.goginstalledpath) as l:
         goginstalled = json.load(l)
 
-      with open(goglibrarypath) as p:
+      with open(configpath.goglibrarypath) as p:
         goglibrary = json.load(p) 
 
       #Stored as list 
@@ -84,7 +85,7 @@ def listinstalled():
             print(gamename.decode() + " [" + i['appName'] + "]...\n")
 
             #Pointing to the game's json file
-            gamejson = gamesjsonpath + "/" + j['app_name'] + ".json"
+            gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
 
             #Check if game is linux or windows
             if i['platform'] == "linux":

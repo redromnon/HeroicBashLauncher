@@ -3,16 +3,17 @@
 #   If not, check folder under /tmp/ that includes path to the binaries.
 
 import os, json, sys
+import configpath
 
 def getbinary(gametype):
 
     try:
 
         #Path to heroic's configuration json file
-        heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
+        #heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
 
         #Convert config json to dict
-        with open(heroicconfigpath) as p:
+        with open(configpath.heroicconfigpath) as p:
             heroicconfig = json.load(p)
 
         #Checking
@@ -28,6 +29,12 @@ def getbinary(gametype):
         elif heroicconfig["defaultSettings"]["altGogdlBin"] != "" and gametype != "epic":
 
             binary = heroicconfig["defaultSettings"]["altGogdlBin"] + " "
+        elif os.path.exists("/var/lib/flatpak/app/com.heroicgameslauncher.hgl") or os.path.exists("/app/bin/heroic"):#System or Flatpak-env path
+
+            if gametype != "epic":
+                binary = "/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
+            else:
+                binary = "/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
         else:#AppImage
 
             if gametype != "epic":

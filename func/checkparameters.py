@@ -1,6 +1,7 @@
 #CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
 
 import os, json, sys
+import configpath
 from checkbinary import getbinary
 
 
@@ -185,9 +186,9 @@ def checkparameters(appname, gamejsonfile, gametype):
     if gametype != "epic":
 
       #Path to installed games via gog's installed.json file
-      goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
+      #goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
 
-      with open(goginstalledpath) as l:
+      with open(configpath.goginstalledpath) as l:
         goginstalled = json.load(l)
 
       goginstalledkeyarray = list(goginstalled['installed'])

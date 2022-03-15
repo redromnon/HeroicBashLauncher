@@ -1,5 +1,6 @@
 import os, sys
-from gameName import getnameofgame 
+from gameName import getnameofgame
+import configpath 
 
 #Zenity list box
 contents = ('#!/bin/bash \n\n#Choose a game to be added to Steam \n\n' +
@@ -12,9 +13,18 @@ def createscript():
 
         contents = contents + ')\n./HeroicBashLauncher "$game" '
 
-        with open("AddToSteam.sh", "w") as c:
-                c.write(contents)
-        os.system("chmod u+x AddToSteam.sh")
+        #Check if Flatpak
+        if configpath.is_flatpak == True:
+
+                os.chdir(os.path.dirname(os.getcwd()))
+
+                with open("AddToSteam.sh", "w") as c:
+                        c.write(contents)
+                os.system("chmod u+x AddToSteam.sh")
+        else:
+                with open("AddToSteam.sh", "w") as c:
+                        c.write(contents)
+                os.system("chmod u+x AddToSteam.sh")
 
 
 def addtoscript(gamename):
@@ -47,6 +57,12 @@ def addtosteam(gamename):
         simplified_gamename = getnameofgame(gamename)
         print(simplified_gamename)
 
+        #GameFiles dir if non-Flatpak
+        if configpath.is_flatpak == True:
+                GameFiles = ""
+        else:
+                GameFiles = "/GameFiles/"
+
         #SYNTAX FOR ADDING NON-STEAM GAMES
         curr_dir = os.getcwd() #till .../HeroicBashLauncher
 
@@ -60,8 +76,8 @@ def addtosteam(gamename):
         srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
         #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
         AppName = soh + 'AppName' + nul + gamename + nul
-        Exe = soh + 'Exe' + nul + '"' + curr_dir + '/GameFiles/' + simplified_gamename + '.sh"' + nul
-        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + '/GameFiles/"' + nul
+        Exe = soh + 'Exe' + nul + '"' + curr_dir + GameFiles + simplified_gamename + '.sh"' + nul
+        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + GameFiles + '"' + nul
         icon = soh + 'icon' + nul + nul
         ShortcutPath = soh + 'ShortcutPath' + nul + nul
         LaunchOptions = soh + 'LaunchOptions' + nul + nul

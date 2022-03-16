@@ -37,10 +37,16 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         os.system("chmod u+x " + gameFile)
     else:
 
+        #Entire path to GameFiles dir
+        fullpath = getflatpakpath(os.path.abspath(os.getcwd()))
+        
         contents = ('#!/bin/bash\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Override launch parameters and launch game\n' + 
                 'flatpak run --command=./' + 'HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
-                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"')
+                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"' + 
+                ' || ' + 'flatpak run --command=./' + fullpath + '/HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
+                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"' +
+                '\n\n' + "#Launch command = " + gamecommand[0])
         
         with open(simplified_gamename + ".sh", "w") as g:
             g.write(contents)

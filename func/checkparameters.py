@@ -224,7 +224,11 @@ def checkparameters(appname, gamejsonfile, gametype):
 
       if "Proton" in game[appname]["wineVersion"]["name"]:
 
-        steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "
+        if configpath.is_flatpak == False:
+          steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "
+        else:
+          steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/.steam/steam "
+        
         steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
         bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
 

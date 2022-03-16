@@ -11,20 +11,22 @@ def createscript():
 
         global contents 
 
-        contents = contents + ')\n./HeroicBashLauncher "$game" '
-
+ 
         #Check if Flatpak
         if configpath.is_flatpak == True:
 
-                os.chdir(os.path.dirname(os.getcwd()))
+                contents = contents + ')\ncd GameFiles && ./HeroicBashLauncher "$game" '
 
-                with open("AddToSteam.sh", "w") as c:
-                        c.write(contents)
-                os.system("chmod u+x AddToSteam.sh")
+                #Move up directory outside GameFiles
+                os.chdir(os.path.dirname(os.getcwd()))
         else:
-                with open("AddToSteam.sh", "w") as c:
-                        c.write(contents)
-                os.system("chmod u+x AddToSteam.sh")
+
+                contents = contents + ')\n./HeroicBashLauncher "$game" '
+
+
+        with open("AddToSteam.sh", "w") as c:
+                c.write(contents)
+        os.system("chmod u+x AddToSteam.sh")
 
 
 def addtoscript(gamename):
@@ -38,7 +40,7 @@ def addtosteam(gamename):
 
  try:
 
-        finduserid = os.listdir(os.path.expanduser("~") + "/.steam/debian-installation/userdata/")
+        finduserid = os.listdir(os.path.expanduser("~") + "/.steam/steam/userdata/")
 
         #Finding a folder name with non-zero number
         for i in finduserid:
@@ -47,7 +49,7 @@ def addtosteam(gamename):
 
         
         #Read Steam shortcus file
-        file=open(str(os.path.expanduser("~") + '/.steam/debian-installation/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'rb')
+        file=open(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'rb')
         line=file.read()
         #print(line)
         file.close()
@@ -110,7 +112,7 @@ def addtosteam(gamename):
         file.close()
         
         os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
-
+        
         #Reading new
         #file=open(str(os.path.expanduser("~") + '/.steam/debian-installation/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'rb')
         #line=file.read()

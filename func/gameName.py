@@ -6,7 +6,7 @@ def getnameofgame(realgamename):
 
     for char in realgamename:
 
-        letter = char.isalpha()
+        letter = char.isalnum()
 
         if letter == True:
 

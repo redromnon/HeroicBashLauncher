@@ -61,7 +61,7 @@ def addtosteam(gamename):
 
         #GameFiles dir if non-Flatpak
         if configpath.is_flatpak == True:
-                GameFiles = ""
+                GameFiles = "/"
         else:
                 GameFiles = "/GameFiles/"
 

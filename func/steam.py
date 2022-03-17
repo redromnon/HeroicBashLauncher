@@ -106,7 +106,7 @@ def addtosteam(gamename):
         #Writing to file
         print("Adding " + gamename + " to Steam")
 
-        f=open(str(os.path.expanduser("~") + '/.steam/debian-installation/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'wb')
+        f=open(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'wb')
         f.write(line[:len(line)-2] + entry.encode() + line[-2:])
         #print(line)
         file.close()

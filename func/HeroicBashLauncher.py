@@ -19,7 +19,7 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
     if len(sys.argv) == 1: #Only name of file as default argument
     
         listinstalled()
-        os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nHave fun gaming!" --width=200')
+        os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can sync games to Steam via AddToSteam\n\nHave fun gaming!" --width=300')
         createscript()
     elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
         

@@ -46,7 +46,11 @@ def addtosteam(gamename):
         for i in finduserid:
                 if int(i) > 0:
                         userid = i
-
+                        if (os.path.exists(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf')):
+                                print("Selecting Steam userid - " + userid)
+                                break
+                        else:
+                                pass
         
         #Read Steam shortcus file
         file=open(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'rb')

@@ -77,7 +77,7 @@ def listinstalled():
 
         for j in goglibrarykeyarray:
 
-          if i['appName'] == j['app_name']:
+          if i['appName'] == j['app_name'] and i['is_dlc'] == False:
 
             #Removing special characters from the game name (Steam issue)
             gamename = rspchar(j['title'])

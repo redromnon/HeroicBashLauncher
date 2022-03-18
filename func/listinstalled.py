@@ -20,7 +20,7 @@ def listinstalled():
     #legendaryinstalledpath = os.path.expanduser("~") + "/.config/legendary/installed.json"
 
     #Convert legendary json to dict
-    with open(configpath.legendaryinstalledpath) as l:
+    with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:
       installed = json.load(l) 
 
     #Games' AppNames stored in list 
@@ -60,10 +60,10 @@ def listinstalled():
       #goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
 
       #Convert both json to dict
-      with open(configpath.goginstalledpath) as l:
+      with open(configpath.goginstalledpath, encoding='utf-8') as l:
         goginstalled = json.load(l)
 
-      with open(configpath.goglibrarypath) as p:
+      with open(configpath.goglibrarypath, encoding='utf-8') as p:
         goglibrary = json.load(p) 
 
       #Stored as list 

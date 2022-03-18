@@ -1,5 +1,5 @@
 import os, sys
-from gameName import getnameofgame
+from gameName import filegamename
 import configpath 
 
 #Zenity list box
@@ -59,8 +59,8 @@ def addtosteam(gamename):
         file.close()
         
 
-        #Generating game's name without special characters
-        simplified_gamename = getnameofgame(gamename)
+        #Generating game's filename
+        simplified_gamename = filegamename(gamename)
         print(simplified_gamename)
 
         #GameFiles dir if non-Flatpak

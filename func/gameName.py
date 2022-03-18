@@ -1,18 +1,28 @@
-#Helps name the bash files (launch files) with the game's actual name
-
-def getnameofgame(realgamename):
+#Remove special characters from game names (caused errors when using encode()/decode())
+def rspchar(realgamename):
     
     name = ""
 
     for char in realgamename:
 
-        letter = char.isalnum()
-
-        if letter == True:
+        if char.isalnum() == True or char == " ":
 
             name = name + char
-    
-    #Labeling this game as a Heroic (or Epic Games) game
+
+    return name
+
+#Name launch script
+def filegamename(realgamename):
+
+    name = ""
+
+    for char in realgamename:
+
+        if char.isalnum() == True:
+
+            name = name + char
+
+    #Labeling this game as a Heroic game for naming file
     name = name + "_Heroic"
 
     return name

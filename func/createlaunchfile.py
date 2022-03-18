@@ -3,7 +3,7 @@
 import os
 import configpath
 from checkparameters import checkparameters
-from gameName import getnameofgame
+from gameName import filegamename
 from steam import addtoscript
 from flatpak import getflatpakpath
 
@@ -12,8 +12,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     # Check/Update parameters
     gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync, gametype
 
-    #Generating game's name without special characters
-    simplified_gamename = getnameofgame(gamename)
+    #Generating game's file name
+    simplified_gamename = filegamename(gamename)
 
     #Creating the game file name
     #print(os.getcwd())

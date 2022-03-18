@@ -2,6 +2,7 @@
 
 import os, json
 import configpath
+from gameName import rspchar
 from legendaryclean import legendaryclean
 from createlaunchfile import createlaunchfile
 
@@ -38,16 +39,16 @@ def listinstalled():
       if installed[i]["is_dlc"] == False:
 
         #Removing special characters from the game name (Steam issue)
-        gamename = installed[i]["title"].encode("ascii", "ignore")
+        gamename = rspchar(installed[i]["title"])
         
         #Print current action
-        print(gamename.decode() + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname
+        print(gamename + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname
 
         #Pointing to the game's json file
         gamejson = configpath.gamesjsonpath + "/" + i + ".json"
 
         #Preparing launch file
-        createlaunchfile(gamename.decode(), i, gamejson, "epic") # gamename, appname, game's json file path
+        createlaunchfile(gamename, i, gamejson, "epic") # gamename, appname, game's json file path
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
@@ -79,10 +80,10 @@ def listinstalled():
           if i['appName'] == j['app_name']:
 
             #Removing special characters from the game name (Steam issue)
-            gamename = j['title'].encode("ascii", "ignore")
-            
+            gamename = rspchar(j['title'])
+
             #Print current action
-            print(gamename.decode() + " [" + i['appName'] + "]...\n")
+            print(gamename + " [" + i['appName'] + "]...\n")
 
             #Pointing to the game's json file
             gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
@@ -94,7 +95,7 @@ def listinstalled():
               gametype = "gog-win"
 
             #Preparing launch file
-            createlaunchfile(gamename.decode(), j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
+            createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
 
     #END OF THE PROGRAM
     print("\n...Process finished. Launch files stored in GameFiles folder.\nHave fun gaming!")

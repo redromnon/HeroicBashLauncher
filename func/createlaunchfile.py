@@ -10,7 +10,7 @@ from flatpak import getflatpakpath
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
     # Check/Update parameters
-    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync, gametype
+    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync
 
     #Generating game's file name
     simplified_gamename = filegamename(gamename)

@@ -266,7 +266,3 @@ def checkparameters(appname, gamejsonfile, gametype):
 
   #Return as list
   return [launchcommand, offline_launchcommand, cloudsync]
-
-  #Now create the file
-  #createlaunchfile(launchcommand,offline_launchcommand, cloudsync)
-  #print(launchcommand + "\n" + offline_launchcommand + "\n" + cloudsync + "\n")

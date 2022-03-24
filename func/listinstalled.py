@@ -8,17 +8,11 @@ from createlaunchfile import createlaunchfile
 
 def listinstalled():
 
-    #Path to heroic's GamesConfig dir where each installed game's json is stored
-    #gamesjsonpath = os.path.expanduser("~") + "/.config/heroic/GamesConfig"
-
   #EPIC GAMES LIBRARY
   #------------------------------------------------------------------------------------
   if os.path.exists(configpath.legendaryinstalledpath):
     #legendary cleanup
     legendaryclean()
-
-    #Path to installed games via legendary's installed.json file
-    #legendaryinstalledpath = os.path.expanduser("~") + "/.config/legendary/installed.json"
 
     #Convert legendary json to dict
     with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:
@@ -26,10 +20,6 @@ def listinstalled():
 
     #Games' AppNames stored in list 
     installedkeyarray = list(installed.keys())
-
-    # Moving one directory up
-    #os.chdir(os.path.dirname(os.getcwd()))
-    #print(os.getcwd())
 
     #Proceed to making launch files
     print("\n\nDone! Now creating launch files for your Epic Games library ...\n")

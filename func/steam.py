@@ -116,12 +116,6 @@ def addtosteam(gamename):
         file.close()
         
         os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
-        
-        #Reading new
-        #file=open(str(os.path.expanduser("~") + '/.steam/debian-installation/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'rb')
-        #line=file.read()
-        #print(line)
-        #file.close()
  except:
         os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check your console for the error and consider reporting it as an issue on Github." --width=400')
         sys.exit()

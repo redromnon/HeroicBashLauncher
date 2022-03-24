@@ -28,7 +28,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + 
                 gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + 
                 '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + 
-                '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')')
+                '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')' +
+                '\n\n' + gamecommand[2])
     
         with open(gameFile, "w") as g:
             g.write(contents)

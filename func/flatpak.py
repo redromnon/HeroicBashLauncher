@@ -36,5 +36,5 @@ def launchflatpakgame(gamename, appname, gamejson, gametype, flatpak):
 
     #Launch game
     os.system(gamecommand[2] + '\n\n(' + gamecommand[0] + 
-                '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')')
+                '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ') ' + gamecommand[2])
           

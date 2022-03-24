@@ -13,7 +13,7 @@ def listinstalled():
 
   #EPIC GAMES LIBRARY
   #------------------------------------------------------------------------------------
-
+  if os.path.exists(configpath.legendaryinstalledpath):
     #legendary cleanup
     legendaryclean()
 
@@ -52,50 +52,44 @@ def listinstalled():
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
-    if os.path.exists(configpath.goginstalledpath):
+  if os.path.exists(configpath.goginstalledpath):
 
-      #Path to installed games via gog's installed.json file
-      #goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
+    #Convert both json to dict
+    with open(configpath.goginstalledpath, encoding='utf-8') as l:
+      goginstalled = json.load(l)
 
-      #Path to all games info via gog's library.json file
-      #goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
+    with open(configpath.goglibrarypath, encoding='utf-8') as p:
+      goglibrary = json.load(p) 
 
-      #Convert both json to dict
-      with open(configpath.goginstalledpath, encoding='utf-8') as l:
-        goginstalled = json.load(l)
+    #Stored as list 
+    goginstalledkeyarray = list(goginstalled['installed'])
+    goglibrarykeyarray = list(goglibrary['games'])
 
-      with open(configpath.goglibrarypath, encoding='utf-8') as p:
-        goglibrary = json.load(p) 
+    #Proceed to making launch files
+    print("\n\nDone! Now creating launch files for your GOG library ...\n")
+    for i in goginstalledkeyarray:
 
-      #Stored as list 
-      goginstalledkeyarray = list(goginstalled['installed'])
-      goglibrarykeyarray = list(goglibrary['games'])
+      for j in goglibrarykeyarray:
 
-      #Proceed to making launch files
-      print("\n\nDone! Now creating launch files for your GOG library ...\n")
-      for i in goginstalledkeyarray:
+        if i['appName'] == j['app_name'] and i['is_dlc'] == False:
 
-        for j in goglibrarykeyarray:
+          #Removing special characters from the game name (Steam issue)
+          gamename = rspchar(j['title'])
 
-          if i['appName'] == j['app_name'] and i['is_dlc'] == False:
+          #Print current action
+          print(gamename + " [" + i['appName'] + "]...\n")
 
-            #Removing special characters from the game name (Steam issue)
-            gamename = rspchar(j['title'])
+          #Pointing to the game's json file
+          gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
 
-            #Print current action
-            print(gamename + " [" + i['appName'] + "]...\n")
+          #Check if game is linux or windows
+          if i['platform'] == "linux":
+            gametype = "gog-linux"
+          else:
+            gametype = "gog-win"
 
-            #Pointing to the game's json file
-            gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
+          #Preparing launch file
+          createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
 
-            #Check if game is linux or windows
-            if i['platform'] == "linux":
-              gametype = "gog-linux"
-            else:
-              gametype = "gog-win"
-
-            #Preparing launch file
-            createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
-
-    #END OF THE PROGRAM
-    print("\n...Process finished. Launch files stored in GameFiles folder and you can now sync games to Steam via AddToSteam\nHave fun gaming!")
+  #END OF THE PROGRAM
+  print("\n...Process finished. Launch files stored in GameFiles folder and you can now sync games to Steam via AddToSteam\nHave fun gaming!")

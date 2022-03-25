@@ -76,9 +76,10 @@ cd .. && ./HeroicBashLauncher "Rocket League" "Sugar" "/home/redromnon/.config/h
 - GUI
 
 
-## Issues
+## Issues and Suggestions
 If the program doesn't produce the game bash files (launch scripts), update the launch parameters or displays an error dialog, consider running the program from the terminal like `./HeroicBashLauncher` and post the log as an issue.
 
+Feel free to suggest any new features, especially those already implemented in Heroic. 
 
 ## License
 This project is under the GNU GPLv3 license. You can take a look at the LICENSE.md for more information.

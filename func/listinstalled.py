@@ -3,7 +3,6 @@
 import os, json
 import configpath
 from gameName import rspchar
-from legendaryclean import legendaryclean
 from createlaunchfile import createlaunchfile
 
 def listinstalled():
@@ -11,8 +10,6 @@ def listinstalled():
   #EPIC GAMES LIBRARY
   #------------------------------------------------------------------------------------
   if os.path.exists(configpath.legendaryinstalledpath):
-    #legendary cleanup
-    legendaryclean()
 
     #Convert legendary json to dict
     with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:

@@ -38,9 +38,13 @@ Execute the program by simply double-clicking the **HeroicBashLancher** executab
 ### Running Games
 You can run your game by executing the game's launch script using the terminal like ```./RocketLeague.sh``` or using your preferred game launcher/manager, just point the executable path to the game's launch script. Simple!
 
-[Here's a guide on Adding Heroic games to Lutris and GameHub](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers) and [syncing games to Steam.](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Adding-Games-to-Steam-on-Linux#adding-your-games-to-steam)
-
 **Don't copy or move the game files and launch scripts anywhere else, it won't work.** 
+
+### Handy Guides
+
+- [Steam Deck extended guide](https://github.com/redromnon/HeroicBashLauncher/wiki/Steam-Deck-(Flatpak)-Guide)
+- [Adding Heroic games to Lutris and GameHub](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers)
+- [Syncing games to Steam](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Adding-Games-to-Steam-on-Linux#adding-your-games-to-steam)
 
 
 ## Working

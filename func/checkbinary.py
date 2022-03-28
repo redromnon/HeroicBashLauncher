@@ -13,7 +13,7 @@ def getbinary(gametype):
         #heroicconfigpath = os.path.expanduser("~") + "/.config/heroic/config.json"
 
         #Convert config json to dict
-        with open(configpath.heroicconfigpath) as p:
+        with open(configpath.heroicconfigpath, encoding='utf-8') as p:
             heroicconfig = json.load(p)
 
         #Checking

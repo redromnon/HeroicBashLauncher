@@ -8,7 +8,7 @@ from checkbinary import getbinary
 def checkparameters(appname, gamejsonfile, gametype):
 
   #Convert the game's json file to dict
-  with open(gamejsonfile) as g:
+  with open(gamejsonfile, encoding='utf-8') as g:
       game = json.load(g)
 
   #Check binary (Legendary or gogdl)
@@ -188,7 +188,7 @@ def checkparameters(appname, gamejsonfile, gametype):
       #Path to installed games via gog's installed.json file
       #goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installed.json"
 
-      with open(configpath.goginstalledpath) as l:
+      with open(configpath.goginstalledpath, encoding='utf-8') as l:
         goginstalled = json.load(l)
 
       goginstalledkeyarray = list(goginstalled['installed'])

@@ -24,7 +24,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     #Launch script contents
     if configpath.is_flatpak == False:
-        contents = ('#!/bin/bash \n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
+        contents = ('#!/bin/bash \n\n' + '#Generate log\n' + 'exec > logs/' + simplified_gamename + '.log 2>&1' + 
+                '\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + 
                 gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + 
                 '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + 
@@ -41,7 +42,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         #Entire path to GameFiles dir
         fullpath = getflatpakpath(os.path.abspath(os.getcwd()))
         
-        contents = ('#!/bin/bash\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
+        contents = ('#!/bin/bash\n\n' + '#Generate log\n' + 'exec > logs/' + simplified_gamename + '.log 2>&1' + 
+                '\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Override launch parameters and launch game\n' + 
                 'flatpak run --command=./' + 'HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
                 gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"' + 

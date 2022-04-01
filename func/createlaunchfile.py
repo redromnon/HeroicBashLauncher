@@ -4,7 +4,7 @@ import os
 import configpath
 from checkparameters import checkparameters
 from gameName import filegamename
-from steam import addtoscript
+from steam import addtoscript, addtosteam
 from flatpak import getflatpakpath
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
@@ -57,3 +57,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     #Add to Steam script
     addtoscript(gamename)
+
+    #If system is Steam Deck, add to Steam right away
+    if "deck" in os.path.expanduser("~"):
+        addtosteam(gamename)

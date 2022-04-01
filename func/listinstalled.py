@@ -29,7 +29,7 @@ def listinstalled():
         gamename = rspchar(installed[i]["title"])
         
         #Print current action
-        print(gamename + " [" + i + "]...\n") # installed[i] = game's name, i = game's appname
+        print(gamename + " [" + i + "]...") # installed[i] = game's name, i = game's appname
 
         #Pointing to the game's json file
         gamejson = configpath.gamesjsonpath + "/" + i + ".json"
@@ -64,7 +64,7 @@ def listinstalled():
           gamename = rspchar(j['title'])
 
           #Print current action
-          print(gamename + " [" + i['appName'] + "]...\n")
+          print(gamename + " [" + i['appName'] + "]...")
 
           #Pointing to the game's json file
           gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"

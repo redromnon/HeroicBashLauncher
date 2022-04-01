@@ -58,11 +58,11 @@ def addtosteam(gamename):
                 #print(line)
                 file.close()
 
-        
+
                 #Add game if not already added
                 if gamename in str(line): 
 
-                        print(gamename + " already added to Steam.")
+                        print(gamename + " already added to Steam.\n")
 
                 else:
                 
@@ -111,14 +111,15 @@ def addtosteam(gamename):
 
                         
                         #Writing to file
-                        print("Adding " + gamename + " to Steam")
+                        print("Adding " + gamename + " to Steam\n")
 
                         f=open(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'wb')
                         f.write(line[:len(line)-2] + entry.encode() + line[-2:])
                         #print(line)
                         file.close()                        
         
-                        os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
+                        if "deck" not in os.path.expanduser("~"): 
+                                os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
         except:
                 os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check your console for the error and consider reporting it as an issue on Github." --width=400')
                 sys.exit()

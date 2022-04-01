@@ -57,9 +57,9 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         #Making the file executable
         os.system("chmod u+x " + simplified_gamename + ".sh")
 
-    #Add to Steam script
-    addtoscript(gamename)
 
-    #If system is Steam Deck, add to Steam right away
+    #If system is Steam Deck, add to Steam right away or add to Steam script
     if "deck" in os.path.expanduser("~"):
         addtosteam(gamename)
+    else:
+        addtoscript(gamename)

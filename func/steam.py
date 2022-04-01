@@ -28,6 +28,8 @@ def createscript():
                 c.write(contents)
         os.system("chmod u+x AddToSteam.sh")
 
+        print("AddtoSteam script successfully created")
+
 
 def addtoscript(gamename):
         

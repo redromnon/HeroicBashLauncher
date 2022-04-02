@@ -32,11 +32,11 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 ## Usage
 
 ### Running the Program
-Execute the program by simply double-clicking the **HeroicBashLancher** executable. You should be greeted by the _Process Finished_ dialog at the end.
+Execute the program by simply running the `setup.sh` script. You should be greeted by the _Process Finished_ dialog at the end.
 
 
 ### Running Games
-You can run your game by executing the game's launch script using the terminal like ```./RocketLeague.sh``` or using your preferred game launcher/manager, just point the executable path to the game's launch script. Simple!
+You can run your game by executing the game's launch script by double-clicking the game's launch scipt, using the terminal like ```./RocketLeague_Heroic.sh``` or using your preferred game launcher/manager just point the executable path to the game's launch script. Simple!
 
 **Don't copy or move the game files and launch scripts anywhere else, it won't work.** 
 
@@ -55,10 +55,13 @@ The launch script is created using the *bash shell script*, i.e. `.sh` files. Fo
 
 Every game's launch script will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. 
 
-Here's an example below of _"RocketLeague.sh"_ -
+Here's an example below of _"RocketLeague_Heroic.sh"_ -
 
 ```
 #!/bin/bash 
+
+#Generate log
+exec > logs/RocketLeague_Heroic.log 2>&1
 
 #Game Name = Rocket League (EPIC) 
 
@@ -69,7 +72,10 @@ cd .. && ./HeroicBashLauncher "Rocket League" "Sugar" "/home/redromnon/.config/h
 
 
 
-(WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.config/heroic/tools/wine/Wine-7.2-GE-2/bin/wine64' --wine-prefix '/home/redromnon/.wine' || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.config/heroic/tools/wine/Wine-7.2-GE-2/bin/wine64' --wine-prefix '/home/redromnon/.wine' )) || (zenity --error --title="Error" --text="Failed to launch games. Consider posting the log as an issue" --width=200 --timeout=3)
+(WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --wine '/home/redromnon/.config/heroic/tools/wine/Wine-7.2-GE-2/bin/wine' --wine-prefix '/home/redromnon/.wine' || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FSR_STRENGTH=2 WINEESYNC=1 mangohud --dlsym /opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary launch Sugar --offline --wine '/home/redromnon/.config/heroic/tools/wine/Wine-7.2-GE-2/bin/wine' --wine-prefix '/home/redromnon/.wine' )) || (zenity --error --title="Error" --text="Failed to launch games 
+
+Consider posting the log as an issue" --width=200 --timeout=3)
+
 ```
 
 
@@ -81,7 +87,7 @@ cd .. && ./HeroicBashLauncher "Rocket League" "Sugar" "/home/redromnon/.config/h
 
 
 ## Issues and Suggestions
-If the program doesn't produce the game bash files (launch scripts), update the launch parameters or displays an error dialog, consider running the program from the terminal like `./HeroicBashLauncher` and post the log as an issue.
+If the program doesn't produce the game bash files (launch scripts), update the launch parameters, launch the games or displays an error dialog, consider checking the logs. The logs for the game launch scripts and the program are present in `/GameFiles/logs`and the base directory respectively.
 
 Feel free to suggest any new features, especially those already implemented in Heroic. 
 

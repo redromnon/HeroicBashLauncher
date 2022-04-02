@@ -15,5 +15,9 @@
 #Steam Bash script
 AddToSteam.sh
 
+#Logs
+/GameFiles/logs
+*.log
+
 #Executable
 HeroicBashLauncher

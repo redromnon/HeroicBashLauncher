@@ -58,13 +58,12 @@ def addartwork(appname, exe, userid, simplified_gamename):
                 gamename = rspchar(i['title'])
                 
                 if appname == gamename:
-                    print("Yes")
+
                     image_url = i['art_square']
                     print(image_url)
 
             #Download image to Steam grid and rename as appid
             os.system('wget -P ' + artwork_path + ' ' + image_url)
-            #wget.download(image_url, out = artwork_path)
             os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + str(appid) + 'p.jpg')
 
         elif "GOG" in readscript:
@@ -79,12 +78,11 @@ def addartwork(appname, exe, userid, simplified_gamename):
                 gamename = rspchar(i['title'])
                 
                 if appname == gamename:
-                    print("Yes")
+                
                     image_url = i['art_square']
                     print(image_url)
 
             #Download image to Steam grid, extract image name and rename as appid (URL GOG format different than Epic)
-            #wget.download(image_url, out = artwork_path)
             os.system('wget -P ' + artwork_path + ' ' + image_url)
             extract_image_url = image_url.split("/")[-1]
             os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + str(appid) + 'p.jpg')

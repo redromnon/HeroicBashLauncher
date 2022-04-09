@@ -29,6 +29,8 @@ goginstalledpath = os.path.expanduser("~") + "/.config/heroic/gog_store/installe
 
 goglibrarypath = os.path.expanduser("~") + "/.config/heroic/gog_store/library.json"
 
+heroiclibrarypath = os.path.expanduser("~") + "/.config/heroic/lib-cache/library.json"
+
 
 #Check if Flatpak exists
 if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl"):
@@ -44,3 +46,5 @@ if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.h
     goginstalledpath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/gog_store/installed.json"
 
     goglibrarypath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/gog_store/library.json"
+
+    heroiclibrarypath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/lib-cache/library.json"

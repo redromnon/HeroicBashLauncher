@@ -1,5 +1,6 @@
 import os, sys
 from gameName import filegamename
+from artwork import addartwork
 import configpath 
 
 #Zenity list box
@@ -60,68 +61,75 @@ def addtosteam(gamename):
                 #print(line)
                 file.close()
 
+                #Generating game's filename
+                simplified_gamename = filegamename(gamename)
+                #print(simplified_gamename)
+
+                #GameFiles dir if non-Flatpak
+                if configpath.is_flatpak == True:
+                        GameFiles = "/"
+                else:
+                        GameFiles = "/GameFiles/"
+
+                
+                
+                #SYNTAX FOR ADDING NON-STEAM GAMES
+                curr_dir = os.getcwd() #till .../HeroicBashLauncher
+
+                #Unicode Charaters
+                nul = '\x00'
+                soh = '\x01'
+                stx = '\x02'
+                bs = '\x08'
+
+                #Keys
+                srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
+                #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
+                AppName = soh + 'AppName' + nul + gamename + nul
+                Exe = soh + 'Exe' + nul + '"' + curr_dir + GameFiles + simplified_gamename + '.sh"' + nul
+                StartDir = soh + 'StartDir' + nul + '"' + curr_dir + GameFiles + '"' + nul
+                icon = soh + 'icon' + nul + nul
+                ShortcutPath = soh + 'ShortcutPath' + nul + nul
+                LaunchOptions = soh + 'LaunchOptions' + nul + nul
+                IsHidden = stx + 'IsHidden' + nul + nul + nul + nul + nul
+                AllowDesktopConfig = stx + 'AllowDesktopConfig' + nul + soh  + nul + nul + nul
+                AllowOverlay = stx + 'AllowOverlay' + nul + soh  + nul + nul + nul
+                OpenVR = stx + 'OpenVR' + nul + nul + nul + nul + nul
+                Devkit = stx + 'Devkit' + nul + nul + nul + nul + nul
+                DevkitGameID = soh + 'DevkitGameID' + nul + nul
+                DevkitOverrideAppID = stx + 'DevkitOverrideAppID' + nul + nul + nul + nul + nul
+                LastPlayTime = stx + 'LastPlayTime' + nul + nul + nul + nul + nul
+                tags = nul + 'tags' + nul
+                end = bs + bs
+
+                #Entry
+                entry = srno + AppName + Exe + StartDir + icon + ShortcutPath + LaunchOptions + IsHidden + AllowDesktopConfig + AllowOverlay + \
+                        OpenVR + Devkit + DevkitGameID + DevkitOverrideAppID + LastPlayTime + tags + end
+
 
                 #Add game if not already added
-                if gamename in str(line): 
+                if simplified_gamename in str(line): 
 
                         print(gamename + " already added to Steam.\n")
 
                 else:
-                
-                        #Generating game's filename
-                        simplified_gamename = filegamename(gamename)
-                        print(simplified_gamename)
-
-                        #GameFiles dir if non-Flatpak
-                        if configpath.is_flatpak == True:
-                                GameFiles = "/"
-                        else:
-                                GameFiles = "/GameFiles/"
-
-                        #SYNTAX FOR ADDING NON-STEAM GAMES
-                        curr_dir = os.getcwd() #till .../HeroicBashLauncher
-
-                        #Unicode Charaters
-                        nul = '\x00'
-                        soh = '\x01'
-                        stx = '\x02'
-                        bs = '\x08'
-
-                        #Keys
-                        srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
-                        #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
-                        AppName = soh + 'AppName' + nul + gamename + nul
-                        Exe = soh + 'Exe' + nul + '"' + curr_dir + GameFiles + simplified_gamename + '.sh"' + nul
-                        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + GameFiles + '"' + nul
-                        icon = soh + 'icon' + nul + nul
-                        ShortcutPath = soh + 'ShortcutPath' + nul + nul
-                        LaunchOptions = soh + 'LaunchOptions' + nul + nul
-                        IsHidden = stx + 'IsHidden' + nul + nul + nul + nul + nul
-                        AllowDesktopConfig = stx + 'AllowDesktopConfig' + nul + soh  + nul + nul + nul
-                        AllowOverlay = stx + 'AllowOverlay' + nul + soh  + nul + nul + nul
-                        OpenVR = stx + 'OpenVR' + nul + nul + nul + nul + nul
-                        Devkit = stx + 'Devkit' + nul + nul + nul + nul + nul
-                        DevkitGameID = soh + 'DevkitGameID' + nul + nul
-                        DevkitOverrideAppID = stx + 'DevkitOverrideAppID' + nul + nul + nul + nul + nul
-                        LastPlayTime = stx + 'LastPlayTime' + nul + nul + nul + nul + nul
-                        tags = nul + 'tags' + nul
-                        end = bs + bs
-
-                        #Entry
-                        entry = srno + AppName + Exe + StartDir + icon + ShortcutPath + LaunchOptions + IsHidden + AllowDesktopConfig + AllowOverlay + \
-                                OpenVR + Devkit + DevkitGameID + DevkitOverrideAppID + LastPlayTime + tags + end
 
                         
                         #Writing to file
                         print("Adding " + gamename + " to Steam\n")
-
+                        
                         f=open(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'wb')
                         f.write(line[:len(line)-2] + entry.encode() + line[-2:])
                         #print(line)
-                        file.close()                        
-        
-                        if "deck" not in os.path.expanduser("~"): 
-                                os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
+                        file.close()  
+                        
+
+
+                #Add artwork
+                addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)
+
+                if "deck" not in os.path.expanduser("~"): 
+                        os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
         except:
                 os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check your console for the error and consider reporting it as an issue on Github." --width=400')
                 sys.exit()

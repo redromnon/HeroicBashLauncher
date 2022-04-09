@@ -1,7 +1,7 @@
 #DISCLAIMER - The logic of the code on Line 18 has been taken from SteamGridDB (https://github.com/SteamGridDB/steamgriddb-manager) [MIT License].   
 
 
-import os, binascii, json
+import os, binascii, json, wget, ssl
 import configpath
 from gameName import rspchar
 
@@ -45,6 +45,9 @@ def addartwork(appname, exe, userid, simplified_gamename):
         readscript = openscript.read()
         openscript.close()
 
+        #Avoid SSL certificate error
+        ssl._create_default_https_context = ssl._create_unverified_context
+
         #Check if game is Epic or GOG
         if "EPIC" in readscript:
             
@@ -60,10 +63,10 @@ def addartwork(appname, exe, userid, simplified_gamename):
                 if appname == gamename:
 
                     image_url = i['art_square']
-                    print(image_url)
+                    print("Downloading from " + image_url)
 
             #Download image to Steam grid and rename as appid
-            os.system('wget -P ' + artwork_path + ' ' + image_url)
+            wget.download(image_url, out = artwork_path)
             os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + str(appid) + 'p.jpg')
 
         elif "GOG" in readscript:
@@ -80,9 +83,9 @@ def addartwork(appname, exe, userid, simplified_gamename):
                 if appname == gamename:
                 
                     image_url = i['art_square']
-                    print(image_url)
+                    print("Downloading from " + image_url)
 
             #Download image to Steam grid, extract image name and rename as appid (URL GOG format different than Epic)
-            os.system('wget -P ' + artwork_path + ' ' + image_url)
+            wget.download(image_url, out = artwork_path)
             extract_image_url = image_url.split("/")[-1]
             os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + str(appid) + 'p.jpg')

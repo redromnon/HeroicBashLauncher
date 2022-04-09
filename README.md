@@ -55,6 +55,8 @@ The launch script is created using the *bash shell script*, i.e. `.sh` files. Fo
 
 Every game's launch script will contain all the launch parameters according to the game's setting in Heroic Games Launcher, including cloud syncing for supported games. 
 
+The program also automatically downloads and adds the cover art when the launch scripts are added to Steam ( See **Syncing games to Steam** above )
+
 Here's an example below of _"RocketLeague_Heroic.sh"_ -
 
 ```

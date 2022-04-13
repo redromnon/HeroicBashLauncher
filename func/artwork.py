@@ -24,6 +24,16 @@ def addartwork(appname, exe, userid, simplified_gamename):
     #Path to Steam grid folder
     artwork_path = os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/grid'
 
+    #Check if the folder exists, create if not
+    grid_exists = os.path.isdir(artwork_path)
+
+    if not grid_exists:
+        os.makedirs(artwork_path)
+        print("created grid folder:", artwork_path)
+
+    else:
+        print(artwork_path, "already exists")
+
     for i in os.listdir(artwork_path):
            
         if str(appid) in i:

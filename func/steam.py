@@ -1,10 +1,10 @@
-import os, sys
+import os, sys, traceback
 from gameName import filegamename
 from artwork import addartwork
 import configpath 
 
 #Zenity list box
-contents = ('#!/bin/bash \n\n#Choose a game to be added to Steam \n\n' +
+contents = ('#!/bin/bash \n\n #Create log \n exec > HeroicBashLauncher.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +
                 'game=$(zenity --list --title="Add to Steam" --column="Game Name" --width=400 --height=400 ')
 
 
@@ -132,7 +132,9 @@ def addtosteam(gamename):
 
                 #Add artwork
                 addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)
-        except:
+        except Exception: 
+                
+                print(traceback.format_exc())
                 os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check your console for the error and consider reporting it as an issue on Github." --width=400')
                 sys.exit()
         

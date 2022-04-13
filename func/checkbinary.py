@@ -2,7 +2,7 @@
 #   For AppImage, check if alternavtive binary (Legendary) is added.
 #   If not, check folder under /tmp/ that includes path to the binaries.
 
-import os, json, sys
+import os, json, sys, traceback
 import configpath
 
 def getbinary(gametype):
@@ -44,6 +44,8 @@ def getbinary(gametype):
             
 
         return binary
-    except:
+    except Exception:
+
+        print(traceback.format_exc())
         os.system('zenity --error --title="Failed" --text="Looks like you are using Heroic via AppImage\n\nMake sure to keep Heroic running and try again" --width=300')
         sys.exit()

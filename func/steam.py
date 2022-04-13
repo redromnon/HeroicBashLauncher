@@ -135,7 +135,7 @@ def addtosteam(gamename):
         except Exception: 
                 
                 print(traceback.format_exc())
-                os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check your console for the error and consider reporting it as an issue on Github." --width=400')
+                os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the log for the error and consider reporting it as an issue on Github." --width=400')
                 sys.exit()
         
 

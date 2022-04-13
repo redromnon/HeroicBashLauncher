@@ -18,6 +18,8 @@ You can now launch your game directly without having to open Heroic at all. Ther
 ## Building & Testing
 Since the program makes use of an executable, you will need **Python version 3.8+ and PyInstaller** to build the code.
 
+You will also need [wget (for Python)](https://pypi.org/project/wget/).
+
 To test the program, open the terminal in the `func` directory and use the following command to build -
 
 ```

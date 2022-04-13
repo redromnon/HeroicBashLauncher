@@ -31,9 +31,6 @@ def addartwork(appname, exe, userid, simplified_gamename):
         os.makedirs(artwork_path)
         print("created grid folder:", artwork_path)
 
-    else:
-        print(artwork_path, "already exists")
-
     for i in os.listdir(artwork_path):
            
         if str(appid) in i:

@@ -1,7 +1,7 @@
 #DISCLAIMER - The logic of the code on Line 18 has been taken from SteamGridDB (https://github.com/SteamGridDB/steamgriddb-manager) [MIT License].   
 
 
-import os, binascii, json, wget, ssl
+import os, binascii, json, wget, ssl, traceback, sys
 import configpath
 from gameName import rspchar
 
@@ -32,60 +32,70 @@ def addartwork(appname, exe, userid, simplified_gamename):
             break
 
     if check_flag == 0:
-        print("Adding Artwork...")
 
-        #GameFiles dir if non-Flatpak
-        if configpath.is_flatpak == True:
-            GameFiles = ""
-        else:
-            GameFiles = "GameFiles/"
+        try:
 
-        #Reading from file
-        openscript = open(GameFiles + simplified_gamename + ".sh", 'r')
-        readscript = openscript.read()
-        openscript.close()
+            print("Adding Artwork...")
 
-        #Avoid SSL certificate error
-        ssl._create_default_https_context = ssl._create_unverified_context
+            #GameFiles dir if non-Flatpak
+            if configpath.is_flatpak == True:
+                GameFiles = ""
+            else:
+                GameFiles = "GameFiles/"
 
-        #Check if game is Epic or GOG
-        if "EPIC" in readscript:
+            #Reading from file
+            openscript = open(GameFiles + simplified_gamename + ".sh", 'r')
+            readscript = openscript.read()
+            openscript.close()
+
+            #Avoid SSL certificate error
+            ssl._create_default_https_context = ssl._create_unverified_context
+
+            #Check if game is Epic or GOG
+            if "EPIC" in readscript:
             
-            #print("Epic")
+                #print("Epic")
 
-            with open(configpath.heroiclibrarypath, encoding='utf-8') as l:
-                heroicinstalled = json.load(l)
+                with open(configpath.heroiclibrarypath, encoding='utf-8') as l:
+                    heroicinstalled = json.load(l)
 
-            for i in heroicinstalled['library']:
+                for i in heroicinstalled['library']:
 
-                gamename = rspchar(i['title'])
+                    gamename = rspchar(i['title'])
                 
-                if appname == gamename:
+                    if appname == gamename:
 
-                    image_url = i['art_square']
-                    print("Downloading from " + image_url)
+                        image_url = i['art_square']
+                        print("Downloading from " + image_url)
+                        break
 
-            #Download image to Steam grid and rename as appid
-            wget.download(image_url, out = artwork_path)
-            os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + str(appid) + 'p.jpg')
+                #Download image to Steam grid and rename as appid
+                wget.download(image_url, out = artwork_path)
+                os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + str(appid) + 'p.jpg')
 
-        elif "GOG" in readscript:
+            elif "GOG" in readscript:
             
-            #print("GOG")
+                #print("GOG")
 
-            with open(configpath.goglibrarypath, encoding='utf-8') as l:
-                heroicinstalled = json.load(l)
+                with open(configpath.goglibrarypath, encoding='utf-8') as l:
+                    heroicinstalled = json.load(l)
 
-            for i in heroicinstalled['games']:
+                for i in heroicinstalled['games']:
 
-                gamename = rspchar(i['title'])
+                    gamename = rspchar(i['title'])
                 
-                if appname == gamename:
+                    if appname == gamename:
                 
-                    image_url = i['art_square']
-                    print("Downloading from " + image_url)
+                        image_url = i['art_square']
+                        print("Downloading from " + image_url)
+                        break
 
-            #Download image to Steam grid, extract image name and rename as appid (URL GOG format different than Epic)
-            wget.download(image_url, out = artwork_path)
-            extract_image_url = image_url.split("/")[-1]
-            os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + str(appid) + 'p.jpg')
+                #Download image to Steam grid, extract image name and rename as appid (URL GOG format different than Epic)
+                wget.download(image_url, out = artwork_path)
+                extract_image_url = image_url.split("/")[-1]
+                os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + str(appid) + 'p.jpg')
+        except Exception:
+
+            print(traceback.format_exc())
+            os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check your console for the error and consider reporting it as an issue on Github." --width=400')  
+            sys.exit()  

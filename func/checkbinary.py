@@ -23,12 +23,16 @@ def getbinary(gametype):
                 binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
             else:
                 binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
-        elif heroicconfig["defaultSettings"]["altLegendaryBin"] != "" and gametype == "epic":
+        elif 'altLegendaryBin' in heroicconfig['defaultSettings'].keys():
+        
+            if heroicconfig["defaultSettings"]["altLegendaryBin"] != "" and gametype == "epic":
 
-            binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
-        elif heroicconfig["defaultSettings"]["altGogdlBin"] != "" and gametype != "epic":
+                binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
+        elif 'altGogdlBin' in heroicconfig['defaultSettings'].keys():
+        
+            if heroicconfig["defaultSettings"]["altGogdlBin"] != "" and gametype != "epic":
 
-            binary = heroicconfig["defaultSettings"]["altGogdlBin"] + " "
+                binary = heroicconfig["defaultSettings"]["altGogdlBin"] + " "
         elif os.path.exists("/var/lib/flatpak/app/com.heroicgameslauncher.hgl") or os.path.exists("/app/bin/heroic"):#System or Flatpak-env path
 
             if gametype != "epic":

@@ -5,6 +5,24 @@ import os, binascii, json, wget, ssl, traceback, sys
 import configpath
 from gameName import rspchar
 
+def checkartworkexists(artwork_path, image):
+    
+    check_flag = 0
+
+    for i in os.listdir(artwork_path):
+           
+        if image == i:
+            check_flag = 1
+            break
+
+    if check_flag == 1:
+
+        return True
+    else:
+
+        return False
+
+
 def addartwork(appname, exe, userid, simplified_gamename):
     
 
@@ -18,91 +36,129 @@ def addartwork(appname, exe, userid, simplified_gamename):
     appid = binascii.crc32(str.encode(exe + appname)) | 0x80000000
     print("Steam AppID for " + appname + " is " + str(appid))
 
-    #Check if appid exists in the image file name 
-    check_flag = 0
-
     #Path to Steam grid folder
     artwork_path = os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/grid'
+
+
+    #Artwork types
+    coverart =  str(appid) + 'p.jpg'
+    backgroundart = str(appid) + '_hero.jpg'
+    bigpictureart = str(appid) + '.jpg'
+
 
     #Check if the folder exists, create if not
     grid_exists = os.path.isdir(artwork_path)
 
     if not grid_exists:
         os.makedirs(artwork_path)
-        print("created grid folder:", artwork_path)
+        print("Created grid folder in ", artwork_path)
 
-    for i in os.listdir(artwork_path):
-           
-        if str(appid) in i:
-            print("Artwork already exists")
-            check_flag = 1
-            break
+    
 
-    if check_flag == 0:
+    try:
 
-        try:
+        print("Checking Artwork...")
 
-            print("Adding Artwork...")
+        #GameFiles dir if non-Flatpak
+        if configpath.is_flatpak == True:
+            GameFiles = ""
+        else:
+            GameFiles = "GameFiles/"
 
-            #GameFiles dir if non-Flatpak
-            if configpath.is_flatpak == True:
-                GameFiles = ""
-            else:
-                GameFiles = "GameFiles/"
+        #Reading from file
+        openscript = open(GameFiles + simplified_gamename + ".sh", 'r')
+        readscript = openscript.read()
+        openscript.close()
 
-            #Reading from file
-            openscript = open(GameFiles + simplified_gamename + ".sh", 'r')
-            readscript = openscript.read()
-            openscript.close()
+        #Avoid SSL certificate error
+        ssl._create_default_https_context = ssl._create_unverified_context
 
-            #Avoid SSL certificate error
-            ssl._create_default_https_context = ssl._create_unverified_context
-
-            #Check if game is Epic or GOG
-            if "EPIC" in readscript:
+        #Check if game is Epic or GOG
+        if "EPIC" in readscript:
             
-                #print("Epic")
+            #print("Epic")
 
-                with open(configpath.heroiclibrarypath, encoding='utf-8') as l:
-                    heroicinstalled = json.load(l)
+            with open(configpath.heroiclibrarypath, encoding='utf-8') as l:
+                epicinstalled = json.load(l)
 
-                for i in heroicinstalled['library']:
+            for i in epicinstalled['library']:
 
-                    gamename = rspchar(i['title'])
+                gamename = rspchar(i['title'])
                 
-                    if appname == gamename:
+                if appname == gamename:
 
+                    #Cover Art
+                    if checkartworkexists(artwork_path, coverart) == False:
+                    
                         image_url = i['art_square']
-                        print("Downloading from " + image_url)
-                        break
+                        print("Downloading Cover Art from " + image_url)
+                        wget.download(image_url, out = artwork_path)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + coverart)
+                    else:
+                        print("Covert Art exists")
 
-                #Download image to Steam grid and rename as appid
-                wget.download(image_url, out = artwork_path)
-                os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + str(appid) + 'p.jpg')
+                    #Background Art
+                    if checkartworkexists(artwork_path, backgroundart) == False:
+                    
+                        image_url = i['art_cover']
+                        print("Downloading Background Art from " + image_url)
+                        wget.download(image_url, out = artwork_path)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart)
+                    else:
+                        print("Background Art exists")
 
-            elif "GOG" in readscript:
+                    #BigPicture Art
+                    if checkartworkexists(artwork_path, bigpictureart) == False:
+                    
+                        image_url = i['art_cover']
+                        print("Downloading BigPicture Art from " + image_url)
+                        wget.download(image_url, out = artwork_path)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
+                    else:
+                        print("BigPicture Art exists")
+        elif "GOG" in readscript:
             
-                #print("GOG")
+            #print("GOG")
 
-                with open(configpath.goglibrarypath, encoding='utf-8') as l:
-                    heroicinstalled = json.load(l)
+            with open(configpath.goglibrarypath, encoding='utf-8') as l:
+                goginstalled = json.load(l)
 
-                for i in heroicinstalled['games']:
+            for i in goginstalled['games']:
 
-                    gamename = rspchar(i['title'])
+                gamename = rspchar(i['title'])
                 
-                    if appname == gamename:
-                
+                if appname == gamename:
+
+                    #Cover Art
+                    if checkartworkexists(artwork_path, coverart) == False:
+                    
                         image_url = i['art_square']
-                        print("Downloading from " + image_url)
-                        break
+                        print("Downloading Cover Art from " + image_url)
+                        wget.download(image_url, out = artwork_path)
+                        extract_image_url = image_url.split("/")[-1]
+                        os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + coverart)
+                    else:
+                        print("Covert Art exists")
 
-                #Download image to Steam grid, extract image name and rename as appid (URL GOG format different than Epic)
-                wget.download(image_url, out = artwork_path)
-                extract_image_url = image_url.split("/")[-1]
-                os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + str(appid) + 'p.jpg')
-        except Exception:
+                    #Background Art
+                    if checkartworkexists(artwork_path, backgroundart) == False:
+                    
+                        image_url = i['art_cover']
+                        print("Downloading Background Art from " + image_url)
+                        wget.download(image_url, out = artwork_path)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart)
+                    else:
+                        print("Background Art exists")
 
-            print(traceback.format_exc())
-            os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check the log for the error and consider reporting it as an issue on Github." --width=400')  
-            sys.exit()  
+                    #BigPicture Art
+                    if checkartworkexists(artwork_path, bigpictureart) == False:
+                    
+                        image_url = i['art_cover']
+                        print("Downloading BigPicture Art from " + image_url)
+                        wget.download(image_url, out = artwork_path)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
+    except Exception:
+
+        print(traceback.format_exc())
+        os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check the log for the error and consider reporting it as an issue on Github." --width=400')  
+        sys.exit()  

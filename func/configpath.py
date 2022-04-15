@@ -33,7 +33,7 @@ heroiclibrarypath = os.path.expanduser("~") + "/.config/heroic/lib-cache/library
 
 
 #Check if Flatpak exists
-if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl"):
+if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic"):
 
     is_flatpak = True
 

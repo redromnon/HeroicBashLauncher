@@ -4,7 +4,7 @@ from artwork import addartwork
 import configpath 
 
 #Zenity list box
-contents = ('#!/bin/bash \n\n #Create log \n exec > HeroicBashLauncher.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +
+contents = ('#!/bin/bash \n\n #Create log \n exec > AddToSteam.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +
                 'game=$(zenity --list --title="Add to Steam" --column="Game Name" --width=400 --height=400 ')
 
 

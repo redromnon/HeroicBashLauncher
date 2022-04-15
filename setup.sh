@@ -2,8 +2,6 @@
 
 #####
 
-#VERSION 2.3.0
-
 #Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Heroic games (Epic and GOG) from literally 
 #anywhere on Linux!
 

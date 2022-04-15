@@ -17,6 +17,8 @@ def getbinary(gametype):
             heroicconfig = json.load(p)
 
         #Checking
+        binary = ""
+
         if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
 
             if gametype != "epic":
@@ -46,7 +48,6 @@ def getbinary(gametype):
             else:
                 binary = os.getcwd() + "/binaries/legendary "
             
-
         return binary
     except Exception:
 

@@ -8,7 +8,7 @@ from steam import createscript, addtosteam
 from flatpak import launchflatpakgame
 
 #Print current version
-print("Using Bash Launcher 2.4.2\n")
+print("Using Bash Launcher 2.4.3\n")
 
 #Check if Zenity is installed
 print("Checking if Zenity is installed:")

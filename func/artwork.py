@@ -166,6 +166,6 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
     except Exception:
 
-        zenity_popup(type=error, title="Process Failed", text="Failed to add artwork. Please check the log for the error and consider reporting it as an issue on Github.")
+        zenity_popup(type="error", title="Process Failed", text="Failed to add artwork. Please check the log for the error and consider reporting it as an issue on Github.")
         raise
 

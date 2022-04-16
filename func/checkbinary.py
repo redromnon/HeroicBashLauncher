@@ -48,6 +48,6 @@ def getbinary(gametype):
         return binary
     except Exception:
 
-        zenity_popup(type=error, title="Process Failed", text="Looks like you are using Heroic via AppImage\n\nMake sure to keep Heroic running and try again")
+        zenity_popup(type="error", title="Process Failed", text="Looks like you are using Heroic via AppImage\n\nMake sure to keep Heroic running and try again")
         raise
 

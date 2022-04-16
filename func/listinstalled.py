@@ -10,6 +10,7 @@ def listinstalled():
   #EPIC GAMES LIBRARY
   #------------------------------------------------------------------------------------
   if os.path.exists(configpath.legendaryinstalledpath):
+    print("Load Epic Games...")
 
     #Convert legendary json to dict
     with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:
@@ -19,7 +20,7 @@ def listinstalled():
     installedkeyarray = list(installed.keys())
 
     #Proceed to making launch files
-    print("\n\nDone! Now creating launch files for your Epic Games library ...\n")
+    print("Done! Now creating launch files for your Epic Games library ...\n")
     for i in installedkeyarray:
       
       #Make sure the entries are games, not DLC
@@ -29,7 +30,7 @@ def listinstalled():
         gamename = rspchar(installed[i]["title"])
         
         #Print current action
-        print(gamename + " [" + i + "]...") # installed[i] = game's name, i = game's appname
+        print("\n\n" + gamename + " [" + i + "]...") # installed[i] = game's name, i = game's appname
 
         #Pointing to the game's json file
         gamejson = configpath.gamesjsonpath + "/" + i + ".json"
@@ -40,6 +41,7 @@ def listinstalled():
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
   if os.path.exists(configpath.goginstalledpath):
+    print("Load GOG Games...")
 
     #Convert both json to dict
     with open(configpath.goginstalledpath, encoding='utf-8') as l:
@@ -53,7 +55,7 @@ def listinstalled():
     goglibrarykeyarray = list(goglibrary['games'])
 
     #Proceed to making launch files
-    print("\n\nDone! Now creating launch files for your GOG library ...\n")
+    print("Done! Now creating launch files for your GOG library ...\n")
     for i in goginstalledkeyarray:
 
       for j in goglibrarykeyarray:
@@ -64,7 +66,7 @@ def listinstalled():
           gamename = rspchar(j['title'])
 
           #Print current action
-          print(gamename + " [" + i['appName'] + "]...")
+          print("\n\n" + gamename + " [" + i['appName'] + "]...")
 
           #Pointing to the game's json file
           gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
@@ -79,4 +81,5 @@ def listinstalled():
           createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
 
   #END OF THE PROGRAM
-  print("\n...Process finished. Launch files stored in GameFiles folder and you can now sync games to Steam via AddToSteam\nHave fun gaming!")
+  print("listlinstalled complete")
+

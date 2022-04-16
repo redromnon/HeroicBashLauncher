@@ -113,7 +113,8 @@ def addtosteam(gamename):
 
                         print(gamename + " already added to Steam.\n")
 
-                        zenity_popup(title="Game Already Added", text="{} has already been added to Steam".format(gamename))
+                        if "deck" not in os.path.expanduser("~"):
+                            zenity_popup(title="Game Already Added", text="{} has already been added to Steam".format(gamename))
 
                 else:
 
@@ -126,13 +127,13 @@ def addtosteam(gamename):
                         #print(line)
                         file.close()  
                         
-
-                        zenity_popup(title="Game Added", text="{} added to steam.".format(gamename))
+                        if "deck" not in os.path.expanduser("~"):
+                            zenity_popup(title="Game Added", text="{} added to steam.".format(gamename))
 
                 #Add artwork
                 addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)
         except Exception: 
                 
-                zenity_popup(type=error, title="Process Failed", text="Failed to add game to Steam. Please check the log for the error and consider reporting it as an issue on Github.")
+                zenity_popup(type="error", title="Process Failed", text="Failed to add game to Steam. Please check the log for the error and consider reporting it as an issue on Github.")
                 raise
 

@@ -6,6 +6,7 @@ from checkparameters import checkparameters
 from gameName import filegamename
 from steam import addtoscript, addtosteam
 from flatpak import getflatpakpath
+from zenity import zenity_installed
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
@@ -20,12 +21,14 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     gameFile = "GameFiles/" + simplified_gamename + ".sh"
 
     #Launch fail Dialog
-    # don't use zenity_popup for this, this is added to the launch script itself
-    fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games \n\nConsider posting the log as an issue" --width=200 --timeout=3')
+    fail_dialog = 'echo "Failed to launch game"'
+    if zenity_installed():
+        # don't use zenity_popup for this, this is added to the launch script itself
+        fail_dialog = 'zenity --error --title="Heroic Bash Launcher Error" --text="Failed to launch games \n\nConsider posting the log as an issue" --width=200 --timeout=5'
 
     #Launch script contents
     if configpath.is_flatpak == False:
-        contents = ('#!/bin/bash \n\n' + '#Generate log\n' + 'exec > logs/' + simplified_gamename + '.log 2>&1' + 
+        contents = ('#!/bin/bash \n\n' + '#Generate log\n' + 'mkdir --parents logs\nexec > logs/' + simplified_gamename + '.log 2>&1' +
                 '\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + 
                 gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + 
@@ -43,7 +46,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         #Entire path to GameFiles dir
         fullpath = getflatpakpath(os.path.abspath(os.getcwd()))
         
-        contents = ('#!/bin/bash\n\n' + '#Generate log\n' + 'exec > logs/' + simplified_gamename + '.log 2>&1' + 
+        contents = ('#!/bin/bash\n\n' + '#Generate log\n' + 'mkdir --parents logs\nexec > logs/' + simplified_gamename + '.log 2>&1' +
                 '\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Override launch parameters and launch game\n' + 
                 'flatpak run --command=./' + 'HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
@@ -64,3 +67,4 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         addtosteam(gamename)
     else:
         addtoscript(gamename)
+

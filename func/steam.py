@@ -113,7 +113,7 @@ def addtosteam(gamename):
 
                         print(gamename + " already added to Steam.\n")
 
-                        zenity_popup(title="Process Finished", text="Game already added to Steam")
+                        zenity_popup(title="Game Already Added", text="{} has already been added to Steam".format(gamename))
 
                 else:
 
@@ -127,7 +127,7 @@ def addtosteam(gamename):
                         file.close()  
                         
 
-                        zenity_popup(title="Process Finished", text="Game added. You can now restart Steam.")
+                        zenity_popup(title="Game Added", text="{} added to steam.".format(gamename))
 
                 #Add artwork
                 addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)

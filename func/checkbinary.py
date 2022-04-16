@@ -4,6 +4,7 @@
 
 import os, json, sys, traceback
 import configpath
+from zenity import zenity_popup
 
 def getbinary(gametype):
 
@@ -47,6 +48,6 @@ def getbinary(gametype):
         return binary
     except Exception:
 
-        print(traceback.format_exc())
-        os.system('zenity --error --title="Failed" --text="Looks like you are using Heroic via AppImage\n\nMake sure to keep Heroic running and try again" --width=300')
-        sys.exit()
+        zenity_popup(type=error, title="Process Failed", text="Looks like you are using Heroic via AppImage\n\nMake sure to keep Heroic running and try again")
+        raise
+

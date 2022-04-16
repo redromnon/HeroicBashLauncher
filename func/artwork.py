@@ -4,6 +4,7 @@
 import os, binascii, json, wget, ssl, traceback, sys
 import configpath
 from gameName import rspchar
+from zenity import zenity_popup
 
 def checkartworkexists(artwork_path, image):
     
@@ -93,6 +94,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_square']
                         print("Downloading Cover Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
+                        print("")
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + coverart)
                     else:
                         print("Covert Art exists")
@@ -103,6 +105,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading Background Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
+                        print("")
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart)
                     else:
                         print("Background Art exists")
@@ -113,6 +116,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
+                        print("")
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
                     else:
                         print("BigPicture Art exists")
@@ -135,6 +139,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_square']
                         print("Downloading Cover Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
+                        print("")
                         extract_image_url = image_url.split("/")[-1]
                         os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + coverart)
                     else:
@@ -146,6 +151,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading Background Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
+                        print("")
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart)
                     else:
                         print("Background Art exists")
@@ -156,9 +162,10 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
+                        print("")
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
     except Exception:
 
-        print(traceback.format_exc())
-        os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check the log for the error and consider reporting it as an issue on Github." --width=400')  
-        sys.exit()  
+        zenity_popup(type=error, title="Process Failed", text="Failed to add artwork. Please check the log for the error and consider reporting it as an issue on Github.")
+        raise
+

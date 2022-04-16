@@ -1,3 +1,4 @@
+#!/bin/env python3
 #Main file that takes bash arguments
 
 import os,sys
@@ -6,15 +7,12 @@ from frombash import frombash
 from listinstalled import listinstalled
 from steam import createscript, addtosteam
 from flatpak import launchflatpakgame
+from zenity import zenity_popup
 
 #Print current version
 print("Using Bash Launcher 2.4.2\n")
 
-#Check if Zenity is installed
-print("Checking if Zenity is installed:")
-checkzenity = os.system('zenity --version')
-
-if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
+if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True):
 
     #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
     #   else, update parameters of a game through launch file
@@ -25,9 +23,9 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
 
         #Don't create AddToSteam script if Steam Deck 
         if "deck" in os.path.expanduser("~"):
-            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nHave fun gaming!" --width=300')
+            zenity_popup(title="Process Finished", text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nHave fun gaming!")
         else:
-            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can sync games to Steam via AddToSteam\n\nHave fun gaming!" --width=300')
+            zenity_popup(title="Process Finished", text="Launch scripts stored in GameFiles folder\n\nYou can sync games to Steam via AddToSteam\n\nHave fun gaming!")
             print("\nCreating AddToSteam script...")
             createscript()
     elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
@@ -42,9 +40,6 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
         frombash(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     else:
         launchflatpakgame(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
-elif checkzenity != 0:
-    
-    print("Zenity not installed. Please consider doing so and try again.")
 else:
+    zenity_popup(type=error, title="Process Stopped", text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
 
-    os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300')

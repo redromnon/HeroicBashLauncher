@@ -3,6 +3,7 @@
 import os, json, sys, traceback
 import configpath
 from checkbinary import getbinary
+from zenity import zenity_popup
 
 
 def checkparameters(appname, gamejsonfile, gametype):
@@ -259,9 +260,8 @@ def checkparameters(appname, gamejsonfile, gametype):
       offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + "--platform=linux " + launcherArgs
   except Exception:
 
-      print(traceback.format_exc())
-      os.system('zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check the log for the error and consider reporting it as an issue on Github." --width=400')
-      sys.exit()
+      zenity_popup(type=error, title="Process Failed", text="HeroicBashLauncher failed to create scripts.\n\nPlease check the log for the error and consider reporting it as an issue on Github.")
+      raise
 
   #The entire launch command
   #print(launchcommand)

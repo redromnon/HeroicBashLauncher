@@ -29,6 +29,7 @@ def launchflatpakgame(gamename, appname, gamejson, gametype, flatpak):
     gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync, gametype
 
     #Launch fail Dialog
+    # don't use zenity_popup for this, this is added to the launch script itself
     fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games \n\nConsider posting the log as an issue" --width=200 --timeout=3')
 
     #Show game launch

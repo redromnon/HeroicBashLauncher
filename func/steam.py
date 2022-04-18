@@ -55,8 +55,17 @@ def addtosteam(gamename):
                                 else:
                                         pass
         
+                #Check if the shortcuts file has been created
+                shortcuts_file=(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'))
+                if !exists(shortcuts_file):
+                        if "deck" not in os.path.expanduser("~"): 
+                            print("Steam shortcuts.vdf file does not exist, please create it first by adding a shortcut to steam")
+                        else:
+                            print("Steam shortcuts.vdf file does not exist, please create it first.  You can do this by hitting 'Learn More' in the Non-Steam section of the library and installing Chrome")
+                
+
                 #Read Steam shortcus file
-                file=open(str(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'), 'rb')
+                file=open(shortcuts_file)
                 line=file.read()
                 #print(line)
                 file.close()

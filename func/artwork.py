@@ -11,7 +11,7 @@ def checkartworkexists(artwork_path, image):
 
     for i in os.listdir(artwork_path):
            
-        if i in image:
+        if image == i:
             check_flag = 1
             break
 
@@ -41,9 +41,9 @@ def addartwork(appname, exe, userid, simplified_gamename):
 
 
     #Artwork types
-    coverart =  (str(appid) + 'p.jpg', str(appid) + 'p.png')
-    backgroundart = (str(appid) + '_hero.jpg', str(appid) + '_hero.png')
-    bigpictureart = (str(appid) + '.jpg', str(appid) + '.png')
+    coverart =  str(appid) + 'p.jpg'
+    backgroundart = str(appid) + '_hero.jpg'
+    bigpictureart = str(appid) + '.jpg'
 
 
     #Check if the folder exists, create if not

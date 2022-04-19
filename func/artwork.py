@@ -11,7 +11,7 @@ def checkartworkexists(artwork_path, image):
 
     for i in os.listdir(artwork_path):
            
-        if image == i:
+        if i in image:
             check_flag = 1
             break
 
@@ -41,9 +41,9 @@ def addartwork(appname, exe, userid, simplified_gamename):
 
 
     #Artwork types
-    coverart =  str(appid) + 'p.jpg'
-    backgroundart = str(appid) + '_hero.jpg'
-    bigpictureart = str(appid) + '.jpg'
+    coverart =  [str(appid) + 'p.jpg', str(appid) + 'p.png']
+    backgroundart = [str(appid) + '_hero.jpg', str(appid) + '_hero.png']
+    bigpictureart = [str(appid) + '.jpg', str(appid) + '.png']
 
 
     #Check if the folder exists, create if not
@@ -93,7 +93,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_square']
                         print("Downloading Cover Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
-                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + coverart)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + coverart[0])
                     else:
                         print("Covert Art exists")
 
@@ -103,7 +103,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading Background Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
-                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart[0])
                     else:
                         print("Background Art exists")
 
@@ -113,7 +113,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
-                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
                     else:
                         print("BigPicture Art exists")
         elif "GOG" in readscript:
@@ -136,7 +136,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         print("Downloading Cover Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         extract_image_url = image_url.split("/")[-1]
-                        os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + coverart)
+                        os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + coverart[0])
                     else:
                         print("Covert Art exists")
 
@@ -146,7 +146,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading Background Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
-                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart[0])
                     else:
                         print("Background Art exists")
 
@@ -156,7 +156,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         image_url = i['art_cover']
                         print("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
-                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart)
+                        os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
     except Exception:
 
         print(traceback.format_exc())

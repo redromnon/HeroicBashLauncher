@@ -2,6 +2,7 @@ import os, sys, traceback
 from gameName import filegamename
 from artwork import addartwork
 import configpath 
+from zenity import zenity_popup
 
 #Zenity list box
 contents = ('#!/bin/bash \n\n #Create log \n exec > AddToSteam.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +
@@ -112,8 +113,8 @@ def addtosteam(gamename):
 
                         print(gamename + " already added to Steam.\n")
 
-                        if "deck" not in os.path.expanduser("~"): 
-                                os.system('zenity --info --title="Process Finished" --text="Game already added to Steam" --width=350')
+                        if "deck" not in os.path.expanduser("~"):
+                            zenity_popup(title="Game Already Added", text="{} has already been added to Steam".format(gamename))
 
                 else:
 
@@ -126,16 +127,13 @@ def addtosteam(gamename):
                         #print(line)
                         file.close()  
                         
-
-                        if "deck" not in os.path.expanduser("~"): 
-                                os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
+                        if "deck" not in os.path.expanduser("~"):
+                            zenity_popup(title="Game Added", text="{} added to steam.".format(gamename))
 
                 #Add artwork
                 addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)
         except Exception: 
                 
-                print(traceback.format_exc())
-                os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the log for the error and consider reporting it as an issue on Github." --width=400')
-                sys.exit()
-        
+                zenity_popup(type="error", title="Process Failed", text="Failed to add game to Steam. Please check the log for the error and consider reporting it as an issue on Github.")
+                raise
 

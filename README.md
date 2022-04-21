@@ -31,9 +31,7 @@ Thus, you can now stay on your launcher interface comfortably without having the
 
 ✔️ Displays a GUI list to add games (add the launch scripts) to Steam for Non-Deck users
 
-✔️ Automatically syncs games (adds the launch scripts) to Steam for Deck users
-
-✔️ Downloads relevant artwork
+✔️ Automatically syncs games (adds the launch scripts) to Steam and downloads relevant artwork for Deck users
 
 
 ## Pre-requisites
@@ -52,7 +50,7 @@ Execute the program by simply running the `setup.sh` script. You should be greet
 ### Launching Games
 
 #### Steam Deck users
-Your games will be automatically added to Steam. Just open Steam or switch to the Deck UI Mode to launch your titles.
+Your games will be automatically added to Steam along with the artwork. Just open Steam or switch to the Deck UI Mode to launch your titles.
 
 #### Non-Deck users
 - Run your game by executing the game's launch script by double-clicking the game's launch scipt, using the terminal like ```./RocketLeague_Heroic.sh```

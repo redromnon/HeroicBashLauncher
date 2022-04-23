@@ -36,7 +36,10 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
                 print("No game selected")
                 sys.exit()
         else:
-            addtosteam(sys.argv[1])
+            for i in sys.argv[1].split("|"):
+                addtosteam(i)
+
+            os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
     elif len(sys.argv) == 5:
         
         frombash(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

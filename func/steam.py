@@ -5,7 +5,7 @@ import configpath
 
 #Zenity list box
 contents = ('#!/bin/bash \n\n #Create log \n exec > AddToSteam.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +
-                'game=$(zenity --list --title="Add to Steam" --column="Game Name" --width=400 --height=400 ')
+                'game=$(zenity --list --title="Add to Steam" --checklist --column="Choose" --column="Game Name" --width=400 --height=400 ')
 
 
 def createscript():
@@ -36,7 +36,7 @@ def addtoscript(gamename):
         
         global contents 
 
-        contents = contents + '"' + gamename + '" '
+        contents = contents + ' FALSE "' + gamename + '" '
 
 
 def addtosteam(gamename):
@@ -50,7 +50,7 @@ def addtosteam(gamename):
                         if int(i) > 0:
                                 userid = i
                                 if (os.path.exists(os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf')):
-                                        print("Selecting Steam userid - " + userid)
+                                        print("\nSelecting Steam userid - " + userid)
                                         break
                                 else:
                                         pass
@@ -110,11 +110,7 @@ def addtosteam(gamename):
                 #Add game if not already added
                 if simplified_gamename in str(line): 
 
-                        print(gamename + " already added to Steam.\n")
-
-                        if "deck" not in os.path.expanduser("~"): 
-                                os.system('zenity --info --title="Process Finished" --text="Game already added to Steam" --width=350')
-
+                        print(gamename + " already added to Steam.")
                 else:
 
                         
@@ -125,10 +121,6 @@ def addtosteam(gamename):
                         f.write(line[:len(line)-2] + entry.encode() + line[-2:])
                         #print(line)
                         file.close()  
-                        
-
-                        if "deck" not in os.path.expanduser("~"): 
-                                os.system('zenity --info --title="Process Finished" --text="Game added. You can now restart Steam." --width=350')
 
                 #Add artwork
                 addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)

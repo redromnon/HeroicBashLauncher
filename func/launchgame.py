@@ -18,8 +18,8 @@ def launch(gamename, appname, gamejson, gametype):
 
     #Pre Cloud Save Sync
     if not cloudsync == "":
-        os.system("printf '\nRunning pre-cloud save syncing....\n'")
-        os.system(cloudsync)
+        os.system("printf '\nRunning pre-cloud save syncing....\n" + cloudsync[0] + "\n'")
+        os.system(cloudsync[0])
 
     #Launch Game
     os.system("printf '\n\nRunning launch command for " + gamename + ":\n" + gamecommand[0] + "\n'")
@@ -27,5 +27,5 @@ def launch(gamename, appname, gamejson, gametype):
 
     #Post Cloud Save Sync
     if not cloudsync == "":
-        os.system("printf '\n\nRunning post-cloud save syncing....\n'")
-        os.system(cloudsync)
+        os.system("printf '\n\nRunning post-cloud save syncing....\n" + cloudsync[1] + "\n'")
+        os.system(cloudsync[1])

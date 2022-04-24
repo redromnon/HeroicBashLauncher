@@ -42,7 +42,9 @@ def checkparameters(appname, gamejsonfile, gametype):
         if game[appname]["savesPath"] == "":
           cloudsync = ""
         else:
-          cloudsync = binary + 'sync-saves --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y '
+          #Download and Upload
+          cloudsync = [binary + 'sync-saves --skip-upload --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y ', 
+                      binary + 'sync-saves --skip-download --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y ']
 
     #print(cloudsync)
 

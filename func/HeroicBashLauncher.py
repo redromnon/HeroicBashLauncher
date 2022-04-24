@@ -2,10 +2,9 @@
 
 import os,sys
 import configpath
-from frombash import frombash
+from launchgame import launch
 from listinstalled import listinstalled
 from steam import createscript, addtosteam
-from flatpak import launchflatpakgame
 
 #Print current version
 print("Using Bash Launcher 2.4.3\n")
@@ -40,11 +39,8 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
                 addtosteam(i)
 
             os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
-    elif len(sys.argv) == 5:
-        
-        frombash(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    else:
-        launchflatpakgame(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+    else: #Launch the game
+        launch(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 elif checkzenity != 0:
     
     print("Zenity not installed. Please consider doing so and try again.")

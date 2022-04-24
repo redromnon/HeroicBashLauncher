@@ -10,7 +10,7 @@ from flatpak import getflatpakpath
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
     # Check/Update parameters
-    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync
+    #gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync
 
     #Generating game's file name
     simplified_gamename = filegamename(gamename)
@@ -27,10 +27,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         contents = ('#!/bin/bash \n\n' + '#Generate log\n' + 'exec > logs/' + simplified_gamename + '.log 2>&1' + 
                 '\n\n' + '#Game Name = ' + gamename + ' (' + gametype.upper() + ') ' + 
                 '\n\n' + '#App Name = ' + appname + '\n\n' + '#Overrides launch parameters\ncd .. && ./HeroicBashLauncher "' + 
-                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + 
-                '\n\n' + gamecommand[2] + '\n\n(' + gamecommand[0] + 
-                '|| (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; ' + gamecommand[1] + ')) || (' + fail_dialog + ')' +
-                '\n\n' + gamecommand[2])
+                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ')
     
         with open(gameFile, "w") as g:
             g.write(contents)
@@ -48,8 +45,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
                 'flatpak run --command=./' + 'HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
                 gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"' + 
                 ' || ' + 'flatpak run --command=./' + fullpath + '/HeroicBashLauncher' + ' com.heroicgameslauncher.hgl "' +
-                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"' +
-                '\n\n' + "#Launch command = " + gamecommand[0])
+                gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '" ' + '"flatpak"')
         
         with open(simplified_gamename + ".sh", "w") as g:
             g.write(contents)

@@ -1,5 +1,6 @@
 #CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
 
+from distutils.command.config import config
 import os, json, sys, traceback
 import configpath
 from checkbinary import getbinary
@@ -184,6 +185,27 @@ def checkparameters(appname, gamejsonfile, gametype):
       #print(targetExe)
 
 
+    #Steam Runtime(GOG)
+    steam_runtime = ""
+    if ifpresent("useSteamRuntime") == True:
+
+      if game[appname]["useSteamRuntime"] == True:
+        
+        if configpath.is_steam_flatpak == True:
+
+          steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh "
+        else:
+          
+          if os.path.exists(os.path.expanduser('~') + '.local/share/Steam') == True:
+
+            steam_runtime = os.path.expanduser("~") + "/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh "
+          else:
+
+            steam_runtime = os.path.expanduser("~") + "/.steam/debian-installation/ubuntu12_32/steam-runtime/run.sh "
+
+      #print(targetExe)
+
+
     #Get GOG game's installed location
     if gametype != "epic":
 
@@ -257,8 +279,8 @@ def checkparameters(appname, gamejsonfile, gametype):
           offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + "--os windows " + launcherArgs  
     else:#LINUX GOG
 
-      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
-      offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + "--platform=linux " + launcherArgs
+      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
+      offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + "--platform=linux " + launcherArgs
   except Exception:
 
       print(traceback.format_exc())

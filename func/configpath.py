@@ -48,3 +48,11 @@ if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.h
     goglibrarypath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/gog_store/library.json"
 
     heroiclibrarypath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/lib-cache/library.json"
+
+
+#Check if Steam is Flatpak
+is_steam_flatpak = False
+
+
+if os.path.exists(os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam"):
+    is_steam_flatpak = True

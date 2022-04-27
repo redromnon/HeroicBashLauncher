@@ -25,13 +25,14 @@ Thus, you can now stay on your launcher interface comfortably without having the
 
 ## Features
 
-✔️ Creates launch scipts for installed Epic & GOG games 
+✔️ Creates launch scripts for installed Epic & GOG games that act as shortcuts
 
-✔️ Includes all launch parameters set in Heroic's Game Settings
+✔️ Includes all launch parameters including cloud save-syncing set in Heroic's Game Settings
 
-✔️ Displays a GUI list to add games (add the launch scripts) to Steam for Non-Deck users
+✔️ Displays a GUI list to add games (add the launch scripts and download artwork) to Steam for Non-Deck users
 
-✔️ Automatically syncs games (adds the launch scripts) to Steam and downloads relevant artwork for Deck users
+✔️ Automatically syncs games (adds the launch scripts and download artwork) to Steam for Deck users
+
 
 
 ## Pre-requisites
@@ -45,7 +46,7 @@ Thus, you can now stay on your launcher interface comfortably without having the
 Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **.zip** file of the latest release.
 
 ### Running the Program
-Execute the program by simply running the `setup.sh` script. You should be greeted by the _Process Finished_ dialog at the end.
+Execute the program by simply  double-clicking the `setup.sh` script. You should be greeted by the _Process Finished_ dialog at the end.
 
 ### Launching Games
 
@@ -53,7 +54,7 @@ Execute the program by simply running the `setup.sh` script. You should be greet
 Your games will be automatically added to Steam along with the artwork. Just open Steam or switch to the Deck UI Mode to launch your titles.
 
 #### Non-Deck users
-- Run your game by executing the game's launch script by double-clicking the game's launch scipt, using the terminal like ```./RocketLeague_Heroic.sh```
+- Run your game by executing the game's launch script by double-clicking the game's launch scipt or running ```./<gamename>_Heroic.sh```
 - Using your preferred game launcher/manager, just point the executable path to the game's launch script. Simple!
 
 **Don't copy or move the game files and launch scripts anywhere else, it won't work.** 
@@ -62,7 +63,7 @@ Your games will be automatically added to Steam along with the artwork. Just ope
 ## Handy Guides
 
 - [Bash Launcher Wiki](https://github.com/redromnon/HeroicBashLauncher/wiki)
-- [Steam Deck extended guide](https://github.com/redromnon/HeroicBashLauncher/wiki/Steam-Deck-(Flatpak)-Guide)
+- [Flatpak/Steam Deck extended guide](https://github.com/redromnon/HeroicBashLauncher/wiki/Steam-Deck-(Flatpak)-Guide)
 - [Adding Heroic games to Lutris and GameHub](https://github.com/redromnon/HeroicBashLauncher/wiki/Adding-Games-to-Game-Launchers-&-Managers)
 - [Syncing games to Steam](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Adding-Games-to-Steam-on-Linux#adding-your-games-to-steam)
 
@@ -72,7 +73,7 @@ Before submitting an issue :
 
 - Make sure the game launches from Heroic Games Launcher.
 
-- You might have to restart Steam after adding the launch scripts if the games don't launch. 
+- Restart Steam after adding the launch scripts if the games don't launch. 
 
 - Make sure that the shorcuts.vdf file is present in `/.steam/steam/userdata/<Your-Steam-ID>/config/` (Multiple account support coming soon)
 

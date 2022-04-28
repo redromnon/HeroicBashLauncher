@@ -284,7 +284,7 @@ def checkparameters(appname, gamejsonfile, gametype):
   except Exception:
 
       print(traceback.format_exc())
-      os.system('zenity --error --title="Process Failed" --text="HeroicBashLauncher failed to create scripts.\n\nPlease check the log for the error and consider reporting it as an issue on Github." --width=400')
+      os.system('zenity --error --title="Process Failed" --text="\n\nPlease check game log for the error and consider reporting it as an issue on GitHub." --width=400')
       sys.exit()
 
   #The entire launch command

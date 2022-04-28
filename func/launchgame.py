@@ -12,7 +12,7 @@ def launch(gamename, appname, gamejson, gametype):
     launchcommand, offline_launchcommand, cloudsync = gamecommand[0], gamecommand[1], gamecommand[2]
 
     #Launch Fail Dialog
-    fail_dialog= ('zenity --error --title="Error" --text="Failed to launch games \n\nConsider posting the log as an issue" --width=200 --timeout=3')
+    fail_dialog= ('zenity --error --title="Error" --text="Failed to launch ' + gamename + '\n\nPlease check the game log under /logs/ for the error and consider reporting it as an issue on GitHub." --width=200')
 
     #START LAUNCHING THE GAME
 

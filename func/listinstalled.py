@@ -79,4 +79,4 @@ def listinstalled():
           createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
 
   #END OF THE PROGRAM
-  print("\n...Process finished. Launch files stored in GameFiles folder and you can now sync games to Steam via AddToSteam\nHave fun gaming!")
+  print("\n...Process finished. Launch scripts stored in GameFiles folder.")

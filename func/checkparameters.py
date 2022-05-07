@@ -140,7 +140,11 @@ def checkparameters(appname, gamejsonfile, gametype):
     if ifpresent("useGameMode") == True: 
   
       if game[appname]["useGameMode"] == True:
-        useGameMode = "/usr/bin/gamemoderun "
+        #useGameMode = "/usr/bin/gamemoderun "
+        if os.path.isfile("/usr/bin/gamemoderun") == True:
+          useGameMode = "/usr/bin/gamemoderun "
+        else:
+          useGameMode = "/usr/games/gamemoderun "
 
     #print(useGameMode)
 

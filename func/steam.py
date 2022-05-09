@@ -40,19 +40,20 @@ def addtoscript(gamename):
 
 
 def addtosteam(gamename):
+        userdata_folder = os.path.join(os.path.expanduser("~"), '.steam' , 'steam', 'userdata')
 
         try:
 
-                listuserid = os.listdir(os.path.expanduser("~") + "/.steam/steam/userdata/")
+                listuserid = os.listdir(userdata_folder)
 
         
                 for userid in listuserid:
 
-                        shortcutsvdfpath = os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/shortcuts.vdf'
-
+                        shortcutsvdfpath = os.path.join(userdata_folder, str(userid), 'config', 'shortcuts.vdf')
                         #Create shortcuts.vdf if doesn't exist
                         print("\n\n")
                         if os.path.isfile(shortcutsvdfpath) == False:
+                                os.makedirs(os.path.dirname(shortcutsvdfpath), exist_ok=True)
                                 file = open(str(shortcutsvdfpath), 'wb')
                                 file.write("\x00shortcuts\x00\x08\x08".encode())
                                 print("Created shortcuts.vdf in " + userid)

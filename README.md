@@ -2,7 +2,7 @@
 
 # HeroicBashLauncher
 Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam, Lutris, GameHub or any other frontend game launcher? 
-Bash Launcher does exactly this and takes to straight to the game!  
+Bash Launcher does exactly this and takes you straight to the game!  
 
 Thus, you can now stay on your launcher interface comfortably without having the need to open Heroic to launch your games at all.   
 
@@ -29,9 +29,9 @@ Thus, you can now stay on your launcher interface comfortably without having the
 
 ✔️ Includes all launch parameters including cloud save-syncing set in Heroic's Game Settings
 
-✔️ Displays a GUI list to add games (add the launch scripts and download artwork) to Steam for Non-Deck users
+✔️ Displays a GUI list to add games (add the launch scripts and download artwork) to Steam for Linux Desktop users
 
-✔️ Automatically syncs games (adds the launch scripts and download artwork) to Steam for Deck users
+✔️ Automatically syncs games (adds the launch scripts and download artwork) to Steam for Steam-Deck users
 
 
 
@@ -53,9 +53,9 @@ Execute the program by simply  double-clicking the `setup.sh` script. You should
 #### Steam Deck users
 Your games will be automatically added to Steam along with the artwork. Just open Steam or switch to the Deck UI Mode to launch your titles.
 
-#### Non-Deck users
+#### Desktop users
 - Run your game by executing the game's launch script by double-clicking the game's launch scipt or running ```./<gamename>_Heroic.sh```
-- Using your preferred game launcher/manager, just point the executable path to the game's launch script. Simple!
+- Using your preferred game launcher/manager, just point the executable path to the game's launch script or just run `AddToSteam.sh` to launch games from Steam. Simple!
 
 **Don't copy or move the game files and launch scripts anywhere else, it won't work.** 
 
@@ -75,9 +75,7 @@ Before submitting an issue :
 
 - Restart Steam after adding the launch scripts if the games don't launch. 
 
-- Make sure that the shorcuts.vdf file is present in `/.steam/steam/userdata/<Your-Steam-ID>/config/` (Multiple account support coming soon)
-
-- Consider deleting any special characters from any game-related folder names (like Wine Prefix).
+- Consider deleting any special characters from any game-related folder names (like Wine Prefix) or even your Epic/GOG Account's username.
 
 - Disable the Proton compatibility layer for the newly added launch script. You're not trying to run a game but a script.
 

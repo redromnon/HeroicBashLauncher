@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+### Before posting this issue, make sure you've read the [Issues section in the Readme](https://github.com/redromnon/HeroicBashLauncher#issues-and-suggestions) and the [Flatpak/Steam-Deck guide](https://github.com/redromnon/HeroicBashLauncher/wiki/Steam-Deck-(Flatpak)-Guide).
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 

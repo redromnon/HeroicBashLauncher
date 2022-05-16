@@ -79,7 +79,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch ' + {game_name} + '\n\nPlease check the game log under /logs/ for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
     #Wait for game to launch
-    sleep 6
+    sleep 10
     
     while [ 1 ]
     do

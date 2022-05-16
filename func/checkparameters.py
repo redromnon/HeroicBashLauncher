@@ -35,14 +35,12 @@ def checkparameters(appname, gamejsonfile, gametype):
 
 
     #Auto-Cloud Save Sync
-    cloudsync = ""
+    cloudsync = ["",""]
     if ifpresent("autoSyncSaves") == True:
 
       if game[appname]["autoSyncSaves"] == True:
     
-        if game[appname]["savesPath"] == "":
-          cloudsync = ""
-        else:
+        if game[appname]["savesPath"] != "":
           #Download and Upload
           cloudsync = [binary + 'sync-saves --skip-upload --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y ', 
                       binary + 'sync-saves --skip-download --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y ']
@@ -222,6 +220,7 @@ def checkparameters(appname, gamejsonfile, gametype):
       goginstalledkeyarray = list(goginstalled['installed'])
 
       #Get install location
+      game_loc = ""
       for i in goginstalledkeyarray:
 
         if appname == i['appName']:

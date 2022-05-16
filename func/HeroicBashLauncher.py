@@ -2,7 +2,7 @@
 
 import os,sys
 import configpath
-from launchgame import launch
+from createlaunchfile import createlaunchfile
 from listinstalled import listinstalled
 from steam import createscript, addtosteam
 
@@ -40,7 +40,7 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
 
             os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
     else: #Launch the game
-        launch(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+        createlaunchfile(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 elif checkzenity != 0:
     
     print("Zenity not installed. Please consider doing so and try again.")

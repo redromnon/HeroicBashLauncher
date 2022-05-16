@@ -18,12 +18,7 @@
 exec > HeroicBashLauncher.log 2>&1
 
 #Run HeroicBashLauncher executable
-EXE=HeroicBashLauncher
-if [ -f "$EXE" ]; then
-    echo "Using $EXE Base/AppImage version..." ; ./HeroicBashLauncher
-else
-    echo "Using $EXE Flatpak version..." ; (cd GameFiles && ./HeroicBashLauncher)
-fi
+./HeroicBashLauncher
 
 
 

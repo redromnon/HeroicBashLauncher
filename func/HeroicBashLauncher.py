@@ -35,6 +35,7 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
                 print("No game selected")
                 sys.exit()
         else:
+            os.system('zenity --info --title="Process Running" --text="Now downloading artwork and adding games to Steam\n\nThis may take a while depending on your internet connection and number of games" --width=350')
             for i in sys.argv[1].split("|"):
                 addtosteam(i)
 

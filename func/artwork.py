@@ -59,11 +59,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
 
         print("Checking Artwork...")
 
-        #GameFiles dir if non-Flatpak
-        if configpath.is_flatpak == True:
-            GameFiles = ""
-        else:
-            GameFiles = "GameFiles/"
+        GameFiles = os.getcwd() + "/GameFiles/"
 
         #Reading from file
         openscript = open(GameFiles + simplified_gamename + ".sh", 'r')
@@ -74,7 +70,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
         ssl._create_default_https_context = ssl._create_unverified_context
 
         #Check if game is Epic or GOG
-        if "EPIC" in readscript:
+        if "epic" in readscript:
             
             #print("Epic")
 
@@ -116,7 +112,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
                     else:
                         print("BigPicture Art exists")
-        elif "GOG" in readscript:
+        elif "gog" in readscript:
             
             #print("GOG")
 

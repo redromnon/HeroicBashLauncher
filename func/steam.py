@@ -64,14 +64,7 @@ def addtosteam(gamename):
                         simplified_gamename = filegamename(gamename)
                         #print(simplified_gamename)
 
-                        #GameFiles dir if non-Flatpak
-                        if configpath.is_flatpak == True:
-                                GameFiles = "/"
-                        else:
-                                GameFiles = "/GameFiles/"
 
-                        
-                        
                         #SYNTAX FOR ADDING NON-STEAM GAMES
                         curr_dir = os.getcwd() #till .../HeroicBashLauncher
 
@@ -85,8 +78,8 @@ def addtosteam(gamename):
                         srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
                         #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
                         AppName = soh + 'AppName' + nul + gamename + nul
-                        Exe = soh + 'Exe' + nul + '"' + curr_dir + GameFiles + simplified_gamename + '.sh"' + nul
-                        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + GameFiles + '"' + nul
+                        Exe = soh + 'Exe' + nul + '"' + curr_dir + "/GameFiles/" + simplified_gamename + '.sh"' + nul
+                        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + "/GameFiles/" + '"' + nul
                         icon = soh + 'icon' + nul + nul
                         ShortcutPath = soh + 'ShortcutPath' + nul + nul
                         LaunchOptions = soh + 'LaunchOptions' + nul + nul
@@ -122,7 +115,7 @@ def addtosteam(gamename):
                                 file.close()  
 
                         #Add artwork
-                        addartwork(gamename, '"' + curr_dir + GameFiles + simplified_gamename + '.sh"', userid, simplified_gamename)
+                        addartwork(gamename, '"' + curr_dir + "/GameFiles/" + simplified_gamename + '.sh"', userid, simplified_gamename)
         except Exception: 
                 
                 print(traceback.format_exc())

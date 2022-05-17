@@ -13,16 +13,9 @@ def createscript():
         global contents 
 
  
-        #Check if Flatpak
-        if configpath.is_flatpak == True:
+        
 
-                contents = contents + ')\ncd GameFiles && ./HeroicBashLauncher "$game" '
-
-                #Move up directory outside GameFiles
-                os.chdir(os.path.dirname(os.getcwd()))
-        else:
-
-                contents = contents + ')\n./HeroicBashLauncher "$game" '
+        contents = contents + ')\n./HeroicBashLauncher "$game" '
 
 
         with open("AddToSteam.sh", "w") as c:

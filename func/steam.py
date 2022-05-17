@@ -121,9 +121,9 @@ def addtosteam(gamename):
                 print(traceback.format_exc())
 
                 if "deck" in os.path.expanduser("~"):
-                        os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the HeroicBashLauncher.log for the error and consider reporting it as an issue on GitHub." --width=400')
+                        os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the HeroicBashLauncher.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
                 else:
-                        os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the AddToSteam.log for the error and consider reporting it as an issue on GitHub." --width=400')
+                        os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the AddToSteam.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
                 sys.exit()
         
 

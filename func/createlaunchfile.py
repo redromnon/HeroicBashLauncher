@@ -72,7 +72,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Launch game
     {cloudsyncdownload}
 
-    ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under /logs/ for the error and consider reporting it as an issue on GitHub." --width=200; exit)
+    ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
     #Wait for game to launch
     sleep 10
@@ -103,7 +103,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     gog_script = ("""
 
     #Launch game
-    ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch ' + {game_name} + '\n\nPlease check the game log under /logs/ for the error and consider reporting it as an issue on GitHub." --width=200; exit)
+    ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch ' + {game_name} + '\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
     """).format(launchcommand = gamecommand[0], offline_launchcommand = gamecommand[1], game_name = gamename) 
 

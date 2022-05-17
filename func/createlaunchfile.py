@@ -59,32 +59,14 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #!/bin/bash
 
     #Currently created launch script for {game_name} ({app_name}) ({game_type})
+    #Launches from {gamelaunchscript}.sh
 
 
-    """).format(game_name = gamename, game_type = gametype, app_name = appname)
+    """).format(game_name = gamename, game_type = gametype, app_name = appname, gamelaunchscript = simplified_gamename)
+
 
     
-    
-    #Find game's exe file for tracking before post-game syncing (Epic)
-
-    #Find the game's exe name
-    gameexe = ""
-
-    with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:
-      installed = json.load(l) 
-
-    #Games' AppNames stored in list 
-    installedkeyarray = list(installed.keys())
-
-    #Proceed to making launch files
-    for i in installedkeyarray:
-
-        if i == appname:
-            gameexe = installed[i]['executable'].split('/')[-1]
-            break
-
-    
-    #Epic Games Format
+    #Epic Games Format (Track wineserver before running post-game sync)
     epic_script = ("""
 
     #Launch game
@@ -98,13 +80,14 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     while [ 1 ]
     do
 
-        SERVICE="{game_exe}"
+        checkwine="wineserver"
 
-        if pgrep -x "$SERVICE" >/dev/null
+        if pgrep -x "$checkwine" >/dev/null
         then
             :
         else
-            echo "$SERVICE stopped"
+            echo "$checkwine stopped"
+            echo "{game_name} stopped"
             {cloudsyncupload}
             exit 
         fi
@@ -113,7 +96,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     done
 
     """).format(launchcommand = gamecommand[0], offline_launchcommand = gamecommand[1], 
-                cloudsyncdownload = cloudsync[0], cloudsyncupload = cloudsync[1], game_exe = gameexe, game_name = gamename)
+                cloudsyncdownload = cloudsync[0], cloudsyncupload = cloudsync[1], game_name = gamename)
 
     
     #GOG format (without cloud sync check)

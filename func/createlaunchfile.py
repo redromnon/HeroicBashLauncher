@@ -76,7 +76,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Launch game
     {cloudsyncdownload}
 
-    ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch ' + {game_name} + '\n\nPlease check the game log under /logs/ for the error and consider reporting it as an issue on GitHub." --width=200; exit)
+    ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under /logs/ for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
     #Wait for game to launch
     sleep 10
@@ -124,7 +124,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Write to file
     with open(gameFilepath, "w") as f:
             f.write(final_launch_script)
-    #print(launch_script)
+    os.system("chmod u+x " + gameFilepath)
     
     
     #If system is Steam Deck, add to Steam right away or add to Steam script

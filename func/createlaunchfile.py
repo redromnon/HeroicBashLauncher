@@ -1,4 +1,4 @@
-#Creates the bash file
+#Creates the launch script and additional flatpak launch script for launching games
 
 import os, json
 import configpath
@@ -15,7 +15,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Generating game's file name
     simplified_gamename = filegamename(gamename)
 
-    #Creating the game file name
+    #Set file paths
     if "GameFiles" in os.getcwd():#select parent dir
         executablepath = os.path.dirname(os.getcwd()) + '/HeroicBashLauncher' + ' "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '"' 
         gameFilepath = os.getcwd() + "/" + simplified_gamename + ".sh"
@@ -66,6 +66,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     
     
     #Find game's exe file for tracking before post-game syncing (Epic)
+
+    #Find the game's exe name
     gameexe = ""
 
     with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:
@@ -104,10 +106,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         else
             echo "$SERVICE stopped"
             {cloudsyncupload}
-            exit
-            # uncomment to start nginx if stopped
-            # systemctl start nginx
-            # mail  
+            exit 
         fi
 
         sleep 3

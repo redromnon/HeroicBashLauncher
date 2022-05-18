@@ -25,10 +25,13 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         gameFilepath = os.getcwd() + "/GameFiles/" + simplified_gamename + ".sh"
         flatpakgamescriptpath = os.getcwd() + "/GameFiles/launchflatpakgame.sh"
     
+    #Launch commands for flatpak
     if configpath.is_flatpak == False:
         launchflatpakgame = ''
+        showlaunchcommand = ''
     else:
         launchflatpakgame = 'flatpak run --command=./launchflatpakgame.sh com.heroicgameslauncher.hgl' 
+        showlaunchcommand = '#Launch Command\n    #' + gamecommand[0]#Left space for alignment
 
     ####################################################################################################################
     #Launch Script Format
@@ -50,8 +53,10 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     {launch_game_in_flatpak}
 
+    {show_launch_command}
+
     """).format(logname = simplified_gamename,game_name = gamename, game_type = gametype, app_name = appname, 
-                executable_path = executablepath, launch_game_in_flatpak = launchflatpakgame)
+                executable_path = executablepath, launch_game_in_flatpak = launchflatpakgame, show_launch_command = showlaunchcommand)
 
     
     #Flatpak Game Script Format

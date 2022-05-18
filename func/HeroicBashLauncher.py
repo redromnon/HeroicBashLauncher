@@ -7,7 +7,7 @@ from listinstalled import listinstalled
 from steam import createscript, addtosteam
 
 #Print current version
-print("Using Bash Launcher 2.6.0 Beta\n")
+print("Using Bash Launcher 2.6.0\n")
 
 #Check if Zenity is installed
 print("Checking if Zenity is installed:")

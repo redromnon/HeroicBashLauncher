@@ -270,6 +270,9 @@ def checkparameters(appname, gamejsonfile, gametype):
           steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/.steam/steam "
         
         steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
+        
+        #Wrap Proton path (bin) in quotes to avoid errors due to spaces in the path
+        wineVersion_bin = "'" + wineVersion_bin + "'"
         bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
 
         if gametype == "epic":

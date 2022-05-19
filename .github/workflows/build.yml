@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Build
 on: [push,pull_request]
 
 jobs:
@@ -26,13 +26,8 @@ jobs:
       - name: Install Pyinstaller 
         run : pip3 install --upgrade pyinstaller wget
       
-      - name: Build
-        run: cd func && pyinstaller HeroicBashLauncher.py --onefile --name HeroicBashLauncher
-        
-      - name: Upload 
-        uses: actions/upload-artifact@v3
-        with:
-          name: HeroicBashLauncher
-          path: /home/runner/work/HeroicBashLauncher/HeroicBashLauncher/func/dist/HeroicBashLauncher
+      - name: List directory in repository
+        run: |
+          ls ${{ github.workspace }}
         
       - run: echo "🍏 This job's status is ${{ job.status }}."

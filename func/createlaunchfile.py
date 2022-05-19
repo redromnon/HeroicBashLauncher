@@ -35,8 +35,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     ####################################################################################################################
     #Launch Script Format
-    launch_script = ("""
-    #!/bin/bash 
+    launch_script = ("""#!/bin/bash 
 
     #Generate log
     exec > logs/{logname}.log 2>&1
@@ -60,8 +59,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     
     #Flatpak Game Script Format
-    launch_flatpak_script = ("""
-    #!/bin/bash
+    launch_flatpak_script = ("""#!/bin/bash
 
     #Currently created launch script for {game_name} ({app_name}) ({game_type})
     #Launches from {gamelaunchscript}.sh

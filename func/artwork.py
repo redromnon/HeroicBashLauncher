@@ -60,7 +60,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
         print("Checking Artwork...")
 
         if "GameFiles" in os.getcwd():
-            GameFiles = os.getcwd()
+            GameFiles = os.getcwd() + "/"
         else:
             GameFiles = os.getcwd() + "/GameFiles/"
 

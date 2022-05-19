@@ -28,6 +28,6 @@ jobs:
       
       - name: List directory in repository
         run: |
-          ls ${{ github.workspace }}
+          ls /home/runner/work/HeroicBashLauncher/HeroicBashLauncher/main
         
       - run: echo "🍏 This job's status is ${{ job.status }}."

@@ -79,6 +79,8 @@ Before submitting an issue :
 
 - Disable the Proton compatibility layer for the newly added launch script. You're not trying to run a game but a script.
 
+- Try using Wine-GE instead of Proton, since Proton is made for Steam games in mind.
+
 If it's not working for you, consider checking the logs. The logs for the game launch scripts and the program are present in `/GameFiles/logs`and the base directory respectively.
 
 Feel free to suggest any new features, especially those already implemented in Heroic. 

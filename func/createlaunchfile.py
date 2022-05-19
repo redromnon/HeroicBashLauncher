@@ -1,10 +1,10 @@
 #Creates the launch script and additional flatpak launch script for launching games
 
 import os, json
-import configpath
-from checkparameters import checkparameters
-from gameName import filegamename
-from steam import addtoscript, addtosteam
+from func import configpath
+from func.checkparameters import checkparameters
+from func.gameName import filegamename
+from func.steam import addtoscript, addtosteam
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 

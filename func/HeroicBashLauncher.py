@@ -1,10 +1,10 @@
 #Main file that takes bash arguments
 
 import os,sys
-import configpath
-from createlaunchfile import createlaunchfile
-from listinstalled import listinstalled
-from steam import createscript, addtosteam
+from func import configpath
+from func.createlaunchfile import createlaunchfile
+from func.listinstalled import listinstalled
+from func.steam import createscript, addtosteam
 
 #Print current version
 print("Using Bash Launcher 2.6.0\n")

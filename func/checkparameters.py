@@ -2,8 +2,8 @@
 
 from distutils.command.config import config
 import os, json, sys, traceback
-import configpath
-from checkbinary import getbinary
+from func import configpath
+from func.checkbinary import getbinary
 
 
 def checkparameters(appname, gamejsonfile, gametype):

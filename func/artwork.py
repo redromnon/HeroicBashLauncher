@@ -2,8 +2,8 @@
 
 
 import os, binascii, json, wget, ssl, traceback, sys
-import configpath
-from gameName import rspchar
+from func import configpath
+from func.gameName import rspchar
 
 def checkartworkexists(artwork_path, image):
     

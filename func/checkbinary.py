@@ -3,7 +3,7 @@
 #   If not, check folder under /tmp/ that includes path to the binaries.
 
 import os, json, sys, traceback
-import configpath
+from func import configpath
 
 def getbinary(gametype):
 

@@ -1,9 +1,9 @@
 #List installed games
 
 import os, json
-import configpath
-from gameName import rspchar
-from createlaunchfile import createlaunchfile
+from func import configpath
+from func.gameName import rspchar
+from func.createlaunchfile import createlaunchfile
 
 def listinstalled():
 

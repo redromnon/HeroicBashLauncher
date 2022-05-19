@@ -1,7 +1,6 @@
 import os, sys, traceback
-from gameName import filegamename
-from artwork import addartwork
-import configpath 
+from func.gameName import filegamename
+from func.artwork import addartwork
 
 #Zenity list box
 contents = ('#!/bin/bash \n\n #Create log \n exec > AddToSteam.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +

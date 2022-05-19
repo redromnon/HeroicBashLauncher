@@ -11,11 +11,7 @@ def createscript():
 
         global contents 
 
- 
-        
-
         contents = contents + ')\n./HeroicBashLauncher "$game" '
-
 
         with open("AddToSteam.sh", "w") as c:
                 c.write(contents)

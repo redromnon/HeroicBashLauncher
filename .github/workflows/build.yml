@@ -31,7 +31,7 @@ jobs:
           ls /home/runner/work/HeroicBashLauncher/HeroicBashLauncher/main
           
       - name: Build
-        run: cd main/func && pyinstaller HeroicBashLauncher.py --onefile --name HeroicBashLauncher 
+        run: cd main/func && pyinstaller HeroicBashLauncher.py --onefile --name HeroicBashLauncher --clean 
         
       - name: Upload 
         uses: actions/upload-artifact@v3

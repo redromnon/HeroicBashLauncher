@@ -61,7 +61,11 @@ def addtosteam(gamename):
 
 
                         #SYNTAX FOR ADDING NON-STEAM GAMES
-                        curr_dir = os.getcwd() #till .../HeroicBashLauncher
+                        #till .../HeroicBashLauncher
+                        if "GameFiles" in os.getcwd():
+                                curr_dir = os.getcwd() + "/"
+                        else:
+                                curr_dir = os.getcwd() + "/GameFiles/"
 
                         #Unicode Charaters
                         nul = '\x00'
@@ -73,8 +77,8 @@ def addtosteam(gamename):
                         srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
                         #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
                         AppName = soh + 'AppName' + nul + gamename + nul
-                        Exe = soh + 'Exe' + nul + '"' + curr_dir + "/GameFiles/" + simplified_gamename + '.sh"' + nul
-                        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + "/GameFiles/" + '"' + nul
+                        Exe = soh + 'Exe' + nul + '"' + curr_dir + simplified_gamename + '.sh"' + nul
+                        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + '"' + nul
                         icon = soh + 'icon' + nul + nul
                         ShortcutPath = soh + 'ShortcutPath' + nul + nul
                         LaunchOptions = soh + 'LaunchOptions' + nul + nul
@@ -110,7 +114,7 @@ def addtosteam(gamename):
                                 file.close()  
 
                         #Add artwork
-                        addartwork(gamename, '"' + curr_dir + "/GameFiles/" + simplified_gamename + '.sh"', userid, simplified_gamename)
+                        addartwork(gamename, '"' + curr_dir + simplified_gamename + '.sh"', userid, simplified_gamename)
         except Exception: 
                 
                 print(traceback.format_exc())

@@ -29,5 +29,14 @@ jobs:
       - name: List directory in repository
         run: |
           ls /home/runner/work/HeroicBashLauncher/HeroicBashLauncher/main
+          
+      - name: Build
+        run: cd main/func && pyinstaller HeroicBashLauncher.py --onefile --name HeroicBashLauncher
+        
+      - name: Upload 
+        uses: actions/upload-artifact@v3
+        with:
+          name: HeroicBashLauncher
+          path: /home/runner/work/HeroicBashLauncher/HeroicBashLauncher/main/func/dist/HeroicBashLauncher
         
       - run: echo "🍏 This job's status is ${{ job.status }}."

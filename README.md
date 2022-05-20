@@ -2,9 +2,7 @@
 
 # HeroicBashLauncher
 Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam, Lutris, GameHub or any other frontend game launcher? 
-Bash Launcher does exactly this and takes you straight to the game!  
-
-Thus, you can now stay on your launcher interface comfortably without having the need to open Heroic to launch your games at all.   
+Bash Launcher does exactly this and takes you straight to the game!     
 
 ![Heroic Bash Launcher](https://user-images.githubusercontent.com/74495920/142615495-a4e5e811-7ee3-41b8-ae80-d6d008820f2a.png)
 
@@ -34,10 +32,10 @@ Thus, you can now stay on your launcher interface comfortably without having the
 ✔️ Automatically syncs games (adds the launch scripts and download artwork) to Steam for Steam-Deck users
 
 
-
 ## Pre-requisites
 - Heroic 2.2.2+
 - Zenity
+- glibc v2.31+
 
 
 ## Using Bash Launcher
@@ -71,7 +69,7 @@ Your games will be automatically added to Steam along with the artwork. Just ope
 ## Issues and Suggestions
 Before submitting an issue :
 
-- Make sure the game launches from Heroic Games Launcher.
+- Make sure you've run the game from Heroic atleast once
 
 - Restart Steam after adding the launch scripts if the games don't launch. 
 
@@ -94,7 +92,7 @@ You will also need [wget (for Python)](https://pypi.org/project/wget/).
 To test the program, open the terminal in the `func` directory and use the following command to build -
 
 ```
-pyinstaller HeroicBashLauncher.py --onefile -p <fullpath>/HeroicBashLauncher/func
+ pyinstaller HeroicBashLauncher.py --onefile --strip
 ```
 
 This will generate an executable stored in the `dist` folder. Copy the executable, paste it in `HeroicBashLauncher` and run it.

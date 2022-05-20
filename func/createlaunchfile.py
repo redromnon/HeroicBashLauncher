@@ -73,7 +73,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     epic_script = ("""
 
     #Launch game
-    {cloudsyncdownload}
+    {savesync}
 
     ({launchcommand} || (echo "---CANNOT CONNECT TO NETWORK. RUNNING IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
@@ -91,7 +91,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         else
             echo "$checkwine stopped"
             echo "{game_name} stopped"
-            {cloudsyncupload}
+            {savesync}
             exit 
         fi
 
@@ -99,7 +99,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     done
 
     """).format(launchcommand = gamecommand[0], offline_launchcommand = gamecommand[1], 
-                cloudsyncdownload = cloudsync[0], cloudsyncupload = cloudsync[1], game_name = gamename)
+                savesync = cloudsync, game_name = gamename)
 
     
     #GOG format (without cloud sync check)

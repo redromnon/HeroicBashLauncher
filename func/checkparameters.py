@@ -35,15 +35,14 @@ def checkparameters(appname, gamejsonfile, gametype):
 
 
     #Auto-Cloud Save Sync
-    cloudsync = ["",""]
+    cloudsync = ""
     if ifpresent("autoSyncSaves") == True:
 
       if game[appname]["autoSyncSaves"] == True:
     
         if game[appname]["savesPath"] != "":
           #Download and Upload
-          cloudsync = [binary + 'sync-saves --skip-upload --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y ', 
-                      binary + 'sync-saves --skip-download --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y ']
+          cloudsync = binary + 'sync-saves --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y '
 
     #print(cloudsync)
 

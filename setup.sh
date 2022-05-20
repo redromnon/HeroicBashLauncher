@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 #####
 
@@ -16,6 +16,9 @@
 
 #Create log
 exec > HeroicBashLauncher.log 2>&1
+
+#Enable UTF-8 Encoding
+export LC_ALL=en_US.UTF-8
 
 #Run HeroicBashLauncher executable
 ./HeroicBashLauncher

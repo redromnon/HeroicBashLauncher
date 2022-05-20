@@ -7,7 +7,7 @@ from func.listinstalled import listinstalled
 from func.steam import createscript, addtosteam
 
 #Print current version
-print("Using Bash Launcher 2.6.0\n")
+print("Using Bash Launcher 2.6.1\n")
 
 #Check if Zenity is installed
 print("Checking if Zenity is installed:")
@@ -21,7 +21,7 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
     if len(sys.argv) == 1: #Only name of file as default argument
     
         if "deck" in os.path.expanduser("~"):
-            os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games." --width=300 --timeout=3')
+            os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=3')
         
         listinstalled()
 
@@ -38,7 +38,7 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
                 print("No game selected")
                 sys.exit()
         else:
-            os.system('zenity --info --title="Process Running" --text="Now downloading artwork and adding games to Steam\n\nThis may take a while depending on your internet connection and number of games" --width=350')
+            os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350')
             for i in sys.argv[1].split("|"):
                 addtosteam(i)
 

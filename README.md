@@ -73,8 +73,6 @@ Before submitting an issue :
 
 - Restart Steam after adding the launch scripts if the games don't launch. 
 
-- Consider deleting any special characters from any game-related folder names (like Wine Prefix) or even your Epic/GOG Account's username.
-
 - Disable the Proton compatibility layer for the newly added launch script. You're not trying to run a game but a script.
 
 - Try using Wine-GE instead of Proton, since Proton is made for Steam games in mind.
@@ -100,3 +98,8 @@ This will generate an executable stored in the `dist` folder. Copy the executabl
 
 ## License
 This project is under the GNU GPLv3 license. You can take a look at the LICENSE.md for more information.
+
+Makes use of the following projects -
+[Legendary](https://github.com/derrod/legendary),
+[heroic-gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl) and
+[Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher).

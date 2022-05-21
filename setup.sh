@@ -21,6 +21,7 @@ exec > HeroicBashLauncher.log 2>&1
 export LC_ALL=en_US.UTF-8
 
 #Run HeroicBashLauncher executable
+chmod +x HeroicBashLauncher
 ./HeroicBashLauncher
 
 

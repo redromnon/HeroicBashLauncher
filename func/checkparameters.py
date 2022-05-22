@@ -186,23 +186,42 @@ def checkparameters(appname, gamejsonfile, gametype):
       #print(targetExe)
 
 
-    #Steam Runtime(GOG)
+    #Steam Runtime
     steam_runtime = ""
+    steam_runtime_win = False
     if ifpresent("useSteamRuntime") == True:
 
       if game[appname]["useSteamRuntime"] == True:
+
+        #Scout
+        if gametype == "gog-linux":
         
-        if configpath.is_steam_flatpak == True:
+          if configpath.is_steam_flatpak == True:
 
-          steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh "
-        else:
-          
-          if os.path.exists(os.path.expanduser('~') + '.local/share/Steam') == True:
-
-            steam_runtime = os.path.expanduser("~") + "/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh "
+            steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh "
           else:
+            
+            if os.path.exists(os.path.expanduser('~') + '/.local/share/Steam') == True:
 
-            steam_runtime = os.path.expanduser("~") + "/.steam/debian-installation/ubuntu12_32/steam-runtime/run.sh "
+              steam_runtime = os.path.expanduser("~") + "/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh "
+            else:
+
+              steam_runtime = os.path.expanduser("~") + "/.steam/debian-installation/ubuntu12_32/steam-runtime/run.sh "
+        #Soldier
+        else:
+          steam_runtime_win = True
+
+          if configpath.is_steam_flatpak == True:
+
+            steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
+          else:
+            
+            if os.path.exists(os.path.expanduser('~') + '/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier') == True:
+
+              steam_runtime = os.path.expanduser("~") + "/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
+            else:
+
+              steam_runtime = os.path.expanduser("~") + "/.steam/steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
 
       #print(targetExe)
 
@@ -272,16 +291,23 @@ def checkparameters(appname, gamejsonfile, gametype):
         
         #Wrap Proton path (bin) in quotes to avoid errors due to spaces in the path
         wineVersion_bin = "'" + wineVersion_bin + "'"
-        bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
+
+        #Check if Steam Soldier runtime is enabled
+        if steam_runtime_win == True:
+          bin = '--no-wine --wrapper "' + steam_runtime + wineVersion_bin + ' waitforexitandrun" '
+          steamappid = 'SteamAppId=0 '
+        else:
+          bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
+          steamappid = ''
 
         if gametype == "epic":
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + offlineMode + bin + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + force_offlineMode + bin + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + offlineMode + bin + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + force_offlineMode + bin + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + "--os windows " + launcherArgs  
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + "--os windows " + launcherArgs  
     else:#LINUX GOG
 
       launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs

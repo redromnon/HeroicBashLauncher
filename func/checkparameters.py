@@ -201,12 +201,8 @@ def checkparameters(appname, gamejsonfile, gametype):
             steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh "
           else:
             
-            if os.path.exists(os.path.expanduser('~') + '/.local/share/Steam') == True:
+            steam_runtime = os.path.expanduser("~") + "/.steam/root/ubuntu12_32/steam-runtime/run.sh "
 
-              steam_runtime = os.path.expanduser("~") + "/.local/share/Steam/ubuntu12_32/steam-runtime/run.sh "
-            else:
-
-              steam_runtime = os.path.expanduser("~") + "/.steam/debian-installation/ubuntu12_32/steam-runtime/run.sh "
         #Soldier
         else:
           steam_runtime_win = True
@@ -216,12 +212,7 @@ def checkparameters(appname, gamejsonfile, gametype):
             steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
           else:
             
-            if os.path.exists(os.path.expanduser('~') + '/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier') == True:
-
-              steam_runtime = os.path.expanduser("~") + "/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
-            else:
-
-              steam_runtime = os.path.expanduser("~") + "/.steam/steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
+            steam_runtime = os.path.expanduser("~") + "/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
 
       #print(targetExe)
 

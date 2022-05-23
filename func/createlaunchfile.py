@@ -12,7 +12,11 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     with open(configpath.timestamppath, encoding='utf-8') as t:
         gametimestamp = json.load(t)
 
-    totalgameplays = gametimestamp[appname]["totalPlayed"]
+    #Check if the game has been launched atleast once from Heroic, otherwise set it to 0.
+    try:
+        totalgameplays = gametimestamp[appname]["totalPlayed"]
+    except:
+        totalgameplays = '0'
     
     # Check/Update parameters
     gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync

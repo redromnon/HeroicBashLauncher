@@ -44,6 +44,7 @@ def addartwork(appname, exe, userid, simplified_gamename):
     coverart =  [str(appid) + 'p.jpg', str(appid) + 'p.png']
     backgroundart = [str(appid) + '_hero.jpg', str(appid) + '_hero.png']
     bigpictureart = [str(appid) + '.jpg', str(appid) + '.png']
+    logoart = [str(appid) + '_logo.jpg', str(appid) + '_logo.png']
 
 
     #Check if the folder exists, create if not
@@ -115,6 +116,17 @@ def addartwork(appname, exe, userid, simplified_gamename):
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
                     else:
                         print("BigPicture Art exists")
+
+                    #Logo Art
+                    if checkartworkexists(artwork_path, logoart) == False:
+                    
+                        if not i['art_logo'] == None:
+                            image_url = i['art_logo']
+                            print("Downloading Logo Art from " + image_url)
+                            wget.download(image_url, out = artwork_path)
+                            os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + logoart[0])
+                    else:
+                        print("Logo Art exists")
         elif "gog" in readscript:
             
             #print("GOG")

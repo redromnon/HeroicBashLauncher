@@ -63,8 +63,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     if [[ $totalplays -eq 0 ]] 
     then
         echo "This looks like a newly installed game. Please launch the game once from Heroic to avoid issues using Bash Launcher"
-        zenity --error --title="Process Stopped" --text="This looks like a newly installed game\n\nPlease launch the game once from Heroic to avoid issues using Bash Launcher" --width=400 --timeout=8
-        exit
+        zenity --warning --title="Process Paused" --text="This looks like a newly installed game\n\nPlease launch the game once from Heroic to avoid issues using Bash Launcher" --width=400 --timeout=8
     fi
 
     {launch_game_in_flatpak}

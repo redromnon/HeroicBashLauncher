@@ -27,9 +27,9 @@ if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(
 
         #Don't create AddToSteam script if Steam Deck 
         if "deck" in os.path.expanduser("~"):
-            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nHave fun gaming!" --width=300 --timeout=3')
+            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
         else:
-            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can sync games to Steam via AddToSteam\n\nHave fun gaming!" --width=300')
+            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
             print("\nCreating AddToSteam script...")
             createscript()
     elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition

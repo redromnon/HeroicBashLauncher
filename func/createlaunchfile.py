@@ -8,16 +8,6 @@ from func.steam import addtoscript, addtosteam
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
-    #Store the game's total no. of plays
-    with open(configpath.timestamppath, encoding='utf-8') as t:
-        gametimestamp = json.load(t)
-
-    #Check if the game has been launched atleast once from Heroic, otherwise set it to 0.
-    try:
-        totalgameplays = gametimestamp[appname]["totalPlayed"]
-    except:
-        totalgameplays = '0'
-    
     # Check/Update parameters
     gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync
     cloudsync = gamecommand[2]
@@ -60,23 +50,13 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Override launch parameters
     {executable_path}
 
-    #Total Plays
-    totalplays={totalplays}
-
-    #Check if game is newly installed
-    if [[ $totalplays -eq 0 ]] 
-    then
-        echo "This looks like a newly installed game. Please launch the game once from Heroic to avoid issues using Bash Launcher"
-        zenity --warning --title="Process Paused" --text="This looks like a newly installed game\n\nPlease launch the game once from Heroic to avoid issues using Bash Launcher" --width=400 --timeout=8
-    fi
-
     {launch_game_in_flatpak}
 
     {show_launch_command}
 
     """).format(logname = simplified_gamename,game_name = gamename, game_type = gametype, app_name = appname, 
                 executable_path = executablepath, launch_game_in_flatpak = launchflatpakgame, 
-                show_launch_command = showlaunchcommand, totalplays = totalgameplays)
+                show_launch_command = showlaunchcommand)
 
     
     #Flatpak Game Script Format

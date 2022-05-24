@@ -7,7 +7,7 @@ from func.listinstalled import listinstalled
 from func.steam import createscript, addtosteam
 
 #Print current version
-print("Using Bash Launcher 2.6.1\n")
+print("Using Bash Launcher 2.7.1\n")
 
 #Check if Zenity is installed
 print("Checking if Zenity is installed:")

@@ -243,7 +243,9 @@ def checkparameters(appname, gamejsonfile, gametype):
     if gametype == "epic" or gametype == "gog-win":
 
       #winePrefix
-      winePrefix = game[appname]["winePrefix"]
+      winePrefix = ""
+      if ifpresent("winePrefix") == True:
+        winePrefix = game[appname]["winePrefix"]
 
       #print(winePrefix)
 
@@ -251,7 +253,9 @@ def checkparameters(appname, gamejsonfile, gametype):
       #wineVersion (IMPACTS LAUNCH COMMAND)
 
       #bin 
-      wineVersion_bin = game[appname]["wineVersion"]["bin"]
+      wineVersion_bin = ""
+      if ifpresent("wineVersion") == True:
+        wineVersion_bin = game[appname]["wineVersion"]["bin"]
 
       #print(wineVersion_bin)
 

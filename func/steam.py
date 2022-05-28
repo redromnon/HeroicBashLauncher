@@ -99,7 +99,7 @@ def addtosteam(gamename):
 
 
                         #Add game if not already added
-                        if gamename in str(line): 
+                        if gamename in str(line.decode("utf-8", "ignore")): 
 
                                 print(gamename + " already added to Steam.")
                         else:

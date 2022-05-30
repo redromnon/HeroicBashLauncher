@@ -67,6 +67,9 @@ Your games will be automatically added to Steam along with the artwork. Just ope
 
 
 ## Issues and Suggestions
+
+**Do note that I don't have a Deck, so you may encounter Deck-specific issues.**
+
 Before submitting an issue :
 
 - Make sure you've run the game from Heroic atleast once
@@ -79,7 +82,7 @@ Before submitting an issue :
 
 If it's not working for you, consider checking the logs. The logs for the game launch scripts and the program are present in `/GameFiles/logs`and the base directory respectively.
 
-Feel free to suggest any new features, especially those already implemented in Heroic. 
+Feel free to suggest any new features and post issues in the _heroic-bash-launcher_ channel by joining [Heroic's Discord server](https://discord.gg/kXADMWbqu2). 
 
 
 ## Building and Testing

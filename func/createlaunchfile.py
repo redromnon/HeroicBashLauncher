@@ -1,10 +1,9 @@
 #Creates the launch script and additional flatpak launch script for launching games
 
-import os, sys, json
+import os
 from func import configpath
 from func.checkparameters import checkparameters
 from func.gameName import filegamename
-from func.steam import addtoscript, addtosteam
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
@@ -138,10 +137,4 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         with open(flatpakgamescriptpath, "w") as f:
             f.write(flatpak_launch_script)
         os.system("chmod u+x " + flatpakgamescriptpath)
-    
-    
-    #If system is Steam Deck, add to Steam right away or add to Steam script
-    if "deck" in os.path.expanduser("~"):
-        addtosteam(gamename)
-    else:
-        addtoscript(gamename)
+        

@@ -4,6 +4,17 @@ import os, json
 from func import configpath
 from func.gameName import rspchar
 from func.createlaunchfile import createlaunchfile
+from func.steam import *
+
+def AddToSteam(gamename):
+
+  #If system is Steam Deck, add to Steam right away or add to Steam script
+    if "deck" in os.path.expanduser("~"):
+        addtosteam(gamename)
+    else:
+        addtoscript(gamename)
+
+
 
 def listinstalled():
 
@@ -36,6 +47,9 @@ def listinstalled():
 
         #Preparing launch file
         createlaunchfile(gamename, i, gamejson, "epic") # gamename, appname, game's json file path
+
+        #Prepare adding game to Steam or AddToSteam script
+        AddToSteam(gamename)
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
@@ -77,6 +91,9 @@ def listinstalled():
 
           #Preparing launch file
           createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
+
+          #Prepare adding game to Steam or AddToSteam script
+          AddToSteam(gamename)
 
   #END OF THE PROGRAM
   print("\n...Process finished. Launch scripts stored in GameFiles folder.")

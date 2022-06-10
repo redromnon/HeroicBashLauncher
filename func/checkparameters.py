@@ -248,17 +248,24 @@ def checkparameters(appname, gamejsonfile, gametype):
 
       #wineVersion (IMPACTS LAUNCH COMMAND)
 
-      #bin 
-      wineVersion_bin = ""
-      if ifpresent("wineVersion") == True:
+      #wine bin & name 
+      try:
         wineVersion_bin = game[appname]["wineVersion"]["bin"]
+        wineVersion_name = game[appname]["wineVersion"]["name"]
+      except:
+        print("No wineVersion key found. Defaulting wine version to the one used in Heroic's global settings...")
+        #Use default wine version used in global settings 
+        with open(configpath.heroicconfigpath, encoding='utf-8') as p:
+            heroicconfig = json.load(p)
 
-      #print(wineVersion_bin)
+        wineVersion_bin = heroicconfig["defaultSettings"]["wineVersion"]["bin"]
+        wineVersion_name = heroicconfig["defaultSettings"]["wineVersion"]["name"]
+
 
 
       #name(IMPORTANT)
 
-      if "Wine" in game[appname]["wineVersion"]["name"]:
+      if "Wine" in wineVersion_name:
 
         bin = "--wine " + wineVersion_bin + " "
         wineprefix = "--wine-prefix '" + winePrefix + "' "
@@ -271,7 +278,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
           offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + wineprefix + "--os windows " + launcherArgs
-      elif "Proton" in game[appname]["wineVersion"]["name"]:
+      elif "Proton" in wineVersion_name:
 
         if configpath.is_flatpak == False:
           steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "

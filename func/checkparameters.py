@@ -1,6 +1,5 @@
 #CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
 
-from distutils.command.config import config
 import os, json, sys, traceback
 from func import configpath
 from func.checkbinary import getbinary
@@ -177,7 +176,7 @@ def checkparameters(appname, gamejsonfile, gametype):
       if game[appname]["targetExe"] == "":
         targetExe = ""
       else:
-        targetExe = "--override-exe " + game[appname]["targetExe"] + " "
+        targetExe = '--override-exe "' + game[appname]["targetExe"] + '" '
 
       #print(targetExe)
 
@@ -268,7 +267,7 @@ def checkparameters(appname, gamejsonfile, gametype):
       if "Wine" in wineVersion_name:
 
         bin = "--wine " + wineVersion_bin + " "
-        wineprefix = "--wine-prefix '" + winePrefix + "' "
+        wineprefix = '--wine-prefix "' + winePrefix + '" '
 
         if gametype == "epic":
 
@@ -285,7 +284,7 @@ def checkparameters(appname, gamejsonfile, gametype):
         else:
           steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/.steam/steam "
         
-        steamcompactdata = "STEAM_COMPAT_DATA_PATH='" + winePrefix + "' "
+        steamcompactdata = 'STEAM_COMPAT_DATA_PATH="' + winePrefix + '" '
         
         #Wrap Proton path (bin) in quotes to avoid errors due to spaces in the path
         wineVersion_bin = "'" + wineVersion_bin + "'"

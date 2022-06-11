@@ -39,10 +39,17 @@ def getbinary(gametype):
                 binary = "/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
         else:#AppImage
 
-            if gametype != "epic":
-                binary = os.getcwd() + "/binaries/gogdl "
+            if "GameFiles" in os.getcwd():#select parent dir
+                if gametype != "epic":
+                    binary = os.path.dirname(os.getcwd()) + "/binaries/gogdl "
+                else:
+                    binary =  os.path.dirname(os.getcwd()) + "/binaries/legendary "
             else:
-                binary = os.getcwd() + "/binaries/legendary "
+                if gametype != "epic":
+                    binary = os.getcwd() + "/binaries/gogdl "
+                else:
+                    binary = os.getcwd() + "/binaries/legendary "
+
             
         return binary
     except Exception:

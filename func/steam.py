@@ -33,88 +33,89 @@ def addtosteam(gamename):
         try:
 
                 listuserid = os.listdir(userdata_folder)
+    
 
-        
                 for userid in listuserid:
 
-                        shortcutsvdfpath = os.path.join(userdata_folder, str(userid), 'config', 'shortcuts.vdf')
-                        #Create shortcuts.vdf if doesn't exist
-                        print("\n\n")
-                        if os.path.isfile(shortcutsvdfpath) == False:
-                                os.makedirs(os.path.dirname(shortcutsvdfpath), exist_ok=True)
-                                file = open(str(shortcutsvdfpath), 'wb')
-                                file.write("\x00shortcuts\x00\x08\x08".encode())
-                                print("Created shortcuts.vdf in " + userid)
-                                file.close()
-                        else:
-                                print("shortcuts.vdf already exists in " + userid)
+                        if userid != '0' and userid != 'ac': 
+                                shortcutsvdfpath = os.path.join(userdata_folder, str(userid), 'config', 'shortcuts.vdf')
+                                #Create shortcuts.vdf if doesn't exist
+                                print("\n\n")
+                                if os.path.isfile(shortcutsvdfpath) == False:
+                                        os.makedirs(os.path.dirname(shortcutsvdfpath), exist_ok=True)
+                                        file = open(str(shortcutsvdfpath), 'wb')
+                                        file.write("\x00shortcuts\x00\x08\x08".encode())
+                                        print("Created shortcuts.vdf in " + userid)
+                                        file.close()
+                                else:
+                                        print("shortcuts.vdf already exists in " + userid)
 
-                        #Read Steam shortcuts file
-                        file = open(str(shortcutsvdfpath), 'rb')
-                        line = file.read()
-                        #print(line)
-                        file.close()
-
-                        #Generating game's filename
-                        simplified_gamename = filegamename(gamename)
-                        #print(simplified_gamename)
-
-
-                        #SYNTAX FOR ADDING NON-STEAM GAMES
-                        #till .../HeroicBashLauncher
-                        if "GameFiles" in os.getcwd():
-                                curr_dir = os.getcwd() + "/"
-                        else:
-                                curr_dir = os.getcwd() + "/GameFiles/"
-
-                        #Unicode Charaters
-                        nul = '\x00'
-                        soh = '\x01'
-                        stx = '\x02'
-                        bs = '\x08'
-
-                        #Keys
-                        srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
-                        #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
-                        AppName = soh + 'AppName' + nul + gamename + nul
-                        Exe = soh + 'Exe' + nul + '"' + curr_dir + simplified_gamename + '.sh"' + nul
-                        StartDir = soh + 'StartDir' + nul + '"' + curr_dir + '"' + nul
-                        icon = soh + 'icon' + nul + nul
-                        ShortcutPath = soh + 'ShortcutPath' + nul + nul
-                        LaunchOptions = soh + 'LaunchOptions' + nul + nul
-                        IsHidden = stx + 'IsHidden' + nul + nul + nul + nul + nul
-                        AllowDesktopConfig = stx + 'AllowDesktopConfig' + nul + soh  + nul + nul + nul
-                        AllowOverlay = stx + 'AllowOverlay' + nul + soh  + nul + nul + nul
-                        OpenVR = stx + 'OpenVR' + nul + nul + nul + nul + nul
-                        Devkit = stx + 'Devkit' + nul + nul + nul + nul + nul
-                        DevkitGameID = soh + 'DevkitGameID' + nul + nul
-                        DevkitOverrideAppID = stx + 'DevkitOverrideAppID' + nul + nul + nul + nul + nul
-                        LastPlayTime = stx + 'LastPlayTime' + nul + nul + nul + nul + nul
-                        tags = nul + 'tags' + nul
-                        end = bs + bs
-
-                        #Entry
-                        entry = srno + AppName + Exe + StartDir + icon + ShortcutPath + LaunchOptions + IsHidden + AllowDesktopConfig + AllowOverlay + \
-                                OpenVR + Devkit + DevkitGameID + DevkitOverrideAppID + LastPlayTime + tags + end
-
-
-                        #Add game if not already added
-                        if gamename in str(line.decode("utf-8", "ignore")): 
-
-                                print(gamename + " already added to Steam.")
-                        else:
-
-                                
-                                #Writing to file
-                                print("Adding " + gamename + " to Steam")
-                                
-                                f=open(str(shortcutsvdfpath), 'wb')
-                                f.write(line[:len(line)-2] + entry.encode() + line[-2:])
+                                #Read Steam shortcuts file
+                                file = open(str(shortcutsvdfpath), 'rb')
+                                line = file.read()
                                 #print(line)
-                                file.close()  
+                                file.close()
 
-                        #Add artwork
-                        addartwork(gamename, '"' + curr_dir + simplified_gamename + '.sh"', userid, simplified_gamename)
+                                #Generating game's filename
+                                simplified_gamename = filegamename(gamename)
+                                #print(simplified_gamename)
+
+
+                                #SYNTAX FOR ADDING NON-STEAM GAMES
+                                #till .../HeroicBashLauncher
+                                if "GameFiles" in os.getcwd():
+                                        curr_dir = os.getcwd() + "/"
+                                else:
+                                        curr_dir = os.getcwd() + "/GameFiles/"
+
+                                #Unicode Charaters
+                                nul = '\x00'
+                                soh = '\x01'
+                                stx = '\x02'
+                                bs = '\x08'
+
+                                #Keys
+                                srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
+                                #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
+                                AppName = soh + 'AppName' + nul + gamename + nul
+                                Exe = soh + 'Exe' + nul + '"' + curr_dir + simplified_gamename + '.sh"' + nul
+                                StartDir = soh + 'StartDir' + nul + '"' + curr_dir + '"' + nul
+                                icon = soh + 'icon' + nul + nul
+                                ShortcutPath = soh + 'ShortcutPath' + nul + nul
+                                LaunchOptions = soh + 'LaunchOptions' + nul + nul
+                                IsHidden = stx + 'IsHidden' + nul + nul + nul + nul + nul
+                                AllowDesktopConfig = stx + 'AllowDesktopConfig' + nul + soh  + nul + nul + nul
+                                AllowOverlay = stx + 'AllowOverlay' + nul + soh  + nul + nul + nul
+                                OpenVR = stx + 'OpenVR' + nul + nul + nul + nul + nul
+                                Devkit = stx + 'Devkit' + nul + nul + nul + nul + nul
+                                DevkitGameID = soh + 'DevkitGameID' + nul + nul
+                                DevkitOverrideAppID = stx + 'DevkitOverrideAppID' + nul + nul + nul + nul + nul
+                                LastPlayTime = stx + 'LastPlayTime' + nul + nul + nul + nul + nul
+                                tags = nul + 'tags' + nul
+                                end = bs + bs
+
+                                #Entry
+                                entry = srno + AppName + Exe + StartDir + icon + ShortcutPath + LaunchOptions + IsHidden + AllowDesktopConfig + AllowOverlay + \
+                                        OpenVR + Devkit + DevkitGameID + DevkitOverrideAppID + LastPlayTime + tags + end
+
+
+                                #Add game if not already added
+                                if gamename in str(line.decode("utf-8", "ignore")): 
+
+                                        print(gamename + " already added to Steam.")
+                                else:
+
+                                        
+                                        #Writing to file
+                                        print("Adding " + gamename + " to Steam")
+                                        
+                                        f=open(str(shortcutsvdfpath), 'wb')
+                                        f.write(line[:len(line)-2] + entry.encode() + line[-2:])
+                                        #print(line)
+                                        file.close()  
+
+                                #Add artwork
+                                addartwork(gamename, '"' + curr_dir + simplified_gamename + '.sh"', userid, simplified_gamename)
         except Exception: 
                 
                 print(traceback.format_exc())

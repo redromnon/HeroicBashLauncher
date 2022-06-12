@@ -1,6 +1,9 @@
 <img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?color=blue&include_prereleases&style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?color=yellow&style=for-the-badge">  <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/redromnon/HeroicBashLauncher?color=blueviolet&style=for-the-badge">  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/redromnon/HeroicBashLauncher?color=green&style=for-the-badge">  <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/redromnon/HeroicBashLauncher/total?color=red&style=for-the-badge">
 
 # HeroicBashLauncher
+
+**NOTE - This is an independent project and not affiliated with Heroic Games Launcher.**
+
 Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam, Lutris, GameHub or any other frontend game launcher? 
 Bash Launcher does exactly this and takes you straight to the game!     
 
@@ -19,6 +22,7 @@ Bash Launcher does exactly this and takes you straight to the game!
 - [Issues and Suggestions](#issues-and-suggestions)
 - [Building and Testing](#building-and-testing)
 - [License](#license)
+- [Support](#support)
 
 
 ## Features
@@ -106,3 +110,9 @@ Makes use of the following projects -
 [Legendary](https://github.com/derrod/legendary),
 [heroic-gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl) and
 [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher).
+
+
+## Support
+If you like my work and wish to support it, feel free to Buy Me A Coffee.
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/redromnon)

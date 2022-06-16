@@ -1,4 +1,4 @@
-#DISCLAIMER - The logic of the code on Line 18 has been taken from SteamGridDB (https://github.com/SteamGridDB/steamgriddb-manager) [MIT License].   
+#Adding launch scripts to Steam
 
 import os, sys, traceback, binascii
 from func.gameName import filegamename
@@ -33,10 +33,10 @@ def calculateappid(appname, exepath):
 
 #As Steam does not store AppIDs of Non-Steam games in any config file, this makes it difficult to add artwork without knowing the AppID.
 #One way is to add the game, let Steam assign the AppID and then try to find the AppID using regex.
-#Fortunately, SteamGridDB (MIT License) has found a simple and efficient solution to calculate the AppID. 
+#Fortunately, steamgrid (https://github.com/boppreh/steamgrid) [MIT License] has found a simple and efficient solution to calculate the AppID. 
     
-#ALL CREDIT GOES TO THE STEAMGRIDDB DEVS FOR THIS IMPLEMENTATION (Line 40).
-#Here's how the it's explained in their source code - 
+#ALL CREDIT GOES TO THE STEAMGRID DEVS FOR THIS IMPLEMENTATION.
+#Here's how the it's explained in their source code (games.go) - 
 #To create a grid image we must compute the Steam ID, which is just crc32(target + label) + "02000000", using IEEE standard polynomials.
         
         appid = binascii.crc32(str.encode(exepath + appname)) | 0x80000000

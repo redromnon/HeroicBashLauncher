@@ -1,4 +1,4 @@
-<img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?color=blue&include_prereleases&style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?color=yellow&style=for-the-badge">  <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/redromnon/HeroicBashLauncher?color=blueviolet&style=for-the-badge">  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/redromnon/HeroicBashLauncher?color=green&style=for-the-badge">  <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/redromnon/HeroicBashLauncher/total?color=red&style=for-the-badge">
+<img alt="GitHub" src="https://img.shields.io/github/license/redromnon/HeroicBashLauncher?style=for-the-badge">   <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/redromnon/HeroicBashLauncher?color=blue&include_prereleases&style=for-the-badge">    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/redromnon/HeroicBashLauncher?color=yellow&style=for-the-badge">  <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/redromnon/HeroicBashLauncher?color=blueviolet&style=for-the-badge">  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/redromnon/HeroicBashLauncher?color=green&style=for-the-badge">  <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/redromnon/HeroicBashLauncher/total?color=red&style=for-the-badge">  <a href="https://www.buymeacoffee.com/redromnon" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="130"></a>
 
 # HeroicBashLauncher
 
@@ -31,9 +31,7 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 ✔️ Includes all launch parameters including cloud save-syncing set in Heroic's Game Settings
 
-✔️ Displays a GUI list to add games (add the launch scripts and download artwork) to Steam for Linux Desktop users
-
-✔️ Automatically syncs games (adds the launch scripts and download artwork) to Steam for Steam-Deck users
+✔️ Syncs games to Steam along with artwork
 
 
 ## Pre-requisites
@@ -57,7 +55,7 @@ Your games will be automatically added to Steam along with the artwork. Just ope
 
 #### Desktop users
 - Run your game by executing the game's launch script by double-clicking the game's launch scipt or running ```./<gamename>_Heroic.sh```
-- Using your preferred game launcher/manager, just point the executable path to the game's launch script or just run `AddToSteam.sh` to launch games from Steam. Simple!
+- Using your preferred game launcher/manager, just point the executable path to the game's launch script or just run `AddToSteam.sh` to add and launch games from Steam. Simple!
 
 **Don't copy or move the game files and launch scripts anywhere else, it won't work.** 
 
@@ -72,7 +70,7 @@ Your games will be automatically added to Steam along with the artwork. Just ope
 
 ## Issues and Suggestions
 
-**Do note that I don't have a Deck, so you may encounter Deck-specific issues.**
+**Do note that I don't have a Deck and this tool wasn't developed with the Steam Deck in mind, thus you may encounter Deck-specific issues.**
 
 Before submitting an issue :
 
@@ -84,7 +82,7 @@ Before submitting an issue :
 
 - Try using Wine-GE instead of Proton, since Proton is made for Steam games in mind.
 
-If it's not working for you, consider checking the logs. The logs for the game launch scripts and the program are present in `/GameFiles/logs`and the base directory respectively.
+If it's not working for you, consider checking the logs. The logs for the game launch scripts and the program are present in `/GameFiles/logs`and the `HeroicBashLauncher.log` respectively.
 
 Feel free to suggest any new features and post issues in the _heroic-bash-launcher_ channel by joining [Heroic's Discord server](https://discord.gg/kXADMWbqu2). 
 
@@ -104,15 +102,15 @@ This will generate an executable stored in the `dist` folder. Copy the executabl
 
 
 ## License
-This project is under the GNU GPLv3 license. You can take a look at the LICENSE.md for more information.
+This project is under the GNU GPLv3 license. You can take a look at LICENSE.md for more information.
 
-Makes use of the following projects -
+Makes use of these amazing projects -
 [Legendary](https://github.com/derrod/legendary),
 [heroic-gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl) and
 [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher).
 
 
 ## Support
-If you like my work and wish to support it, feel free to Buy Me A Coffee.
+Like my work!? Feel free to Buy Me A Coffee.
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/redromnon)

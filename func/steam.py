@@ -1,4 +1,6 @@
-import os, sys, traceback
+#Adding launch scripts to Steam
+
+import os, sys, traceback, binascii
 from func.gameName import filegamename
 from func.artwork import addartwork
 
@@ -27,6 +29,53 @@ def addtoscript(gamename):
         contents = contents + ' FALSE "' + gamename + '" '
 
 
+def calculateappid(appname, exepath):
+
+#As Steam does not store AppIDs of Non-Steam games in any config file, this makes it difficult to add artwork without knowing the AppID.
+#One way is to add the game, let Steam assign the AppID and then try to find the AppID using regex.
+#Fortunately, steamgrid (https://github.com/boppreh/steamgrid) [MIT License] has found a simple and efficient solution to calculate the AppID. 
+    
+#ALL CREDIT GOES TO THE STEAMGRID DEVS FOR THIS IMPLEMENTATION.
+#Here's how the it's explained in their source code (games.go) - 
+#To create a grid image we must compute the Steam ID, which is just crc32(target + label) + "02000000", using IEEE standard polynomials.
+        
+        appid = binascii.crc32(str.encode(exepath + appname)) | 0x80000000
+
+        return appid
+
+
+def calculate_last_srno(line):
+
+        start = -1
+        no_entries = True
+
+        #Begin iterating from the end of the file
+        while start > -len(line):
+
+                if "appid".encode() in line[start:]:
+                        no_entries = False
+                        #print("Found appid")
+                        break
+
+                start = start - 1
+
+        #If no entries found, set srno as 0 otherwise increment last srno
+        if no_entries == True:
+                return '0'
+        else:
+                if '\x00'.encode() not in line[start-5:start-2]:#Should be three digits like 100,101,...999
+                        num = str(line[start-5:start-2].decode())
+                elif '\x00'.encode() not in line[start-4:start-2]:#Should be two digits like 10,11,...99
+                        num = str(line[start-4:start-2].decode())
+                else:#Should be one digit like 0,1,...9
+                        num = str(line[start-3:start-2].decode())
+
+                
+                num = int(num) + 1
+                return str(num)
+
+
+
 def addtosteam(gamename):
         userdata_folder = os.path.join(os.path.expanduser("~"), '.steam' , 'steam', 'userdata')
 
@@ -53,7 +102,7 @@ def addtosteam(gamename):
                                 #Read Steam shortcuts file
                                 file = open(str(shortcutsvdfpath), 'rb')
                                 line = file.read()
-                                #print(line)
+                                #print("Printing vdf file = \n", line, "\n\n")
                                 file.close()
 
                                 #Generating game's filename
@@ -74,11 +123,17 @@ def addtosteam(gamename):
                                 stx = '\x02'
                                 bs = '\x08'
 
+                                #Calculate appid and last srno
+                                exepath = '"' + curr_dir + simplified_gamename + '.sh"'
+                                gameappid = calculateappid(gamename, exepath)
+
+                                last_srno = calculate_last_srno(line)
+                                
                                 #Keys
-                                srno = '\x00' + '\x00' # + number (starts from 0) self assigned by Steam
-                                #appid = stx + 'appid' + nul + nul + nul + nul + nul self assigned by Steam
+                                srno = nul + last_srno + nul
+                                appid = stx + 'appid' + nul + nul + nul + nul + nul
                                 AppName = soh + 'AppName' + nul + gamename + nul
-                                Exe = soh + 'Exe' + nul + '"' + curr_dir + simplified_gamename + '.sh"' + nul
+                                Exe = soh + 'Exe' + nul + exepath + nul
                                 StartDir = soh + 'StartDir' + nul + '"' + curr_dir + '"' + nul
                                 icon = soh + 'icon' + nul + nul
                                 ShortcutPath = soh + 'ShortcutPath' + nul + nul
@@ -95,7 +150,7 @@ def addtosteam(gamename):
                                 end = bs + bs
 
                                 #Entry
-                                entry = srno + AppName + Exe + StartDir + icon + ShortcutPath + LaunchOptions + IsHidden + AllowDesktopConfig + AllowOverlay + \
+                                entry = srno + appid + AppName + Exe + StartDir + icon + ShortcutPath + LaunchOptions + IsHidden + AllowDesktopConfig + AllowOverlay + \
                                         OpenVR + Devkit + DevkitGameID + DevkitOverrideAppID + LastPlayTime + tags + end
 
 
@@ -115,7 +170,7 @@ def addtosteam(gamename):
                                         file.close()  
 
                                 #Add artwork
-                                addartwork(gamename, '"' + curr_dir + simplified_gamename + '.sh"', userid, simplified_gamename)
+                                addartwork(gamename, gameappid, userid, simplified_gamename)
         except Exception: 
                 
                 print(traceback.format_exc())

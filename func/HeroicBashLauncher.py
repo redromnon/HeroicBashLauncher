@@ -7,7 +7,7 @@ from func.listinstalled import listinstalled
 from func.steam import createscript, addtosteam
 
 #Print current version
-curr_version = "v2.7.4"
+curr_version = "v2.7.5"
 print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
 
 #Check if a newer version is available

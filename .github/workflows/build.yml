@@ -24,7 +24,7 @@ jobs:
           python-version: '3.10'
           
       - name: Install Pyinstaller 
-        run : pip3 install --upgrade pyinstaller wget
+        run : pip3 install --upgrade pyinstaller wget requests
       
       - name: List directory in repository
         run: |

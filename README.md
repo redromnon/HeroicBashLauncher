@@ -82,6 +82,8 @@ Before submitting an issue :
 
 - Try using Wine-GE instead of Proton, since Proton is made for Steam games in mind.
 
+- Check if the added game's TARGET *(Right Click Game -> Properties -> SHORTCUT)* points to the correct path in Steam
+
 If it's not working for you, consider checking the logs. The logs for the game launch scripts and the program are present in `/GameFiles/logs`and the `HeroicBashLauncher.log` respectively.
 
 Feel free to suggest any new features and post issues in the _heroic-bash-launcher_ channel by joining [Heroic's Discord server](https://discord.gg/kXADMWbqu2). 

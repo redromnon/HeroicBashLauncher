@@ -35,7 +35,7 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 
 ## Pre-requisites
-- Heroic 2.2.2+
+- Heroic
 - Zenity
 - glibc v2.31+
 
@@ -92,7 +92,7 @@ Feel free to suggest any new features and post issues in the _heroic-bash-launch
 ## Building and Testing
 Since the program makes use of an executable, you will need **Python version 3.8+ and PyInstaller** to build the code.
 
-You will also need [wget (for Python)](https://pypi.org/project/wget/).
+You will also need [wget](https://pypi.org/project/wget/) and [requests](https://pypi.org/project/requests/).
 
 To test the program, open the terminal in the `func` directory and use the following command to build -
 

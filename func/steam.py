@@ -1,6 +1,7 @@
 #Adding launch scripts to Steam
 
 import os, sys, traceback, binascii
+from func import configpath
 from func.gameName import filegamename
 from func.artwork import addartwork
 
@@ -77,7 +78,7 @@ def calculate_last_srno(line):
 
 
 def addtosteam(gamename):
-        userdata_folder = os.path.join(os.path.expanduser("~"), '.steam' , 'steam', 'userdata')
+        userdata_folder = os.path.join(configpath.steampath, 'userdata')
 
         try:
 

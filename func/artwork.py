@@ -26,7 +26,8 @@ def checkartworkexists(artwork_path, image):
 def addartwork(appname, appid, userid, simplified_gamename):
 
     #Path to Steam grid folder
-    artwork_path = os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/grid'
+    #artwork_path = os.path.expanduser("~") + '/.steam/steam/userdata/' + str(userid) + '/config/grid'
+    artwork_path = os.path.join(configpath.steampath, 'userdata', str(userid), 'config', 'grid')
 
 
     #Artwork types

@@ -33,10 +33,14 @@ heroiclibrarypath = os.path.expanduser("~") + "/.config/heroic/lib-cache/library
 
 timestamppath = os.path.expanduser("~") + "/.config/heroic/store/timestamp.json"
 
+steampath = os.path.join(os.path.expanduser("~"), '.steam', 'steam')
+
 
 #Check if Flatpak exists
 if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic"):
 
+    print("\nDetected Heroic Flatpak...\n\n")
+    
     is_flatpak = True
 
     gamesjsonpath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/GamesConfig"
@@ -58,4 +62,6 @@ is_steam_flatpak = False
 
 
 if os.path.exists(os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam"):
+    print("\nDetected Steam Flatpak...\n\n")
     is_steam_flatpak = True
+    steampath = os.path.join(os.path.expanduser("~"), '.var/app/com.valvesoftware.Steam/data/Steam')

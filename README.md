@@ -4,7 +4,7 @@
 
 **NOTE - This is an independent project and not affiliated with Heroic Games Launcher.**
 
-Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam, Lutris, GameHub or any other frontend game launcher? 
+Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam or any other frontend game launcher without opening Heroic? 
 Bash Launcher does exactly this and takes you straight to the game!     
 
 ![Heroic Bash Launcher](https://user-images.githubusercontent.com/74495920/142615495-a4e5e811-7ee3-41b8-ae80-d6d008820f2a.png)
@@ -27,11 +27,13 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 ## Features
 
-✔️ Creates launch scripts for installed Epic & GOG games that act as shortcuts
+✔️ Creates game launch scripts for installed Epic & GOG games that act as shortcuts
 
 ✔️ Includes all launch parameters including cloud save-syncing set in Heroic's Game Settings
 
 ✔️ Syncs games to Steam along with artwork
+
+✔️ Users can add game launch scripts to any game library or manager like Lutris, GameHub, GNOME Games, etc.
 
 
 ## Pre-requisites

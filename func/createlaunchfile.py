@@ -1,12 +1,21 @@
 #Creates the launch script and additional flatpak launch script for launching games
 
-import os
+import os, json
 from func import configpath
 from func.checkparameters import checkparameters
 from func.gameName import filegamename
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
+    #Check if the game is launched at least once in Heroic
+    with open(configpath.timestamppath, encoding='utf-8') as p:
+        gametimelist = json.load(p)
+
+    if appname not in gametimelist.keys():
+        new_game_message = 'zenity --warning --title="Process Stopped" --text="Looks like ' + appname + ' is newly installed\n\nPlease run the game directly from Heroic for the initial setup and verify if it works." --width=200 --timeout=8; exit'
+    else:
+        new_game_message = ''
+    
     # Check/Update parameters
     gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync
     cloudsync = gamecommand[2]
@@ -49,13 +58,15 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Override launch parameters
     {executable_path}
 
+    {new_game_zenity}
+
     {launch_game_in_flatpak}
 
     {show_launch_command}
 
     """).format(logname = simplified_gamename,game_name = gamename, game_type = gametype, app_name = appname, 
                 executable_path = executablepath, launch_game_in_flatpak = launchflatpakgame, 
-                show_launch_command = showlaunchcommand)
+                new_game_zenity = new_game_message, show_launch_command = showlaunchcommand)
 
     
     #Flatpak Game Script Format

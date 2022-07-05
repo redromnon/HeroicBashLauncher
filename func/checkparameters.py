@@ -144,6 +144,14 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #CONFIGURING OTHER PARAMETERS
 
+    #language
+    language = ""
+    if ifpresent("language") == True:
+
+      if game[appname]["language"] == "":
+        language = ""
+      else:
+        language = "--language " + game[appname]["language"] + " "
 
     #launcherArgs
     launcherArgs = "" #Declared this because of reference assignment error
@@ -271,8 +279,8 @@ def checkparameters(appname, gamejsonfile, gametype):
 
         if gametype == "epic":
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + offlineMode + bin + wineprefix + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
@@ -299,8 +307,8 @@ def checkparameters(appname, gamejsonfile, gametype):
 
         if gametype == "epic":
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + offlineMode + bin + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + targetExe + force_offlineMode + bin + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + launcherArgs
+          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + force_offlineMode + bin + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs

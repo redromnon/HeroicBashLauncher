@@ -12,7 +12,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         gametimelist = json.load(p)
 
     if appname not in gametimelist.keys():
-        new_game_message = 'zenity --warning --title="Process Stopped" --text="Looks like ' + appname + ' is newly installed\n\nPlease run the game directly from Heroic for the initial setup and verify if it works." --width=200 --timeout=8; exit'
+        new_game_message = 'zenity --warning --title="Process Stopped" --text="Looks like ' + gamename + ' is newly installed\n\nPlease run the game directly from Heroic for the initial setup and verify if it works." --width=200 --timeout=8; exit'
     else:
         new_game_message = ''
     

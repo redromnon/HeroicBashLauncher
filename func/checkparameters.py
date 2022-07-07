@@ -149,7 +149,12 @@ def checkparameters(appname, gamejsonfile, gametype):
     if ifpresent("language") == True:
 
       if game[appname]["language"] == "":
-        language = ""
+
+        #Use Heroic's language setting if game setting lang not specified
+        with open(configpath.storejsonpath, encoding='utf-8') as l:
+          storejson = json.load(l)
+
+        language = "--language " + storejson["language"] + " "
       else:
         language = "--language " + game[appname]["language"] + " "
 

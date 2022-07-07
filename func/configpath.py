@@ -33,6 +33,8 @@ heroiclibrarypath = os.path.expanduser("~") + "/.config/heroic/lib-cache/library
 
 timestamppath = os.path.expanduser("~") + "/.config/heroic/store/timestamp.json"
 
+storejsonpath = os.path.expanduser("~") + "/.config/heroic/store/config.json"
+
 
 #Check if Flatpak exists
 if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic"):
@@ -52,6 +54,8 @@ if os.path.exists(os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.h
     heroiclibrarypath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/lib-cache/library.json"
 
     timestamppath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/store/timestamp.json"
+
+    storejsonpath = os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/config/heroic/store/config.json"
 
 #Check if Steam is Flatpak
 is_steam_flatpak = False

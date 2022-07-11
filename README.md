@@ -33,6 +33,8 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 ✔️ Syncs games to Steam along with artwork
 
+✔️ Enables per game profile customization for Steam Deck users
+
 ✔️ Users can add game launch scripts to any game library or manager like Lutris, GameHub, GNOME Games, etc.
 
 

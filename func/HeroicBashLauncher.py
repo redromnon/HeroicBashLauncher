@@ -6,36 +6,7 @@ from func.createlaunchfile import createlaunchfile
 from func.listinstalled import listinstalled
 from func.steam import createscript, addtosteam
 
-#Print current version
-curr_version = "v2.7.5"
-print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
-
-#Check if a newer version is available
-new_release = False
-checkifonline = True
-
-#Get new version tag if there's an internet connection
-try:
-    release_info = requests.get("https://api.github.com/repos/redromnon/HeroicBashLauncher/releases/latest")
-    new_release_note = ("A newer version " + release_info.json()["tag_name"] + " is available!\n" +
-                        "Please visit https://github.com/redromnon/HeroicBashLauncher/releases to download the latest release.")
-
-    if curr_version != release_info.json()["tag_name"] and not release_info.json()["prerelease"]:
-        new_release = True
-        print(new_release_note)
-except:
-    checkifonline = False
-    print("No internet connection detected.\n\n")
-
-
-#Check if AppImage version is being used
-if(os.path.isdir(os.getcwd() + '/binaries')):
-    print("Detected 'binaries' folder. Making the binaries executable.")
-    os.system("chmod +x binaries/legendary")
-    os.system("chmod +x binaries/gogdl")
-
 #Check if Zenity is installed
-print("\nChecking if Zenity is installed...")
 checkzenity = os.system('zenity --version')
 
 if("Games/Heroic/" in os.getcwd()):
@@ -46,6 +17,35 @@ if("Games/Heroic/" in os.getcwd()):
 
         if len(sys.argv) == 1: #Only name of file as default argument
         
+            #Print current version
+            curr_version = "v2.7.5"
+            print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
+
+            #Check if a newer version is available
+            new_release = False
+            checkifonline = True
+
+            #Get new version tag if there's an internet connection
+            try:
+                release_info = requests.get("https://api.github.com/repos/redromnon/HeroicBashLauncher/releases/latest")
+                new_release_note = ("A newer version " + release_info.json()["tag_name"] + " is available!\n" +
+                                    "Please visit https://github.com/redromnon/HeroicBashLauncher/releases to download the latest release.")
+
+                if curr_version != release_info.json()["tag_name"] and not release_info.json()["prerelease"]:
+                    new_release = True
+                    print(new_release_note)
+            except:
+                checkifonline = False
+                print("No internet connection detected.\n\n")
+
+
+            #Check if AppImage version is being used
+            if(os.path.isdir(os.getcwd() + '/binaries')):
+                print("Detected 'binaries' folder. Making the binaries executable.")
+                os.system("chmod +x binaries/legendary")
+                os.system("chmod +x binaries/gogdl")
+
+            
             if "deck" in os.path.expanduser("~"):
                 os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=8')
             

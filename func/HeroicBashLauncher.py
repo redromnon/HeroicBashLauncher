@@ -20,7 +20,7 @@ try:
     new_release_note = ("A newer version " + release_info.json()["tag_name"] + " is available!\n" +
                         "Please visit https://github.com/redromnon/HeroicBashLauncher/releases to download the latest release.")
 
-    if curr_version != release_info.json()["tag_name"]:
+    if curr_version != release_info.json()["tag_name"] and not release_info.json()["prerelease"]:
         new_release = True
         print(new_release_note)
 except:
@@ -32,7 +32,7 @@ except:
 if(os.path.isdir(os.getcwd() + '/binaries')):
     print("Detected 'binaries' folder. Making the binaries executable.")
     os.system("chmod +x binaries/legendary")
-    os.system("; chmod +x binaries/gogdl")
+    os.system("chmod +x binaries/gogdl")
 
 #Check if Zenity is installed
 print("\nChecking if Zenity is installed...")

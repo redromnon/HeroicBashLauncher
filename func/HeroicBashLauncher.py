@@ -28,50 +28,60 @@ except:
     print("No internet connection detected.\n\n")
 
 
+#Check if AppImage version is being used
+if(os.path.isdir(os.getcwd() + '/binaries')):
+    print("Detected 'binaries' folder. Making the binaries executable.")
+    os.system("chmod +x binaries/legendary")
+    os.system("; chmod +x binaries/gogdl")
+
 #Check if Zenity is installed
 print("\nChecking if Zenity is installed...")
 checkzenity = os.system('zenity --version')
 
-if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
+if("Games/Heroic/" in os.getcwd()):
+    if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
 
-    #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
-    #   else, update parameters of a game through launch file
+        #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
+        #   else, update parameters of a game through launch file
 
-    if len(sys.argv) == 1: #Only name of file as default argument
-    
-        if "deck" in os.path.expanduser("~"):
-            os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=8')
+        if len(sys.argv) == 1: #Only name of file as default argument
         
-        listinstalled()
+            if "deck" in os.path.expanduser("~"):
+                os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=8')
+            
+            listinstalled()
 
-        #Don't create AddToSteam script if Steam Deck 
-        if "deck" in os.path.expanduser("~"):
-            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
-        else:
-            os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
-            print("\nCreating AddToSteam script...")
-            createscript()
+            #Don't create AddToSteam script if Steam Deck 
+            if "deck" in os.path.expanduser("~"):
+                os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
+            else:
+                os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
+                print("\nCreating AddToSteam script...")
+                createscript()
 
-        #Display new release dialog
-        if new_release == True and checkifonline == True:
-            os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
-    elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
+            #Display new release dialog
+            if new_release == True and checkifonline == True:
+                os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
+        elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
+            
+            if sys.argv[1] == "":
+                    print("No game selected")
+                    sys.exit()
+            else:
+                os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350')
+                for i in sys.argv[1].split("|"):
+                    addtosteam(i)
+
+                os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
+        else: #Update launch script
+            createlaunchfile(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    elif checkzenity != 0:
         
-        if sys.argv[1] == "":
-                print("No game selected")
-                sys.exit()
-        else:
-            os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350')
-            for i in sys.argv[1].split("|"):
-                addtosteam(i)
+        print("Zenity not installed. Please consider doing so and try again.")
+    else:
 
-            os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
-    else: #Update launch script
-        createlaunchfile(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-elif checkzenity != 0:
-    
-    print("Zenity not installed. Please consider doing so and try again.")
+        os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300')
+        print("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
 else:
-
-    os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300')
-    print("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
+    os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic" --width=300')
+    print("Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic")

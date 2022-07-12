@@ -169,8 +169,8 @@ def addtosteam(gamename):
                                         #print(line)
                                         file.close()  
 
-                                #Add artwork
-                                addartwork(gamename, gameappid, userid, simplified_gamename)
+                                        #Add artwork
+                                        addartwork(gamename, gameappid, userid, simplified_gamename)
         except Exception: 
                 
                 logging.critical(traceback.format_exc())

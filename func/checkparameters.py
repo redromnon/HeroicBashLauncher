@@ -1,6 +1,6 @@
 #CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
 
-import os, json, sys, traceback
+import os, json, sys, traceback, logging
 from func import configpath
 from func.checkbinary import getbinary
 
@@ -265,7 +265,7 @@ def checkparameters(appname, gamejsonfile, gametype):
         wineVersion_bin = game[appname]["wineVersion"]["bin"]
         wineVersion_name = game[appname]["wineVersion"]["name"]
       except:
-        print("No wineVersion key found. Defaulting wine version to the one used in Heroic's global settings...")
+        logging.warning("No wineVersion key found. Defaulting wine version to the one used in Heroic's global settings...")
         #Use default wine version used in global settings 
         with open(configpath.heroicconfigpath, encoding='utf-8') as p:
             heroicconfig = json.load(p)
@@ -324,7 +324,7 @@ def checkparameters(appname, gamejsonfile, gametype):
       offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + "--platform=linux " + launcherArgs
   except Exception:
 
-      print(traceback.format_exc())
+      logging.critical(traceback.format_exc())
       os.system('zenity --error --title="Process Failed" --text="\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
       sys.exit()
 

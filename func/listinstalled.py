@@ -1,6 +1,6 @@
 #List installed games
 
-import os, json
+import os, json, logging
 from func import configpath
 from func.gameName import rspchar
 from func.createlaunchfile import createlaunchfile
@@ -30,7 +30,7 @@ def listinstalled():
     installedkeyarray = list(installed.keys())
 
     #Proceed to making launch files
-    print("\n\nDone! Now creating launch files for your Epic Games library ...\n")
+    logging.info("Done! Now creating launch files for your Epic Games library ...")
     for i in installedkeyarray:
       
       #Make sure the entries are games, not DLC
@@ -40,7 +40,7 @@ def listinstalled():
         gamename = rspchar(installed[i]["title"])
         
         #Print current action
-        print(gamename + " [" + i + "]...") # installed[i] = game's name, i = game's appname
+        logging.info(gamename + " [" + i + "]...") # installed[i] = game's name, i = game's appname
 
         #Pointing to the game's json file
         gamejson = configpath.gamesjsonpath + "/" + i + ".json"
@@ -67,7 +67,7 @@ def listinstalled():
     goglibrarykeyarray = list(goglibrary['games'])
 
     #Proceed to making launch files
-    print("\n\nDone! Now creating launch files for your GOG library ...\n")
+    logging.info("Done! Now creating launch files for your GOG library ...")
     for i in goginstalledkeyarray:
 
       for j in goglibrarykeyarray:
@@ -78,7 +78,7 @@ def listinstalled():
           gamename = rspchar(j['title'])
 
           #Print current action
-          print(gamename + " [" + i['appName'] + "]...")
+          logging.info(gamename + " [" + i['appName'] + "]...")
 
           #Pointing to the game's json file
           gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
@@ -96,4 +96,4 @@ def listinstalled():
           AddToSteam(gamename)
 
   #END OF THE PROGRAM
-  print("\n...Process finished. Launch scripts stored in GameFiles folder.")
+  logging.info("Process finished. Launch scripts stored in GameFiles folder.")

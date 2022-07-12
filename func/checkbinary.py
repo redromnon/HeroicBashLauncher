@@ -2,7 +2,7 @@
 #   For AppImage, check if alternavtive binary (Legendary) is added.
 #   If not, check folder under /tmp/ that includes path to the binaries.
 
-import os, json, sys, traceback
+import os, json, sys, traceback, logging
 from func import configpath
 
 def getbinary(gametype):
@@ -54,6 +54,6 @@ def getbinary(gametype):
         return binary
     except Exception:
 
-        print(traceback.format_exc())
+        logging.critical(traceback.format_exc())
         os.system('zenity --error --title="Process Failed" --text="\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
         sys.exit()

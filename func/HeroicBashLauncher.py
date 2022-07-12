@@ -1,6 +1,6 @@
 #Main file that takes bash arguments
 
-import os,sys, requests
+import os, sys, requests, logging
 from func import configpath
 from func.createlaunchfile import createlaunchfile
 from func.listinstalled import listinstalled
@@ -17,9 +17,13 @@ if("Games/Heroic/" in os.getcwd()):
 
         if len(sys.argv) == 1: #Only name of file as default argument
         
+            #Setup logging
+            logging.basicConfig(filename='HeroicBashLauncher.log', filemode='w', level=logging.DEBUG, format='[%(levelname)s] %(message)s')
+
+            
             #Print current version
             curr_version = "v2.7.5"
-            print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
+            logging.info("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
 
             #Check if a newer version is available
             new_release = False
@@ -33,15 +37,15 @@ if("Games/Heroic/" in os.getcwd()):
 
                 if curr_version != release_info.json()["tag_name"] and not release_info.json()["prerelease"]:
                     new_release = True
-                    print(new_release_note)
+                    logging.info(new_release_note)
             except:
                 checkifonline = False
-                print("No internet connection detected.\n\n")
+                logging.warning("No internet connection detected.\n\n")
 
 
             #Check if AppImage version is being used
             if(os.path.isdir(os.getcwd() + '/binaries')):
-                print("Detected 'binaries' folder. Making the binaries executable.")
+                logging.info("Detected 'binaries' folder. Making the binaries executable.")
                 os.system("chmod +x binaries/legendary")
                 os.system("chmod +x binaries/gogdl")
 
@@ -56,7 +60,7 @@ if("Games/Heroic/" in os.getcwd()):
                 os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
             else:
                 os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
-                print("\nCreating AddToSteam script...")
+                logging.info("Creating AddToSteam script...")
                 createscript()
 
             #Display new release dialog
@@ -64,8 +68,13 @@ if("Games/Heroic/" in os.getcwd()):
                 os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
         elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
             
+            #Setup logging
+            logging.basicConfig(filename='AddToSteam.log', filemode='w', level=logging.DEBUG, format='[%(levelname)s] %(message)s')
+            
+            logging.info("Running AddToSteam.sh...")
+            
             if sys.argv[1] == "":
-                    print("No game selected")
+                    logging.info("No game selected")
                     sys.exit()
             else:
                 os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350')
@@ -77,11 +86,11 @@ if("Games/Heroic/" in os.getcwd()):
             createlaunchfile(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     elif checkzenity != 0:
         
-        print("Zenity not installed. Please consider doing so and try again.")
+        logging.error("Zenity not installed. Please consider doing so and try again.")
     else:
 
         os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300')
-        print("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
+        logging.error("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
 else:
     os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic" --width=300')
-    print("Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic")
+    logging.critical("Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic")

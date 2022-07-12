@@ -1,7 +1,7 @@
 #DISCLAIMER - The logic of the code on Line 18 has been taken from SteamGridDB (https://github.com/SteamGridDB/steamgriddb-manager) [MIT License].   
 
 
-import os, json, wget, ssl, traceback, sys
+import os, json, wget, ssl, traceback, sys, logging
 from func import configpath
 from func.gameName import rspchar
 
@@ -30,7 +30,7 @@ def addartwork(appname, appid, userid, simplified_gamename):
 
 
     #Artwork types
-    print("Steam AppID for " + appname + " is " + str(appid))
+    logging.info("Steam AppID for " + appname + " is " + str(appid))
     coverart =  [str(appid) + 'p.jpg', str(appid) + 'p.png']
     backgroundart = [str(appid) + '_hero.jpg', str(appid) + '_hero.png']
     bigpictureart = [str(appid) + '.jpg', str(appid) + '.png']
@@ -42,13 +42,13 @@ def addartwork(appname, appid, userid, simplified_gamename):
 
     if not grid_exists:
         os.makedirs(artwork_path)
-        print("Created grid folder in ", artwork_path)
+        logging.info("Created grid folder in ", artwork_path)
 
     
 
     try:
 
-        print("Checking Artwork...")
+        logging.info("Checking Artwork...")
 
         if "GameFiles" in os.getcwd():
             GameFiles = os.getcwd() + "/"
@@ -71,7 +71,7 @@ def addartwork(appname, appid, userid, simplified_gamename):
             with open(configpath.heroiclibrarypath, encoding='utf-8') as l:
                 epicinstalled = json.load(l)
 
-            for i in epicinstalled['library']:
+            for i in epicinstalled['librar']:
 
                 gamename = rspchar(i['title'])
                 
@@ -81,42 +81,42 @@ def addartwork(appname, appid, userid, simplified_gamename):
                     if checkartworkexists(artwork_path, coverart) == False:
                     
                         image_url = i['art_square']
-                        print("Downloading Cover Art from " + image_url)
+                        logging.info("Downloading Cover Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + coverart[0])
                     else:
-                        print("Covert Art exists")
+                        logging.info("Covert Art exists")
 
                     #Background Art
                     if checkartworkexists(artwork_path, backgroundart) == False:
                     
                         image_url = i['art_cover']
-                        print("Downloading Background Art from " + image_url)
+                        logging.info("Downloading Background Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart[0])
                     else:
-                        print("Background Art exists")
+                        logging.info("Background Art exists")
 
                     #BigPicture Art
                     if checkartworkexists(artwork_path, bigpictureart) == False:
                     
                         image_url = i['art_cover']
-                        print("Downloading BigPicture Art from " + image_url)
+                        logging.info("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
                     else:
-                        print("BigPicture Art exists")
+                        logging.info("BigPicture Art exists")
 
                     #Logo Art
                     if checkartworkexists(artwork_path, logoart) == False:
                     
                         if not i['art_logo'] == None:
                             image_url = i['art_logo']
-                            print("Downloading Logo Art from " + image_url)
+                            logging.info("Downloading Logo Art from " + image_url)
                             wget.download(image_url, out = artwork_path)
                             os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + logoart[0])
                     else:
-                        print("Logo Art exists")
+                        logging.info("Logo Art exists")
         elif "gog" in readscript:
             
             #print("GOG")
@@ -134,33 +134,33 @@ def addartwork(appname, appid, userid, simplified_gamename):
                     if checkartworkexists(artwork_path, coverart) == False:
                     
                         image_url = i['art_square']
-                        print("Downloading Cover Art from " + image_url)
+                        logging.info("Downloading Cover Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         extract_image_url = image_url.split("/")[-1]
                         os.rename(artwork_path + '/' + extract_image_url.split("?")[0], artwork_path + '/' + coverart[0])
                     else:
-                        print("Covert Art exists")
+                        logging.info("Covert Art exists")
 
                     #Background Art
                     if checkartworkexists(artwork_path, backgroundart) == False:
                     
                         image_url = i['art_cover']
-                        print("Downloading Background Art from " + image_url)
+                        logging.info("Downloading Background Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + backgroundart[0])
                     else:
-                        print("Background Art exists")
+                        logging.info("Background Art exists")
 
                     #BigPicture Art
                     if checkartworkexists(artwork_path, bigpictureart) == False:
                     
                         image_url = i['art_cover']
-                        print("Downloading BigPicture Art from " + image_url)
+                        logging.info("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
     except Exception:
 
-        print(traceback.format_exc())
+        logging.critical(traceback.format_exc())
 
         if "deck" in os.path.expanduser("~"):
             os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check HeroicBashLauncher.log for the error in the HeroicBashLauncher folder and consider reporting it as an issue on GitHub." --width=400')

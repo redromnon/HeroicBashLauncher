@@ -1,11 +1,11 @@
 #Adding launch scripts to Steam
 
-import os, sys, traceback, binascii
+import os, sys, traceback, binascii, logging
 from func.gameName import filegamename
 from func.artwork import addartwork
 
 #Zenity list box
-contents = ('#!/bin/bash \n\n #Create log \n exec > AddToSteam.log 2>&1 \n\n#Choose a game to be added to Steam \n\n' +
+contents = ('#!/bin/bash \n\n#Choose a game to be added to Steam \n\n' +
                 'game=$(zenity --list --title="Add to Steam" --checklist --column="Choose" --column="Game Name" --width=400 --height=400 ')
 
 
@@ -19,7 +19,7 @@ def createscript():
                 c.write(contents)
         os.system("chmod u+x AddToSteam.sh")
 
-        print("AddtoSteam script successfully created")
+        logging.info("AddtoSteam script successfully created")
 
 
 def addtoscript(gamename):
@@ -94,10 +94,10 @@ def addtosteam(gamename):
                                         os.makedirs(os.path.dirname(shortcutsvdfpath), exist_ok=True)
                                         file = open(str(shortcutsvdfpath), 'wb')
                                         file.write("\x00shortcuts\x00\x08\x08".encode())
-                                        print("Created shortcuts.vdf in " + userid)
+                                        logging.info("Created shortcuts.vdf in " + userid)
                                         file.close()
                                 else:
-                                        print("shortcuts.vdf already exists in " + userid)
+                                        logging.warning("shortcuts.vdf already exists in " + userid)
 
                                 #Read Steam shortcuts file
                                 file = open(str(shortcutsvdfpath), 'rb')
@@ -157,12 +157,12 @@ def addtosteam(gamename):
                                 #Add game if not already added
                                 if gamename in str(line.decode("utf-8", "ignore")): 
 
-                                        print(gamename + " already added to Steam.")
+                                        logging.warning(gamename + " already added to Steam.")
                                 else:
 
                                         
                                         #Writing to file
-                                        print("Adding " + gamename + " to Steam")
+                                        logging.info("Adding " + gamename + " to Steam")
                                         
                                         f=open(str(shortcutsvdfpath), 'wb')
                                         f.write(line[:len(line)-2] + entry.encode() + line[-2:])
@@ -173,7 +173,7 @@ def addtosteam(gamename):
                                 addartwork(gamename, gameappid, userid, simplified_gamename)
         except Exception: 
                 
-                print(traceback.format_exc())
+                logging.critical(traceback.format_exc())
 
                 if "deck" in os.path.expanduser("~"):
                         os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the HeroicBashLauncher.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')

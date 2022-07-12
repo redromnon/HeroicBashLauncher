@@ -9,6 +9,11 @@ from func.steam import createscript, addtosteam
 #Check if Zenity is installed
 checkzenity = os.system('zenity --version')
 
+#Version
+curr_version = "v2.8.0-beta"
+print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
+
+
 if("Games/Heroic/" in os.getcwd()):
     if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
 
@@ -20,11 +25,9 @@ if("Games/Heroic/" in os.getcwd()):
             #Setup logging
             logging.basicConfig(filename='HeroicBashLauncher.log', filemode='w', level=logging.DEBUG, format='[%(levelname)s] %(message)s')
 
-            
             #Print current version
-            curr_version = "v2.7.5"
             logging.info("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
-
+            
             #Check if a newer version is available
             new_release = False
             checkifonline = True

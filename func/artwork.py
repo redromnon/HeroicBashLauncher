@@ -71,7 +71,7 @@ def addartwork(appname, appid, userid, simplified_gamename):
             with open(configpath.heroiclibrarypath, encoding='utf-8') as l:
                 epicinstalled = json.load(l)
 
-            for i in epicinstalled['librar']:
+            for i in epicinstalled['library']:
 
                 gamename = rspchar(i['title'])
                 

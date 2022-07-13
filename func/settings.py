@@ -11,7 +11,7 @@ enable_gog = None
 def create_settings_file():
         
     dictvalues = {
-        "artwork": False,
+        "artwork": True,
         "epic": True,
         "gog": True
     }

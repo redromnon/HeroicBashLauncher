@@ -3,6 +3,7 @@
 import os, sys, traceback, binascii, logging
 from func.gameName import filegamename
 from func.artwork import addartwork
+from func import settings
 
 #Zenity list box
 contents = ('#!/bin/bash \n\n#Choose a game to be added to Steam \n\n' +
@@ -170,7 +171,8 @@ def addtosteam(gamename):
                                         file.close()  
 
                                         #Add artwork
-                                        addartwork(gamename, gameappid, userid, simplified_gamename)
+                                        if settings.enable_artwork:
+                                                addartwork(gamename, gameappid, userid, simplified_gamename)
         except Exception: 
                 
                 logging.critical(traceback.format_exc())

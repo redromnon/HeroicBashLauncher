@@ -5,6 +5,7 @@ from func import configpath
 from func.gameName import rspchar
 from func.createlaunchfile import createlaunchfile
 from func.steam import *
+from func import settings
 
 def AddToSteam(gamename):
 
@@ -20,7 +21,7 @@ def listinstalled():
 
   #EPIC GAMES LIBRARY
   #------------------------------------------------------------------------------------
-  if os.path.exists(configpath.legendaryinstalledpath):
+  if os.path.exists(configpath.legendaryinstalledpath) and settings.enable_epic:
 
     #Convert legendary json to dict
     with open(configpath.legendaryinstalledpath, encoding='utf-8') as l:
@@ -53,7 +54,7 @@ def listinstalled():
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
-  if os.path.exists(configpath.goginstalledpath):
+  if os.path.exists(configpath.goginstalledpath) and settings.enable_gog:
 
     #Convert both json to dict
     with open(configpath.goginstalledpath, encoding='utf-8') as l:

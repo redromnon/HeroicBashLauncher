@@ -158,6 +158,8 @@ def addartwork(appname, appid, userid, simplified_gamename):
                         logging.info("Downloading BigPicture Art from " + image_url)
                         wget.download(image_url, out = artwork_path)
                         os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + bigpictureart[0])
+                    else:
+                        logging.info("BigPicture Art exists")
     except Exception:
 
         logging.critical(traceback.format_exc())

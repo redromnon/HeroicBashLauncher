@@ -5,6 +5,7 @@ from func import configpath
 from func.createlaunchfile import createlaunchfile
 from func.listinstalled import listinstalled
 from func.steam import createscript, addtosteam
+from func import settings
 
 #Check if Zenity is installed
 checkzenity = os.system('zenity --version')
@@ -56,6 +57,11 @@ if("Games/Heroic/" in os.getcwd()):
             if "deck" in os.path.expanduser("~"):
                 os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=8')
             
+            #Setup/Read settings file
+            settings.create_settings_file()
+            settings.read_settings_file()
+
+            #Start creating scripts
             listinstalled()
 
             #Don't create AddToSteam script if Steam Deck 

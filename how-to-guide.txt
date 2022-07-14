@@ -1,0 +1,31 @@
+Thanks for using Heroic Bash Launcher - A simple program that allows you to launch any of your Heroic games (Epic and GOG) from literally 
+anywhere on Linux!
+
+Do note that this project is open-source and is under the GPL-3.0 License. For more information, you can check out the LICENSE.md file.
+Moreover, this software does not come without any warranty.
+
+Hope you liked my little project! Have fun gaming!
+
+- Redromnon
+
+******************************************************************************************************************************************
+
+RUNNING THE PROGRAM 
+
+Just double-click the HeroicBashLauncher executable to run the program.
+
+ADDING GAMES TO STEAM
+
+Deck Users - The games will be automatically added to Steam when you run the program.
+Desktop Users - You'll find a AddToSteam.sh file generated after you run the program. Just double-click or run `./AddToSteam.sh` in the terminal.
+
+Artwork will also be downloaded if enabled in the settings.config file.
+
+CONFUGURING SETTINGS 
+
+Open the settings.config file and disable an option by changing "true" to "false".
+
+The following options are available:
+i) artwork - Downloads artwork for adding games to Steam
+ii) epic - Creates scripts for your Epic library
+iii) gog - Creates scripts for your GOG library

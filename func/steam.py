@@ -173,6 +173,8 @@ def addtosteam(gamename):
                                         #Add artwork
                                         if settings.enable_artwork:
                                                 addartwork(gamename, gameappid, userid, simplified_gamename)
+                                        else:
+                                                logging.warning("Downloading artwork is disabled in settings.config")
         except Exception: 
                 
                 logging.critical(traceback.format_exc())

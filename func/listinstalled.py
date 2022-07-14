@@ -51,6 +51,8 @@ def listinstalled():
 
         #Prepare adding game to Steam or AddToSteam script
         AddToSteam(gamename)
+  else:
+    logging.warning("Creating scripts for Epic games is disabled in settings.config")
 
   #GOG LIBRARY
   #------------------------------------------------------------------------------------
@@ -95,6 +97,8 @@ def listinstalled():
 
           #Prepare adding game to Steam or AddToSteam script
           AddToSteam(gamename)
+  else:
+    logging.warning("Creating scripts for GOG games is disabled in settings.config")
 
   #END OF THE PROGRAM
   logging.info("Process finished. Launch scripts stored in GameFiles folder.")

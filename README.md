@@ -17,6 +17,7 @@ Bash Launcher does exactly this and takes you straight to the game!
 - [Using Bash Launcher](#using-bash-launcher)
   - [Download](#download)
   - [Running the Program](#running-the-program)
+  - [Configuring Settings](#configuring-settings)
   - [Launching Games](#launching-games)
 - [Handy Guides](#handy-guides)
 - [Issues and Suggestions](#issues-and-suggestions)
@@ -50,7 +51,16 @@ Bash Launcher does exactly this and takes you straight to the game!
 Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/releases) page. Then download and extract the **.zip** file of the latest release.
 
 ### Running the Program
-Execute the program by simply  double-clicking the `setup.sh` script. You should be greeted by the _Process Finished_ dialog at the end.
+Execute the program by simply  double-clicking the HeroicBashLauncher executable. You should be greeted by the _Process Finished_ dialog at the end.
+
+### Configuring Settings
+
+Open the `settings.config` file and disable an option by changing "true" to "false".
+
+The following options are available:
+- `"artwork"` - Downloads artwork for adding games to Steam
+- `"epic"` - Creates scripts for your Epic library
+- `"gog"` - Creates scripts for your GOG library
 
 ### Launching Games
 

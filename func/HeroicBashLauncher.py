@@ -80,6 +80,9 @@ if("Games/Heroic/" in os.getcwd()):
             #Setup logging
             logging.basicConfig(filename='AddToSteam.log', filemode='w', level=logging.DEBUG, format='[%(levelname)s] %(message)s')
             
+            #Read settings file
+            settings.read_settings_file()
+            
             logging.info("Running AddToSteam.sh...")
             
             if sys.argv[1] == "":

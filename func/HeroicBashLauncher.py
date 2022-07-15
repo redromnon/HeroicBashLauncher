@@ -104,5 +104,5 @@ if("Games/Heroic/" in os.getcwd()):
         os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300')
         logging.error("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
 else:
-    os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic" --width=300')
-    logging.critical("Please unzip or copy the HeroicBashLauncher folder to /Games/Heroic")
+    os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to ~/Games/Heroic" --width=300')
+    logging.critical("Please unzip or copy the HeroicBashLauncher folder to ~/Games/Heroic")

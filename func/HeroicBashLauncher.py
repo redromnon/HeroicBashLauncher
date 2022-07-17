@@ -15,7 +15,7 @@ curr_version = "v2.8.0"
 print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
 
 
-if("Games/Heroic/" in os.getcwd()):
+if(os.path.isdir(os.path.expanduser('~') + '/Games/Heroic')):
     if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
 
         #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games

@@ -1,6 +1,6 @@
 #Creates the launch script and additional flatpak launch script for launching games
 
-import os, json
+import os, json, logging, sys
 from func import configpath
 from func.checkparameters import checkparameters
 from func.gameName import filegamename
@@ -8,8 +8,14 @@ from func.gameName import filegamename
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
     #Check if the game is launched at least once in Heroic
-    with open(configpath.timestamppath, encoding='utf-8') as p:
-        gametimelist = json.load(p)
+    if os.path.isfile(configpath.timestamppath):
+        with open(configpath.timestamppath, encoding='utf-8') as p:
+            gametimelist = json.load(p)
+    else:
+        logging.error("timestamp.json not found. Looks like you haven't launched any game from Heroic at all. Please consider doing so.")
+        os.system('zenity --error --title="Process Failed" --text="timestamp.json not found. Looks like you have not launched any game from Heroic at all. Please consider doing so." --width=200 --timeout=10')
+        sys.exit()
+
 
     if appname not in gametimelist.keys():
         new_game_message = 'zenity --warning --title="Process Stopped" --text="Looks like ' + gamename + ' is newly installed\n\nPlease run the game directly from Heroic for the initial setup and verify if it works." --width=200 --timeout=8; exit'

@@ -30,13 +30,16 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 ✔️ Creates game launch scripts for installed Epic & GOG games that act as shortcuts
 
-✔️ Includes all launch parameters including cloud save-syncing set in Heroic's Game Settings
+✔️ Includes all launch parameters including cloud save-syncing (EPIC GAMES ONLY) set in Heroic's Game Settings
 
-✔️ Syncs games to Steam along with artwork
+✔️ Syncs games to Steam along with artwork*
 
 ✔️ Enables per game profile customization for Steam Deck users
 
 ✔️ Users can add game launch scripts to any game library or manager like Lutris, GameHub, GNOME Games, etc.
+
+
+*It is recommended to use the "Add To Steam" feature in Heroic (v2.4.0+)
 
 
 ## Pre-requisites

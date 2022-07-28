@@ -23,8 +23,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         new_game_message = ''
     
     # Check/Update parameters
-    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, offline_launchcommand, cloudsync
-    cloudsync = gamecommand[2]
+    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, cloudsync
+    cloudsync = gamecommand[1]
     
     #Generating game's file name
     simplified_gamename = filegamename(gamename)
@@ -92,7 +92,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Launch game
     {savesync}
 
-    ({launchcommand} || (echo "---LAUNCH FAILED (NETWORK?). TRYING TO RUN IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
+    {launchcommand} || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
     #Wait for game to launch
     sleep 10
@@ -115,17 +115,16 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         sleep 3
     done
 
-    """).format(launchcommand = gamecommand[0], offline_launchcommand = gamecommand[1], 
-                savesync = cloudsync, game_name = gamename)
+    """).format(launchcommand = gamecommand[0], savesync = cloudsync, game_name = gamename)
 
     
     #GOG format (without cloud sync check)
     gog_script = ("""
 
     #Launch game
-    ({launchcommand} || (echo "---LAUNCH FAILED (NETWORK?). TRYING TO RUN IN OFFLINE MODE---" ; {offline_launchcommand})) || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
+    {launchcommand} || (zenity --error --title="Error" --text="Failed to launch {game_name}\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=200; exit)
 
-    """).format(launchcommand = gamecommand[0], offline_launchcommand = gamecommand[1], game_name = gamename) 
+    """).format(launchcommand = gamecommand[0], game_name = gamename) 
 
     ####################################################################################################################
     #Create final launch script depending on gametype

@@ -285,11 +285,9 @@ def checkparameters(appname, gamejsonfile, gametype):
         if gametype == "epic":
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + force_offlineMode + bin + wineprefix + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + wineprefix + "--os windows " + launcherArgs
       elif "Proton" in wineVersion_name:
 
         if configpath.is_flatpak == False:
@@ -313,15 +311,12 @@ def checkparameters(appname, gamejsonfile, gametype):
         if gametype == "epic":
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + force_offlineMode + bin + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
-          offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + bin + "--os windows " + launcherArgs  
     else:#LINUX GOG
 
       launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
-      offline_launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + otherOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + force_offlineMode + "--platform=linux " + launcherArgs
   except Exception:
 
       logging.critical(traceback.format_exc())
@@ -332,4 +327,4 @@ def checkparameters(appname, gamejsonfile, gametype):
   #print(launchcommand)
 
   #Return as list
-  return [launchcommand, offline_launchcommand, cloudsync]
+  return [launchcommand, cloudsync]

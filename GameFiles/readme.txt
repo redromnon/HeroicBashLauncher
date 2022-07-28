@@ -5,7 +5,6 @@ Each launch file will be named after the game and will contain the following:
     - Game's Full Name 
     - Games's App Name
     - Launch command to update parameters
-    - Launch command for both online/offline
     
 -----------------------------------------------------------------------------
 For newly installed games, run the HeroicBashLauncher executable again to 

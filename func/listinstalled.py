@@ -43,11 +43,8 @@ def listinstalled():
         #Print current action
         logging.info(gamename + " [" + i + "]...") # installed[i] = game's name, i = game's appname
 
-        #Pointing to the game's json file
-        gamejson = configpath.gamesjsonpath + "/" + i + ".json"
-
         #Preparing launch file
-        createlaunchfile(gamename, i, gamejson, "epic") # gamename, appname, game's json file path
+        createlaunchfile(gamename, i, "epic") # gamename, appname, game type
 
         #Prepare adding game to Steam or AddToSteam script
         AddToSteam(gamename)
@@ -58,7 +55,7 @@ def listinstalled():
   #------------------------------------------------------------------------------------
   if os.path.exists(configpath.goginstalledpath) and settings.enable_gog:
 
-    #Convert both json to dict
+    #Convert both json to dict, gamename is stored in goglibrarypath
     with open(configpath.goginstalledpath, encoding='utf-8') as l:
       goginstalled = json.load(l)
 
@@ -83,9 +80,6 @@ def listinstalled():
           #Print current action
           logging.info(gamename + " [" + i['appName'] + "]...")
 
-          #Pointing to the game's json file
-          gamejson = configpath.gamesjsonpath + "/" + j['app_name'] + ".json"
-
           #Check if game is linux or windows
           if i['platform'] == "linux":
             gametype = "gog-linux"
@@ -93,7 +87,7 @@ def listinstalled():
             gametype = "gog-win"
 
           #Preparing launch file
-          createlaunchfile(gamename, j['app_name'], gamejson, gametype) # gamename, appname, game's json file path
+          createlaunchfile(gamename, j['app_name'], gametype) # gamename, appname, gametype
 
           #Prepare adding game to Steam or AddToSteam script
           AddToSteam(gamename)

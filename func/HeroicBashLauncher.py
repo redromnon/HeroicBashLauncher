@@ -2,7 +2,6 @@
 
 import os, sys, requests, logging
 from func import configpath
-from func.createlaunchfile import createlaunchfile
 from func.listinstalled import listinstalled
 from func.steam import createscript, addtosteam
 from func import settings
@@ -50,8 +49,8 @@ if("Games/Heroic/" in os.getcwd()):
             #Check if AppImage version is being used
             if(os.path.isdir(os.getcwd() + '/binaries')):
                 logging.info("Detected 'binaries' folder. Making the binaries executable.")
-                os.system("chmod +x binaries/legendary")
-                os.system("chmod +x binaries/gogdl")
+                os.system("chmod u+x binaries/legendary")
+                os.system("chmod u+x binaries/gogdl")
 
             
             if "deck" in os.path.expanduser("~"):
@@ -94,8 +93,6 @@ if("Games/Heroic/" in os.getcwd()):
                     addtosteam(i)
 
                 os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
-        else: #Update launch script
-            createlaunchfile(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     elif checkzenity != 0:
         
         logging.error("Zenity not installed. Please consider doing so and try again.")

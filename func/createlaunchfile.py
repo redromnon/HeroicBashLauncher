@@ -12,10 +12,8 @@ def createlaunchfile(gamename, appname, gametype):
     #Set file paths
     if "GameFiles" in os.getcwd():#select parent dir
         gameFilepath = os.getcwd() + "/" + simplified_gamename + ".sh"
-        flatpakgamescriptpath = os.getcwd() + "/launchflatpakgame.sh"
     else:#launching from setup.sh
         gameFilepath = os.getcwd() + "/GameFiles/" + simplified_gamename + ".sh"
-        flatpakgamescriptpath = os.getcwd() + "/GameFiles/launchflatpakgame.sh"
 
     #Launch game command
     if configpath.is_flatpak:
@@ -37,12 +35,6 @@ def createlaunchfile(gamename, appname, gametype):
     #Launch Script Format
     launch_script = ("""#!/bin/bash 
 
-    #Generate log
-    exec > logs/{logname}.log 2>&1
-
-    #Enable UTF-8 Encoding
-    export LC_ALL=en_US.UTF-8
-
     #Game Name = {game_name} ({game_type}) 
 
     #App Name = {app_name}
@@ -58,10 +50,4 @@ def createlaunchfile(gamename, appname, gametype):
     with open(gameFilepath, "w") as f:
             f.write(launch_script)
     os.system("chmod u+x " + gameFilepath)
-
-    if configpath.is_flatpak == True:
-
-        with open(flatpakgamescriptpath, "w") as f:
-            f.write(launch_script)
-        os.system("chmod u+x " + flatpakgamescriptpath)
         

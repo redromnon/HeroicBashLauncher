@@ -20,16 +20,7 @@ def createlaunchfile(gamename, appname, gametype):
         launch_command = 'flatpak run com.heroicgameslauncher.hgl --no-gui --no-sandbox "heroic://launch/' + appname + '"'
     else:
         launch_command = '/opt/Heroic/heroic --no-gui --no-sandbox "heroic://launch/' + appname + '"'
-    
-    '''
-    #Launch commands for flatpak
-    if configpath.is_flatpak == False:
-        launchflatpakgame = ''
-        showlaunchcommand = ''
-    else:
-        launchflatpakgame = 'flatpak run --command=./launchflatpakgame.sh com.heroicgameslauncher.hgl' 
-        showlaunchcommand = '#Launch Command\n    #' + gamecommand[0]#Left space for alignment
-    '''
+        
 
     ####################################################################################################################
     #Launch Script Format

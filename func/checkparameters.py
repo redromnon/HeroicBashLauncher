@@ -336,7 +336,7 @@ def checkparameters(appname, gamejsonfile, gametype):
           launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + wrapperOptions + eacRuntime + battlEyeRuntime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
     else:#LINUX GOG
 
-      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
+      launchcommand = audioFix + showFps + enviromentOptions + nvidiaPrime + wrapperOptions + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
   except Exception:
 
       logging.critical(traceback.format_exc())

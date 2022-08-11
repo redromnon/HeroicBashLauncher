@@ -144,9 +144,6 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #CONFIGURING OTHER PARAMETERS
 
-    #LD Preload
-    ldpreload = "LD_PRELOAD= "
-
     #language
     language = ""
     if ifpresent("language") == True:
@@ -170,7 +167,14 @@ def checkparameters(appname, gamejsonfile, gametype):
       else:
         launcherArgs = game[appname]["launcherArgs"] + " "
 
-      #print(launcherArgs) 
+      #print(launcherArgs)
+
+    #wrapperOptions
+    wrapperOptions = "LD_PRELOAD= " 
+    if ifpresent("wrapperOptions") == True:
+
+      for i in game[appname]["wrapperOptions"]:
+        wrapperOptions = wrapperOptions +  i["exe"] + " " + i["args"] + " "
 
 
     #enviromentOptions
@@ -178,7 +182,7 @@ def checkparameters(appname, gamejsonfile, gametype):
     if ifpresent("enviromentOptions") == True:
 
       for i in game[appname]["enviromentOptions"]:
-        enviromentOptions = enviromentOptions +  i["key"] + " = " + i["value"] + " "
+        enviromentOptions = enviromentOptions +  i["key"] + "=" + i["value"] + " "
 
       #print(enviromentOptions)
 
@@ -285,10 +289,10 @@ def checkparameters(appname, gamejsonfile, gametype):
 
         if gametype == "epic":
 
-          launchcommand = ldpreload + audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
-          launchcommand = ldpreload + audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
       elif "Proton" in wineVersion_name:
 
         if configpath.is_flatpak == False:
@@ -311,13 +315,13 @@ def checkparameters(appname, gamejsonfile, gametype):
 
         if gametype == "epic":
 
-          launchcommand = ldpreload + audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata +  wrapperOptions + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
-          launchcommand = ldpreload + audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + wrapperOptions + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
     else:#LINUX GOG
 
-      launchcommand = ldpreload + audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
+      launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync + enableFsync + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
   except Exception:
 
       logging.critical(traceback.format_exc())

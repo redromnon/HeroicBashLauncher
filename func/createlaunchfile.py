@@ -148,7 +148,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
             f.write(final_launch_script)
     os.system("chmod u+x " + gameFilepath)
 
-    if configpath.is_flatpak == True:
+    if configpath.is_flatpak:
 
         with open(flatpakgamescriptpath, "w") as f:
             f.write(flatpak_launch_script)

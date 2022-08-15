@@ -25,9 +25,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #audioFix
     audioFix = ""
-    if ifpresent("audioFix") == True:
+    if ifpresent("audioFix"):
 
-      if game[appname]["audioFix"] == True:
+      if game[appname]["audioFix"]:
         audioFix = "PULSE_LATENCY_MSEC=60 "
 
     #print(audioFix)
@@ -35,9 +35,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #Auto-Cloud Save Sync
     cloudsync = ""
-    if ifpresent("autoSyncSaves") == True:
+    if ifpresent("autoSyncSaves"):
 
-      if game[appname]["autoSyncSaves"] == True:
+      if game[appname]["autoSyncSaves"]:
     
         if game[appname]["savesPath"] != "":
           #Download and Upload
@@ -48,9 +48,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #enableEsync (Wine, Proton)
     enableEsync = ["","PROTON_NO_ESYNC=1 "]
-    if ifpresent("enableEsync") == True:
+    if ifpresent("enableEsync"):
 
-      if game[appname]["enableEsync"] == True:
+      if game[appname]["enableEsync"]:
         enableEsync[0] = "WINEESYNC=1 "
         enableEsync[1] = ""
 
@@ -59,9 +59,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #enableFsync (Wine, Proton)
     enableFsync = ["", "PROTON_NO_FSYNC=1 "]
-    if ifpresent("enableFsync") == True:
+    if ifpresent("enableFsync"):
 
-      if game[appname]["enableFsync"] == True:
+      if game[appname]["enableFsync"]:
         enableFsync[0] = "WINEFSYNC=1 "
         enableFsync[1] = ""
 
@@ -71,9 +71,9 @@ def checkparameters(appname, gamejsonfile, gametype):
     #enableFSR & Sharpness
     enableFSR = ""
     maxSharpness = ""
-    if ifpresent("enableFSR") == True:
+    if ifpresent("enableFSR"):
 
-      if game[appname]["enableFSR"] == True:
+      if game[appname]["enableFSR"]:
         enableFSR = "WINE_FULLSCREEN_FSR=1 "
         maxSharpness = "WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[appname]["maxSharpness"]) + " " 
 
@@ -82,9 +82,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #enableResizableBar
     enableResizableBar = ""
-    if ifpresent("enableResizableBar") == True:
+    if ifpresent("enableResizableBar"):
 
-      if game[appname]["enableResizableBar"] == True:
+      if game[appname]["enableResizableBar"]:
         enableResizableBar = "VKD3D_CONFIG=upload_hvv "
 
     #print(enableResizableBar)
@@ -92,9 +92,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #nvidiaPrime
     nvidiaPrime = ""
-    if ifpresent("nvidiaPrime") == True:
+    if ifpresent("nvidiaPrime"):
 
-      if game[appname]["nvidiaPrime"] == True:
+      if game[appname]["nvidiaPrime"]:
         nvidiaPrime = "DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
 
     #print(nvidiaPrime)
@@ -102,9 +102,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #offlineMode
     offlineMode = ""
-    if ifpresent("offlineMode") == True:
+    if ifpresent("offlineMode"):
 
-      if game[appname]["offlineMode"] == True:
+      if game[appname]["offlineMode"]:
         offlineMode = "--offline "
 
     #offlineMode parameter when no internet connection
@@ -115,9 +115,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #showFps
     showFps = ""
-    if ifpresent("showFps") == True:
+    if ifpresent("showFps"):
 
-      if game[appname]["showFps"] == True:
+      if game[appname]["showFps"]:
         showFps = "DXVK_HUD=fps "
 
     #print(showFps)
@@ -125,9 +125,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #showMangohud
     showMangohud = ""
-    if ifpresent("showMangohud") == True:
+    if ifpresent("showMangohud"):
 
-      if game[appname]["showMangohud"] == True:
+      if game[appname]["showMangohud"]:
         showMangohud = "mangohud --dlsym "
 
     #print(showMangohud)
@@ -135,9 +135,9 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #useGameMode
     useGameMode = ""
-    if ifpresent("useGameMode") == True: 
+    if ifpresent("useGameMode"): 
   
-      if game[appname]["useGameMode"] == True:
+      if game[appname]["useGameMode"]:
         useGameMode = "gamemoderun "
 
     #print(useGameMode)
@@ -145,17 +145,17 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #EAC runtime
     eacRuntime = ""
-    if ifpresent("eacRuntime") == True: 
+    if ifpresent("eacRuntime"): 
   
-      if game[appname]["eacRuntime"] == True:
+      if game[appname]["eacRuntime"]:
         eacRuntime = configpath.runtimepath + "eac_runtime "
 
     
     #battlEye runtime
     battlEyeRuntime = ""
-    if ifpresent("battlEyeRuntime") == True: 
+    if ifpresent("battlEyeRuntime"): 
   
-      if game[appname]["battlEyeRuntime"] == True:
+      if game[appname]["battlEyeRuntime"]:
         battlEyeRuntime = configpath.runtimepath + "battleye_runtime "
 
 
@@ -163,7 +163,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #language
     language = ""
-    if ifpresent("language") == True:
+    if ifpresent("language"):
 
       if game[appname]["language"] == "":
 
@@ -177,7 +177,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #launcherArgs
     launcherArgs = "" #Declared this because of reference assignment error
-    if ifpresent("launcherArgs") == True:
+    if ifpresent("launcherArgs"):
 
       if game[appname]["launcherArgs"] == "":
         launcherArgs = ""
@@ -188,7 +188,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #wrapperOptions
     wrapperOptions = "LD_PRELOAD= " 
-    if ifpresent("wrapperOptions") == True:
+    if ifpresent("wrapperOptions"):
 
       for i in game[appname]["wrapperOptions"]:
         wrapperOptions = wrapperOptions +  i["exe"] + " " + i["args"] + " "
@@ -196,7 +196,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #enviromentOptions
     enviromentOptions = ""
-    if ifpresent("enviromentOptions") == True:
+    if ifpresent("enviromentOptions"):
 
       for i in game[appname]["enviromentOptions"]:
         enviromentOptions = enviromentOptions +  i["key"] + "=" + i["value"] + " "
@@ -206,7 +206,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #targetExe
     targetExe = ""
-    if ifpresent("targetExe") == True:
+    if ifpresent("targetExe"):
 
       if game[appname]["targetExe"] == "":
         targetExe = ""
@@ -219,14 +219,14 @@ def checkparameters(appname, gamejsonfile, gametype):
     #Steam Runtime
     steam_runtime = ""
     steam_runtime_win = False
-    if ifpresent("useSteamRuntime") == True:
+    if ifpresent("useSteamRuntime"):
 
-      if game[appname]["useSteamRuntime"] == True:
+      if game[appname]["useSteamRuntime"]:
 
         #Scout
         if gametype == "gog-linux":
         
-          if configpath.is_steam_flatpak == True:
+          if configpath.is_steam_flatpak:
 
             steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh "
           else:
@@ -237,7 +237,7 @@ def checkparameters(appname, gamejsonfile, gametype):
         else:
           steam_runtime_win = True
 
-          if configpath.is_steam_flatpak == True:
+          if configpath.is_steam_flatpak:
 
             steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
           else:
@@ -274,7 +274,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
       #winePrefix
       winePrefix = ""
-      if ifpresent("winePrefix") == True:
+      if ifpresent("winePrefix"):
         winePrefix = game[appname]["winePrefix"]
 
       #print(winePrefix)
@@ -323,7 +323,7 @@ def checkparameters(appname, gamejsonfile, gametype):
         wineVersion_bin = "'" + wineVersion_bin + "'"
 
         #Check if Steam Soldier runtime is enabled
-        if steam_runtime_win == True:
+        if steam_runtime_win:
           bin = '--no-wine --wrapper "' + steam_runtime + wineVersion_bin + ' waitforexitandrun" '
           steamappid = 'SteamAppId=0 '
         else:

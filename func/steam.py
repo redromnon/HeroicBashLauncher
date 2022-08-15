@@ -61,7 +61,7 @@ def calculate_last_srno(line):
                 start = start - 1
 
         #If no entries found, set srno as 0 otherwise increment last srno
-        if no_entries == True:
+        if no_entries:
                 return '0'
         else:
                 if '\x00'.encode() not in line[start-5:start-2]:#Should be three digits like 100,101,...999

@@ -16,7 +16,7 @@ print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent p
 
 
 if("Games/Heroic/" in os.getcwd()):
-    if (os.path.exists(configpath.legendaryinstalledpath) == True or os.path.exists(configpath.goginstalledpath) == True) and checkzenity == 0:
+    if (os.path.exists(configpath.legendaryinstalledpath) or os.path.exists(configpath.goginstalledpath)) and checkzenity == 0:
 
         #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
         #   else, update parameters of a game through launch file
@@ -73,7 +73,7 @@ if("Games/Heroic/" in os.getcwd()):
                 createscript()
 
             #Display new release dialog
-            if new_release == True and checkifonline == True:
+            if new_release and checkifonline:
                 os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
         elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
             

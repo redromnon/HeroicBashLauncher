@@ -8,7 +8,7 @@ def rspchar(realgamename):
 
     for char in realgamename:
 
-        if char.isalnum() == True or char in includechar:
+        if char.isalnum() or char in includechar:
 
             name = name + char
 
@@ -21,7 +21,7 @@ def filegamename(realgamename):
 
     for char in realgamename:
 
-        if char.isalnum() == True:
+        if char.isalnum():
 
             name = name + char
 

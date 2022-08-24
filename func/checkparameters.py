@@ -325,10 +325,11 @@ def checkparameters(appname, gamejsonfile, gametype):
         #Check if Steam Soldier runtime is enabled
         if steam_runtime_win:
           bin = '--no-wine --wrapper "' + steam_runtime + wineVersion_bin + ' waitforexitandrun" '
-          steamappid = 'STEAM_COMPAT_APP_ID=0 SteamAppId=0 '
         else:
           bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
-          steamappid = ''
+
+        #Set Steam AppID
+        steamappid = 'STEAM_COMPAT_APP_ID=0 SteamAppId=0 '
 
         if gametype == "epic":
 

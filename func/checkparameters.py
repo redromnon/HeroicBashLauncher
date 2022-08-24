@@ -239,10 +239,10 @@ def checkparameters(appname, gamejsonfile, gametype):
 
           if configpath.is_steam_flatpak:
 
-            steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
+            steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/run -- "
           else:
             
-            steam_runtime = os.path.expanduser("~") + "/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point -- "
+            steam_runtime = os.path.expanduser("~") + "/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/run -- "
 
       #print(targetExe)
 

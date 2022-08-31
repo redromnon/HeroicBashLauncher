@@ -148,7 +148,7 @@ def checkparameters(appname, gamejsonfile, gametype):
     if ifpresent("eacRuntime"): 
   
       if game[appname]["eacRuntime"]:
-        eacRuntime = configpath.runtimepath + "eac_runtime "
+        eacRuntime = "PROTON_EAC_RUNTIME=" + configpath.runtimepath + "eac_runtime "
 
     
     #battlEye runtime
@@ -156,7 +156,7 @@ def checkparameters(appname, gamejsonfile, gametype):
     if ifpresent("battlEyeRuntime"): 
   
       if game[appname]["battlEyeRuntime"]:
-        battlEyeRuntime = configpath.runtimepath + "battleye_runtime "
+        battlEyeRuntime = "PROTON_BATTLEYE_RUNTIME=" + configpath.runtimepath + "battleye_runtime "
 
 
     #CONFIGURING OTHER PARAMETERS

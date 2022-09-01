@@ -6,6 +6,8 @@ import os, json, sys, traceback, logging
 from func import configpath
 from func.settings import args
 
+__resources_bin_path = "resources/app.asar.unpacked/build/bin/linux"
+
 def getbinary(gametype):
 
     try:
@@ -20,37 +22,35 @@ def getbinary(gametype):
         #Checking
         binary = ""
 
-        if os.path.exists("/opt/Heroic/resources/app.asar.unpacked/build/bin/linux") == True:
+        # Follow any symlinks to the real path of heroic
+        detected_heroic_path = os.path.realpath("/usr/bin/heroic")
+        if os.path.exists(detected_heroic_path):
+            heroic_base_path = os.path.dirname(detected_heroic_path)
+        elif os.path.exists("/opt/Heroic"): # Default to /opt/Heroic
+            heroic_base_path = "/opt/Heroic"
+        elif configpath.is_flatpak or os.path.exists("/app/bin/heroic"): #System or Flatpak-env path
+            heroic_base_path = "/app/bin/heroic"
 
-            if gametype != "epic":
-                binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
-            else:
-                binary = "/opt/Heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
+        heroic_resources_path = os.path.join(heroic_base_path, __resources_bin_path)
+        
+        if gametype != "epic":
+            executable = "gogdl "
+        else:
+            executable = "legendary "
+
+        if os.path.exists(heroic_resources_path):
+            binary = os.path.join(heroic_resources_path, executable)
         elif 'altLegendaryBin' in heroicconfig['defaultSettings'].keys() and heroicconfig["defaultSettings"]["altLegendaryBin"] != "" and gametype == "epic":
 
                 binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
         #elif 'altGogdlBin' in heroicconfig['defaultSettings'].keys() and heroicconfig["defaultSettings"]["altGogdlBin"] != "" and gametype != "epic":
         
                 #binary = heroicconfig["defaultSettings"]["altGogdlBin"] + " "
-        elif configpath.is_flatpak or os.path.exists("/app/bin/heroic"):#System or Flatpak-env path
-
-            if gametype != "epic":
-                binary = "/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux/gogdl "
-            else:
-                binary = "/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux/legendary "
         else:#AppImage
-
             if "GameFiles" in os.getcwd():#select parent dir
-                if gametype != "epic":
-                    binary = os.path.dirname(os.getcwd()) + "/binaries/gogdl "
-                else:
-                    binary =  os.path.dirname(os.getcwd()) + "/binaries/legendary "
+                binary = os.path.join(os.path.dirname(os.getcwd()), "binaries", executable)
             else:
-                if gametype != "epic":
-                    binary = os.getcwd() + "/binaries/gogdl "
-                else:
-                    binary = os.getcwd() + "/binaries/legendary "
-
+                binary = os.path.join(os.getcwd(), "binaries", executable)
             
         return binary
     except Exception:

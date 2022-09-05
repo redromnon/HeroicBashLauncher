@@ -1,6 +1,6 @@
 #CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
 
-import os, json, sys, traceback, logging
+import os, json, sys, traceback, logging, requests
 from func import configpath
 from func.checkbinary import getbinary
 
@@ -106,10 +106,11 @@ def checkparameters(appname, gamejsonfile, gametype):
 
       if game[appname]["offlineMode"]:
         offlineMode = "--offline "
-
-    #offlineMode parameter when no internet connection
-    force_offlineMode = "--offline "
-
+      else:
+        try:
+          requests.get("https://www.google.com", timeout=2)
+        except:
+          offlineMode = "--offline "
     #print(offlineMode)
 
 

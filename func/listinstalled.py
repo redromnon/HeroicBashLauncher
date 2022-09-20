@@ -7,10 +7,10 @@ from func.createlaunchfile import createlaunchfile
 from func.steam import *
 from func import settings
 
+#If system is Steam Deck, add to Steam (if enabled) or add to Steam script
 def AddToSteam(gamename):
 
-  #If system is Steam Deck, add to Steam right away or add to Steam script
-    if "deck" in os.path.expanduser("~"):
+    if "deck" in os.path.expanduser("~") and settings.enable_autoaddtosteam:
         addtosteam(gamename)
     else:
         addtoscript(gamename)

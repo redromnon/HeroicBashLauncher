@@ -34,3 +34,4 @@ The following options are available:
 i) artwork - Downloads artwork for adding games to Steam
 ii) epic - Creates scripts for your Epic library
 iii) gog - Creates scripts for your GOG library
+iv) autoaddtosteam - Automatically adds scripts as shortcuts to Steam for Deck users

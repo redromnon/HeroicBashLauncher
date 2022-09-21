@@ -18,9 +18,13 @@ def create_settings_file():
         "autoaddtosteam": True
     }
 
-    with open('settings.config', 'w') as sc:
-        json.dump(dictvalues, sc, indent=2)
-        logging.info("Settings config file created.")
+    if not os.path.isfile('settings.config'):
+
+        logging.warning("Settings config file not found.")
+
+        with open('settings.config', 'w') as sc:
+            json.dump(dictvalues, sc, indent=2)
+            logging.info("Settings config file created.")
 
 
 #Read settings values
@@ -32,4 +36,12 @@ def read_settings_file():
     enable_artwork = setting["artwork"]
     enable_epic = setting["epic"]
     enable_gog = setting["gog"]
-    enable_autoaddtosteam = setting["autoaddtosteam"]
+
+    try:
+        enable_autoaddtosteam = setting["autoaddtosteam"]
+    except:
+        logging.warning("addtosteam setting not found, adding to config file...")
+        setting["autoaddtosteam"] = True
+        with open('settings.config', 'w') as sc:
+            json.dump(setting, sc, indent=2)
+            logging.info("Settings config file updated.")

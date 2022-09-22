@@ -65,7 +65,7 @@ if("Games/Heroic/" in os.getcwd()):
             listinstalled()
 
             #Don't create AddToSteam script if Steam Deck 
-            if "deck" in os.path.expanduser("~"):
+            if "deck" in os.path.expanduser("~") and settings.enable_autoaddtosteam:
                 os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
             else:
                 os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
@@ -89,7 +89,7 @@ if("Games/Heroic/" in os.getcwd()):
                     logging.info("No game selected")
                     sys.exit()
             else:
-                os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350')
+                os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350 --timeout=8')
                 for i in sys.argv[1].split("|"):
                     addtosteam(i)
 
@@ -101,7 +101,7 @@ if("Games/Heroic/" in os.getcwd()):
         logging.error("Zenity not installed. Please consider doing so and try again.")
     else:
 
-        os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300')
+        os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300 --timeout=8')
         logging.error("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
 else:
     os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to ~/Games/Heroic" --width=300')

@@ -106,11 +106,11 @@ def checkparameters(appname, gamejsonfile, gametype):
 
       if game[appname]["offlineMode"]:
         offlineMode = "--offline "
-      else:
-        try:
-          requests.get("https://www.google.com", timeout=2)
-        except:
-          offlineMode = "--offline "
+        
+    try:
+      requests.get("https://www.google.com", timeout=2)
+    except:
+      offlineMode = "--offline "
     #print(offlineMode)
 
 

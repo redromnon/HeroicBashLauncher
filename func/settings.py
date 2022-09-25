@@ -1,6 +1,14 @@
-#CREATE/READ JSON FILE AND APPLY SETTINGS
+#CREATE/READ JSON FILE, ARGS AND APPLY SETTINGS
 
-import os, json, logging
+import os, json, logging, argparse
+import string
+
+#Setup arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("--silent", action="store_true", help="Run program without GUI")
+parser.add_argument("--steam", nargs=1, help="Add selected games to Steam")
+parser.add_argument("--update", nargs=4, help="Update launch script")
+args = parser.parse_args()
 
 #Declare
 enable_epic = None

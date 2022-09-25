@@ -31,11 +31,11 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
 
     #Set file paths
     if "GameFiles" in os.getcwd():#select parent dir
-        executablepath = os.path.dirname(os.getcwd()) + '/HeroicBashLauncher' + ' "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '"' 
+        executablepath = os.path.dirname(os.getcwd()) + '/HeroicBashLauncher --update' + ' "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '"' 
         gameFilepath = os.getcwd() + "/" + simplified_gamename + ".sh"
         flatpakgamescriptpath = os.getcwd() + "/launchflatpakgame.sh"
     else:#launching from setup.sh
-        executablepath = os.getcwd() + '/HeroicBashLauncher' + ' "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '"'
+        executablepath = os.getcwd() + '/HeroicBashLauncher --update' + ' "' + gamename + '" "' + appname + '" "' + gamejson + '" "' + gametype + '"'
         gameFilepath = os.getcwd() + "/GameFiles/" + simplified_gamename + ".sh"
         flatpakgamescriptpath = os.getcwd() + "/GameFiles/launchflatpakgame.sh"
     

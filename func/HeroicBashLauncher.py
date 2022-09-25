@@ -21,7 +21,7 @@ if("Games/Heroic/" in os.getcwd()):
         #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
         #   else, update parameters of a game through launch file
 
-        if len(sys.argv) == 1: #Only name of file as default argument
+        if not settings.args.steam and not settings.args.update: #Only name of file as default argument
         
             #Setup logging
             logging.basicConfig(filename='HeroicBashLauncher.log', filemode='w', level=logging.DEBUG, format='[%(levelname)s] %(message)s')
@@ -75,7 +75,7 @@ if("Games/Heroic/" in os.getcwd()):
             #Display new release dialog
             if new_release and checkifonline:
                 os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
-        elif len(sys.argv) == 2: #Contains simplified gamename as arg for Steam addition
+        elif settings.args.steam: #Contains simplified gamename as arg for Steam addition
             
             #Setup logging
             logging.basicConfig(filename='AddToSteam.log', filemode='w', level=logging.DEBUG, format='[%(levelname)s] %(message)s')
@@ -85,17 +85,17 @@ if("Games/Heroic/" in os.getcwd()):
             
             logging.info("Running AddToSteam.sh...")
             
-            if sys.argv[1] == "":
+            if settings.args.steam[0] == "":
                     logging.info("No game selected")
                     sys.exit()
             else:
                 os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350 --timeout=8')
-                for i in sys.argv[1].split("|"):
+                for i in settings.args.steam[0].split("|"):
                     addtosteam(i)
 
                 os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
-        else: #Update launch script
-            createlaunchfile(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+        elif settings.args.update: #Update launch script
+            createlaunchfile(settings.args.update[0], settings.args.update[1], settings.args.update[2], settings.args.update[3])
     elif checkzenity != 0:
         
         logging.error("Zenity not installed. Please consider doing so and try again.")

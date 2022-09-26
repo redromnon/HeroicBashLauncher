@@ -55,7 +55,8 @@ if("Games/Heroic/" in os.getcwd()):
 
             
             if "deck" in os.path.expanduser("~"):
-                os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=8')
+                if not settings.args.silent:
+                    os.system('zenity --info --title="Process Starting" --text="This may take a while depending on your internet connection and number of games" --width=300 --timeout=8')
             
             #Setup/Read settings file
             settings.create_settings_file()
@@ -66,15 +67,18 @@ if("Games/Heroic/" in os.getcwd()):
 
             #Don't create AddToSteam script if Steam Deck 
             if "deck" in os.path.expanduser("~") and settings.enable_autoaddtosteam:
-                os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
+                if not settings.args.silent:
+                    os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYour games have been synced to Steam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
             else:
-                os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
+                if not settings.args.silent:
+                    os.system('zenity --info --title="Process Finished" --text="Launch scripts stored in GameFiles folder\n\nYou can choose to add the launch scripts to any game launcher and sync games to Steam via AddToSteam\n\nMake sure to launch newly installed games from Heroic first\n\nHave fun gaming!" --width=300 --timeout=8')
                 logging.info("Creating AddToSteam script...")
                 createscript()
 
             #Display new release dialog
             if new_release and checkifonline:
-                os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
+                if not settings.args.silent:
+                    os.system('zenity --info --title="Process Paused" --text="' + new_release_note + '" --width=300')
         elif settings.args.steam: #Contains simplified gamename as arg for Steam addition
             
             #Setup logging
@@ -89,11 +93,13 @@ if("Games/Heroic/" in os.getcwd()):
                     logging.info("No game selected")
                     sys.exit()
             else:
-                os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350 --timeout=8')
+                if not settings.args.silent:
+                    os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350 --timeout=8')
                 for i in settings.args.steam[0].split("|"):
                     addtosteam(i)
 
-                os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
+                if not settings.args.silent:
+                    os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 
         elif settings.args.update: #Update launch script
             createlaunchfile(settings.args.update[0], settings.args.update[1], settings.args.update[2], settings.args.update[3])
     elif checkzenity != 0:
@@ -101,8 +107,10 @@ if("Games/Heroic/" in os.getcwd()):
         logging.error("Zenity not installed. Please consider doing so and try again.")
     else:
 
-        os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300 --timeout=8')
+        if not settings.args.silent:
+            os.system('zenity --error --title="Process Stopped" --text="Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again" --width=300 --timeout=8')
         logging.error("Looks like you have not installed Heroic Games Launcher or installed any game\n\nPlease consider doing so and try again")
 else:
-    os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to ~/Games/Heroic" --width=300')
+    if not settings.args.silent:
+        os.system('zenity --error --title="Process Stopped" --text="Please unzip or copy the HeroicBashLauncher folder to ~/Games/Heroic" --width=300')
     logging.critical("Please unzip or copy the HeroicBashLauncher folder to ~/Games/Heroic")

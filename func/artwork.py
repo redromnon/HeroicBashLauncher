@@ -4,6 +4,7 @@
 import os, json, wget, ssl, traceback, sys, logging
 from func import configpath
 from func.gameName import rspchar
+from func.settings import args
 
 def checkartworkexists(artwork_path, image):
     
@@ -165,7 +166,9 @@ def addartwork(appname, appid, userid, simplified_gamename):
         logging.critical(traceback.format_exc())
 
         if "deck" in os.path.expanduser("~"):
-            os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check HeroicBashLauncher.log for the error in the HeroicBashLauncher folder and consider reporting it as an issue on GitHub." --width=400')
+            if not args.silent:
+                os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check HeroicBashLauncher.log for the error in the HeroicBashLauncher folder and consider reporting it as an issue on GitHub." --width=400')
         else:
-            os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check AddToSteam.log for the error in the HeroicBashLauncher folder and consider reporting it as an issue on GitHub." --width=400')    
+            if not args.silent:
+                os.system('zenity --error --title="Process Failed" --text="Failed to add artwork. Please check AddToSteam.log for the error in the HeroicBashLauncher folder and consider reporting it as an issue on GitHub." --width=400')    
         sys.exit()  

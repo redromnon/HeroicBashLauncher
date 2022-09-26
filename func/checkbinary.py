@@ -4,6 +4,7 @@
 
 import os, json, sys, traceback, logging
 from func import configpath
+from func.settings import args
 
 def getbinary(gametype):
 
@@ -55,5 +56,6 @@ def getbinary(gametype):
     except Exception:
 
         logging.critical(traceback.format_exc())
-        os.system('zenity --error --title="Process Failed" --text="\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
+        if not args.silent:
+            os.system('zenity --error --title="Process Failed" --text="\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
         sys.exit()

@@ -20,11 +20,15 @@ Then just double-click the HeroicBashLauncher executable to run the program.
 
 ADDING GAMES TO STEAM
 
-Deck Users - The games will be automatically added to Steam when you run the program.
+Deck Users - The games will be automatically added to Steam when you run the program if autoaddtosteam is enabled (default).
 Desktop Users - You'll find a AddToSteam.sh file generated after you run the program. Just double-click or run `./AddToSteam.sh` in the terminal.
 
 Artwork will also be downloaded if enabled in the settings.config file.
 
+
+RUNNING IN SILENT MODE
+You can run the program in silent mode without any GUI pop-ups using the following command:
+`HeroicBashLauncher --silent`
 
 CONFUGURING SETTINGS 
 

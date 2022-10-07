@@ -14,7 +14,7 @@ def createscript():
 
         global contents 
 
-        contents = contents + ')\n./HeroicBashLauncher "$game" '
+        contents = contents + ')\n\n' + r'./HeroicBashLauncher --steam "\"$game\"" '
 
         with open("AddToSteam.sh", "w") as c:
                 c.write(contents)
@@ -180,9 +180,11 @@ def addtosteam(gamename):
                 logging.critical(traceback.format_exc())
 
                 if "deck" in os.path.expanduser("~"):
-                        os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the HeroicBashLauncher.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
+                        if not settings.args.silent:
+                                os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the HeroicBashLauncher.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
                 else:
-                        os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the AddToSteam.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
+                        if not settings.args.silent:
+                                os.system('zenity --error --title="Process Failed" --text="Failed to add game to Steam. Please check the AddToSteam.log in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
                 sys.exit()
         
 

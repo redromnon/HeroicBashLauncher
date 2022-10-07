@@ -2,6 +2,7 @@
 
 import os, json, sys, traceback, logging, requests
 from func import configpath
+from func import settings
 from func.checkbinary import getbinary
 from func.settings import args
 
@@ -108,9 +109,7 @@ def checkparameters(appname, gamejsonfile, gametype):
       if game[appname]["offlineMode"]:
         offlineMode = "--offline "
         
-    try:
-      requests.get("https://www.google.com", timeout=2)
-    except:
+    if settings.isoffline:
       offlineMode = "--offline "
     #print(offlineMode)
 

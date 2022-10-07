@@ -1,7 +1,13 @@
 #CREATE/READ JSON FILE, ARGS AND APPLY SETTINGS
 
-import os, json, logging, argparse
-import string
+import os, json, logging, argparse, requests
+
+#Check for connectivity
+isoffline = False
+try:
+    requests.get("https://www.google.com", timeout=2)
+except:
+    isoffline = True
 
 #Setup arguments
 parser = argparse.ArgumentParser()

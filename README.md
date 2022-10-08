@@ -56,15 +56,19 @@ Head over to the [Releases](https://github.com/redromnon/HeroicBashLauncher/rele
 ### Running the Program
 Execute the program by simply  double-clicking the HeroicBashLauncher executable. You should be greeted by the _Process Finished_ dialog at the end. Don't forget to enable executable permission - you can achieve that by doing a right-click and selecting Properties. 
 
+#### Running in Silent Mode
+If you want to disable the GUI dialog pop-ups for some reason, you can execute `./HeroicBashLauncher --silent` from the terminal.
+
 ### Configuring Settings
 
 Open the `settings.config` file and disable an option by changing "true" to "false".
 
 The following options are available:
-- `"artwork"` - Downloads artwork for adding games to Steam
-- `"epic"` - Creates scripts for your Epic library
-- `"gog"` - Creates scripts for your GOG library
-
+- `"artwork"` - Downloads artwork for adding Heroic games to Steam
+- `"epic"` - Creates scripts for your Heroic Epic library
+- `"gog"` - Creates scripts for your Heroic GOG library
+- `"autoaddtosteam"` - Automatically add Heroic games (game scripts) to Steam for Deck users
+ 
 ### Launching Games
 
 #### Steam Deck users

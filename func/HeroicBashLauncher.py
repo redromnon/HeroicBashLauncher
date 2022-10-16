@@ -96,7 +96,7 @@ if("Games/Heroic/" in os.getcwd()):
                 if not settings.args.silent:
                     os.system('zenity --info --title="Process Running" --text="This may take a while depending on your internet connection and number of games" --width=350 --timeout=8')
                 for i in settings.args.steam[0].split("|"):
-                    addtosteam(i)
+                    addtosteam(i.replace('"',''))
 
                 if not settings.args.silent:
                     os.system('zenity --info --title="Process Finished" --text="Check AddToSteam.log for details." --width=300') 

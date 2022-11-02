@@ -2,19 +2,27 @@
 
 import os, json, logging, argparse, requests
 
-#Check for connectivity
 isoffline = False
-try:
-    requests.get("https://www.google.com", timeout=2)
-except:
-    isoffline = True
+
+#Check for connectivity
+def check_connectivity():
+    global isoffline
+    try:
+        requests.get("https://www.google.com", timeout=2)
+    except:
+        isoffline = True
+
 
 #Setup arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--silent", action="store_true", help="Run program without GUI")
-parser.add_argument("--steam", nargs=1, help="Add selected games to Steam")
-parser.add_argument("--update", nargs=4, help="Update launch script")
-args = parser.parse_args()
+args = argparse.Namespace()
+def configure_argument_parser():
+    global parser
+    global args
+    parser.add_argument("--silent", action="store_true", help="Run program without GUI")
+    parser.add_argument("--steam", nargs=1, help="Add selected games to Steam")
+    parser.add_argument("--update", nargs=4, help="Update launch script")
+    args = parser.parse_args()
 
 #Declare
 enable_epic = None

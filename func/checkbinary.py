@@ -6,7 +6,7 @@ import os, json, sys, traceback, logging
 from func import configpath
 from func.settings import args
 
-__resources_bin_path = "resources/app.asar.unpacked/build/bin/linux"
+resources_bin_path = "resources/app.asar.unpacked/build/bin/linux"
 
 def getbinary(gametype):
 
@@ -21,8 +21,14 @@ def getbinary(gametype):
 
         #Checking
         binary = ""
+        
+        if gametype != "epic":
+            executable = "gogdl "
+        else:
+            executable = "legendary "
 
         # Follow any symlinks to the real path of heroic
+        heroic_base_path = None
         detected_heroic_path = os.path.realpath("/usr/bin/heroic")
         if os.path.exists(detected_heroic_path):
             heroic_base_path = os.path.dirname(detected_heroic_path)
@@ -30,16 +36,13 @@ def getbinary(gametype):
             heroic_base_path = "/opt/Heroic"
         elif configpath.is_flatpak or os.path.exists("/app/bin/heroic"): #System or Flatpak-env path
             heroic_base_path = "/app/bin/heroic"
-
-        heroic_resources_path = os.path.join(heroic_base_path, __resources_bin_path)
         
-        if gametype != "epic":
-            executable = "gogdl "
-        else:
-            executable = "legendary "
+        if heroic_base_path:
 
-        if os.path.exists(heroic_resources_path):
-            binary = os.path.join(heroic_resources_path, executable)
+            heroic_resources_path = os.path.join(heroic_base_path, resources_bin_path)
+
+            if os.path.exists(heroic_resources_path):
+                binary = os.path.join(heroic_resources_path, executable)
         elif 'altLegendaryBin' in heroicconfig['defaultSettings'].keys() and heroicconfig["defaultSettings"]["altLegendaryBin"] != "" and gametype == "epic":
 
                 binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "

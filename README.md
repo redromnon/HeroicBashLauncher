@@ -4,7 +4,7 @@
 
 **NOTE - This is an independent project and not affiliated with Heroic Games Launcher.**
 
-Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam or any other frontend game launcher without opening Heroic? 
+Ever wanted to launch your [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) game library directly from the Steam, Lutris, GameHub or any other frontend game launcher without opening Heroic? 
 Bash Launcher does exactly this and takes you straight to the game!     
 
 ![Heroic Bash Launcher](https://user-images.githubusercontent.com/74495920/142615495-a4e5e811-7ee3-41b8-ae80-d6d008820f2a.png)
@@ -30,16 +30,20 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 ✔️ Creates game launch scripts for installed Epic & GOG games that act as shortcuts
 
+✔️ Completely skips Heroic running in the background and directly launches the games*
+
 ✔️ Includes all launch parameters including cloud save-syncing (EPIC GAMES ONLY) set in Heroic's Game Settings
 
-✔️ Syncs games to Steam along with artwork*
+✔️ Syncs games to Steam along with artwork**
 
 ✔️ Enables per game profile customization for Steam Deck users
 
 ✔️ Users can add game launch scripts to any game library or manager like Lutris, GameHub, GNOME Games, etc.
 
 
-*It is recommended to use the "Add To Steam" feature in Heroic (v2.4.0+)
+  *Launching occurs via legendary and gogdl programs which Heroic uses
+
+  **The "Add To Steam" feature in Heroic (v2.4.0+) is recommended
 
 
 ## Pre-requisites
@@ -115,13 +119,7 @@ Since the program makes use of an executable, you will need **Python version 3.8
 
 You will also need [wget](https://pypi.org/project/wget/) and [requests](https://pypi.org/project/requests/).
 
-To test the program, open the terminal in the `func` directory and use the following command to build -
-
-```
- pyinstaller HeroicBashLauncher.py --onefile --strip
-```
-
-This will generate an executable stored in the `dist` folder. Copy the executable, paste it in `HeroicBashLauncher` and run it.
+To build the program, run `build.sh` which will generate an executable stored in the `dist` folder. Copy the executable, paste it in `HeroicBashLauncher` and run it to test.
 
 
 ## License

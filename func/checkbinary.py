@@ -2,7 +2,7 @@
 #   For AppImage, check if alternavtive binary (Legendary) is added.
 #   If not, check folder under /tmp/ that includes path to the binaries.
 
-import os, json, sys, traceback, logging
+import json, logging, os, shutil, sys, traceback
 from func import configpath
 from func.settings import args
 
@@ -27,11 +27,15 @@ def getbinary(gametype):
         else:
             executable = "legendary "
 
-        # Follow any symlinks to the real path of heroic
         heroic_base_path = None
-        detected_heroic_path = os.path.realpath("/usr/bin/heroic")
-        if os.path.exists(detected_heroic_path):
-            heroic_base_path = os.path.dirname(detected_heroic_path)
+
+        # Attempt to find heroic on path
+        detected_heroic_path = shutil.which('heroic')
+        if detected_heroic_path:
+            # Follow any symlinks to the real path of heroic
+            detected_heroic_path = os.path.realpath(detected_heroic_path)
+            if os.path.exists(detected_heroic_path):
+                heroic_base_path = os.path.dirname(detected_heroic_path)
         elif os.path.exists("/opt/Heroic"): # Default to /opt/Heroic
             heroic_base_path = "/opt/Heroic"
         elif configpath.is_flatpak or os.path.exists("/app/bin/heroic"): #System or Flatpak-env path

@@ -304,13 +304,37 @@ def checkparameters(appname, gamejsonfile, gametype):
 
         bin = "--wine " + wineVersion_bin + " "
         wineprefix = '--wine-prefix "' + winePrefix + '" '
+        wineVersion_lib = ""
+        wineVersion_lib32 = ""
+
+        #preferSystemLibs (custom wine libraries)
+        custom_wine_libs = ""
+        if ifpresent("preferSystemLibs"):
+          if not game[appname]["preferSystemLibs"]:
+            if "Wine" and not "Default" in wineVersion_name:
+              wineVersion_lib = game[appname]["wineVersion"]["lib"]
+              wineVersion_lib32 = game[appname]["wineVersion"]["lib32"]
+              ld_library_path = "LD_LIBRARY_PATH=" + wineVersion_lib + ":" + wineVersion_lib32 + " " 
+
+              #gstreamer path
+              gstp_path_lib = os.path.join(wineVersion_lib, 'gstreamer-1.0')
+              gstp_path_lib32 = os.path.join(wineVersion_lib32, 'gstreamer-1.0')
+              gstp_path = "GST_PLUGIN_SYSTEM_PATH_1_0=" + gstp_path_lib + ":" + gstp_path_lib32 + " "
+
+              #winedll path
+              winedll_path_lib = os.path.join(wineVersion_lib, 'wine')
+              winedll_path_lib32 = os.path.join(wineVersion_lib32, 'wine')
+              winedll_path = "WINEDLLPATH=" + winedll_path_lib + ":" + wineVersion_lib32 + " "
+
+              custom_wine_libs = ld_library_path + gstp_path + winedll_path 
+
 
         if gametype == "epic":
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync[0] + enableFsync[0] + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + eacRuntime + battlEyeRuntime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync[0] + enableFsync[0] + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + eacRuntime + battlEyeRuntime + custom_wine_libs + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync[0] + enableFsync[0] + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + eacRuntime + battlEyeRuntime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
+          launchcommand = audioFix + showFps + enableFSR + maxSharpness + enableEsync[0] + enableFsync[0] + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + eacRuntime + battlEyeRuntime + custom_wine_libs + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
       elif "Proton" in wineVersion_name:
 
         if configpath.is_flatpak == False:

@@ -109,15 +109,18 @@ def addartwork(appname, appid, userid, simplified_gamename):
                         logging.info("BigPicture Art exists")
 
                     #Logo Art
-                    if checkartworkexists(artwork_path, logoart) == False:
-                    
-                        if not i['art_logo'] == None:
-                            image_url = i['art_logo']
-                            logging.info("Downloading Logo Art from " + image_url)
-                            wget.download(image_url, out = artwork_path)
-                            os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + logoart[0])
-                    else:
-                        logging.info("Logo Art exists")
+                    try:
+                        if checkartworkexists(artwork_path, logoart) == False:
+                        
+                            if not i['art_logo'] == None:
+                                image_url = i['art_logo']
+                                logging.info("Downloading Logo Art from " + image_url)
+                                wget.download(image_url, out = artwork_path)
+                                os.rename(artwork_path + '/' + image_url.split("/")[-1], artwork_path + '/' + logoart[0])
+                        else:
+                            logging.info("Logo Art exists")
+                    except:
+                        logging.warning("Cannot find Logo Art for this game")
         elif "gog" in readscript:
             
             #print("GOG")

@@ -11,7 +11,7 @@ from func import settings
 checkzenity = os.system('zenity --version')
 
 #Version
-curr_version = "v3.1.0"
+curr_version = "v3.1.1"
 print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
 
 

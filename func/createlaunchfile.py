@@ -25,8 +25,9 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         new_game_message = ''
     
     # Check/Update parameters
-    gamecommand = checkparameters(appname, gamejson, gametype) # returns launchcommand, cloudsync
-    cloudsync = gamecommand[1]
+    environment, gameArguments, cloudsync = checkparameters(appname, gamejson, gametype) # returns launchcommand, cloudsync
+    environmentString = " ".join([f"{k}=\"{v}\"" for k, v in environment.items()])
+    gameString = " ".join(gameArguments)
     
     #Generating game's file name
     simplified_gamename = filegamename(gamename)
@@ -47,54 +48,45 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         showlaunchcommand = ''
     else:
         launchflatpakgame = 'flatpak run --command=./launchflatpakgame.sh com.heroicgameslauncher.hgl' 
-        showlaunchcommand = '#Launch Command\n    #' + gamecommand[0]#Left space for alignment
+        showlaunchcommand = '#Launch Command\n    #' + gameString #Left space for alignment
 
     ####################################################################################################################
     #Launch Script Format
-    launch_script = ("""#!/bin/bash 
+    launch_script = f"""#!/bin/bash 
 
     #Generate log
-    exec > logs/{logname}.log 2>&1
+    exec > logs/{simplified_gamename}.log 2>&1
 
     #Enable UTF-8 Encoding
     export LC_ALL=en_US.UTF-8
 
-    #Game Name = {game_name} ({game_type}) 
+    #Game Name = {gamename} ({gametype}) 
 
-    #App Name = {app_name}
+    #App Name = {appname}
 
     #Override launch parameters
-    {executable_path}
+    {executablepath}
 
-    {new_game_zenity}
+    {new_game_message}
 
-    {launch_game_in_flatpak}
+    {launchflatpakgame}
 
-    {show_launch_command}
-
-    """).format(logname = simplified_gamename,game_name = gamename, game_type = gametype, app_name = appname, 
-                executable_path = executablepath, launch_game_in_flatpak = launchflatpakgame, 
-                new_game_zenity = new_game_message, show_launch_command = showlaunchcommand)
+    {showlaunchcommand}
+    """
 
     
     #Flatpak Game Script Format
-    launch_flatpak_script = ("""#!/bin/bash
+    launch_flatpak_script = (f"""#!/bin/bash
 
-    #Currently created launch script for {game_name} ({app_name}) ({game_type})
-    #Launches from {gamelaunchscript}.sh
+    #Currently created launch script for {gamename} ({appname}) ({gametype})
+    #Launches from {simplified_gamename}.sh
+    """)
 
-
-    """).format(game_name = gamename, game_type = gametype, app_name = appname, gamelaunchscript = simplified_gamename)
-
-
-    
     #Epic Games Format (Track wineserver before running post-game sync)
-    epic_script = ("""
-
+    epic_script = f"""
     #Launch game
-    {savesync}
-
-    {launchcommand}
+    {cloudsync}
+    {environmentString} {gameString}
 
     #Wait for game to launch
     sleep 10
@@ -109,24 +101,21 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
             :
         else
             echo "$checkwine stopped"
-            echo "{game_name} stopped"
-            {savesync}
+            echo "{gamename} stopped"
+            {cloudsync}
             exit 
         fi
 
         sleep 3
     done
-
-    """).format(launchcommand = gamecommand[0], savesync = cloudsync, game_name = gamename)
-
-    
+    """
     #GOG format (without cloud sync check)
-    gog_script = ("""
+    gog_script = f"""
 
     #Launch game
-    {launchcommand}
+    {environmentString} {gameString}
 
-    """).format(launchcommand = gamecommand[0], game_name = gamename) 
+    """
 
     ####################################################################################################################
     #Create final launch script depending on gametype

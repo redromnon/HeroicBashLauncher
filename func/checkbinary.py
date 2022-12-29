@@ -23,9 +23,9 @@ def getbinary(gametype):
         binary = ""
         
         if gametype != "epic":
-            executable = "gogdl "
+            executable = "gogdl"
         else:
-            executable = "legendary "
+            executable = "legendary"
 
         heroic_base_path = None
 
@@ -48,10 +48,10 @@ def getbinary(gametype):
             binary = os.path.join(heroic_resources_path, executable)
         elif heroicconfig["defaultSettings"].get("altLegendaryBin") and gametype == "epic":
 
-                binary = heroicconfig["defaultSettings"]["altLegendaryBin"] + " "
+                binary = heroicconfig["defaultSettings"]["altLegendaryBin"]
         #elif 'altGogdlBin' in heroicconfig['defaultSettings'].keys() and heroicconfig["defaultSettings"]["altGogdlBin"] != "" and gametype != "epic":
         
-                #binary = heroicconfig["defaultSettings"]["altGogdlBin"] + " "
+                #binary = heroicconfig["defaultSettings"]["altGogdlBin"]
         else:#AppImage
             if "GameFiles" in os.getcwd():#select parent dir
                 binary = os.path.join(os.path.dirname(os.getcwd()), "binaries", executable)

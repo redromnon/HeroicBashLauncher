@@ -1,253 +1,164 @@
 #CHECKS/UPDATES PARAMETERS FOR A GAME - CHANGES FOR EPIC, GOG-LINUX & GOG-WINDOWS 
 
-import os, json, sys, traceback, logging, requests
+import os, json, sys, traceback, logging
+import shlex
 from func import configpath
 from func import settings
 from func.checkbinary import getbinary
 from func.settings import args
 
-
 def checkparameters(appname, gamejsonfile, gametype):
+  """Checks the configuration parameters for the specified appname.
+  Arguments and environment variables are based on the ones found in backend/launcher.ts and backend/legendary/games.ts:launch() in HeroicGamesLauncher.
+  """
+
+  environment = {}
 
   #Convert the game's json file to dict
   with open(gamejsonfile, encoding='utf-8') as g:
-      game = json.load(g)
+      gameSettings = json.load(g)[appname]
 
   #Check binary (Legendary or gogdl)
   binary = getbinary(gametype)
 
-  #Check if parameters are present (launcherArgs, enviromentOptions, targetExe)  
-  def ifpresent(parameter):
-
-    if parameter in game[appname].keys():
-      return True
-
   try:
     #CONFIGURING BOOLEAN PARAMETERS
 
-    #audioFix
-    audioFix = ""
-    if ifpresent("audioFix"):
-
-      if game[appname]["audioFix"]:
-        audioFix = "PULSE_LATENCY_MSEC=60 "
-
-    #print(audioFix)
-
-
     #Auto-Cloud Save Sync
     cloudsync = ""
-    if ifpresent("autoSyncSaves"):
-
-      if game[appname]["autoSyncSaves"]:
-    
-        if game[appname]["savesPath"] != "":
+    if gameSettings.get("autoSyncSaves") and gameSettings.get("savesPath"):
           #Download and Upload
-          cloudsync = binary + 'sync-saves --save-path "' + game[appname]["savesPath"] + '" ' + appname + ' -y '
+          cloudsync = f"{binary} sync-saves --save-path \"{gameSettings['savesPath']}\" {appname} -y"
 
-    #print(cloudsync)
+    # Set environment variables first
 
+    #audioFix
+    # TODO: Remove audioFix - was removed in 2.5.0
+    if gameSettings.get("audioFix"):
+        environment["PULSE_LATENCY_MSEC"] = "60"
 
-    #enableEsync (Wine, Proton)
-    enableEsync = ["","PROTON_NO_ESYNC=1 "]
-    if ifpresent("enableEsync"):
-
-      if game[appname]["enableEsync"]:
-        enableEsync[0] = "WINEESYNC=1 "
-        enableEsync[1] = ""
-
-    #print(enableEsync)
-
-
-    #enableFsync (Wine, Proton)
-    enableFsync = ["", "PROTON_NO_FSYNC=1 "]
-    if ifpresent("enableFsync"):
-
-      if game[appname]["enableFsync"]:
-        enableFsync[0] = "WINEFSYNC=1 "
-        enableFsync[1] = ""
-
-    #print(enableFsync)
-
-
-    #enableFSR & Sharpness
-    enableFSR = ""
-    maxSharpness = ""
-    if ifpresent("enableFSR"):
-
-      if game[appname]["enableFSR"]:
-        enableFSR = "WINE_FULLSCREEN_FSR=1 "
-        maxSharpness = "WINE_FULLSCREEN_FSR_STRENGTH=" + str(game[appname]["maxSharpness"]) + " " 
-
-    #print(enableFSR)
+    #showFps
+    if gameSettings.get("showFps"):
+        environment["DVXK_HUD"] = "fps"
 
     #DXVK FPS Limit
-    dxvk_fps = ""
-    if ifpresent("enableDXVKFpsLimit"):
+    if gameSettings.get("enableDXVKFpsLimit"): 
+        environment["DXVK_FRAME_RATE"] = str(gameSettings.get("DXVKFpsCap")) if gameSettings.get("DXVKFpsCap") else "60"
 
-      try:
-        if game[appname]["enableDXVKFpsLimit"]:
+    #enableFSR & Sharpness
+    if gameSettings.get("enableFSR") and gameSettings.get("maxSharpness"):
+        environment["WINE_FULLSCREEN_FSR"] = "1"
+        environment["WINE_FULLSCREEN_FSR_STRENGTH"] = str(gameSettings.get("maxSharpness"))
 
-          if game[appname]["DXVKFpsCap"] == "":
-            dxvk_fps = "DXVK_FRAME_RATE=60 "
-          else:
-            dxvk_fps = "DXVK_FRAME_RATE=" + game[appname]["DXVKFpsCap"] + " "
-            
-      except:
-        pass
+    #enableEsync
+    if gameSettings.get("enableEsync"):
+        environment["WINEESYNC"] = "1"
+    else: 
+        environment["PROTON_NO_ESYNC"] = "1"
 
+    #enableFsync (Wine, Proton)
+    if gameSettings.get("enableFsync"):
+        environment["WINEFSYNC"] = "1"
+    else:
+        environment["PROTON_NO_FSYNC"] = "1"
+
+    wrapperArgs = []
+    #eacRuntime
+    eacRuntimeArgs =  []
+    if gameSettings.get("eacRuntime"): 
+        environment["PROTON_EAC_RUNTIME"] = configpath.runtimepath
+        eacRuntimeArgs = ["eac_runtime"]
+    wrapperArgs += eacRuntimeArgs
+
+    #battlEyeRuntime
+    battlEyeRuntimeArgs = []
+    if gameSettings.get("battlEyeRuntime"): 
+        environment["PROTON_BATTLEYE_RUNTIME"] = configpath.runtimepath
+        battlEyeRuntimeArgs = ["battleye_runtime"]
+    wrapperArgs += battlEyeRuntimeArgs
 
     #enableResizableBar
-    enableResizableBar = ""
-    if ifpresent("enableResizableBar"):
-
-      if game[appname]["enableResizableBar"]:
-        enableResizableBar = "VKD3D_CONFIG=upload_hvv "
-
-    #print(enableResizableBar)
+    # TODO: Remove. Was removed in https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/1921
+    if gameSettings.get("enableResizableBar"):
+        environment["VKD3D_CONFIG"] = "upload_hvv"
 
 
     #nvidiaPrime
-    nvidiaPrime = ""
-    if ifpresent("nvidiaPrime"):
+    if gameSettings.get("nvidiaPrime"):
+        environment["DRI_PRIME"] = "1"
+        environment["__NV_PRIME_RENDER_OFFLOAD"] = "1"
+        environment["__GLX_VENDOR_LIBRARY_NAME"] = "nvidia"
 
-      if game[appname]["nvidiaPrime"]:
-        nvidiaPrime = "DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia "
+    #enviromentOptions (spelled this way in Heroic)
+    if gameSettings.get("enviromentOptions"):
+      for option in gameSettings["enviromentOptions"]:
+        environment[option["key"]] = str(option["value"])
+    
+    # Set LD_PRELOAD if it is not set, fixes an error in some games.
+    if not os.environ.get("LD_PRELOAD") and not environment.get("LD_PRELOAD"):
+      environment["LD_PRELOAD"] = ''
 
-    #print(nvidiaPrime)
-
-
-    #offlineMode
-    offlineMode = ""
-    if ifpresent("offlineMode"):
-
-      if game[appname]["offlineMode"]:
-        offlineMode = "--offline "
-        
-    if settings.isoffline:
-      offlineMode = "--offline "
-    #print(offlineMode)
-
-
-    #showFps
-    showFps = ""
-    if ifpresent("showFps"):
-
-      if game[appname]["showFps"]:
-        showFps = "DXVK_HUD=fps "
-
-    #print(showFps)
-
+    #wrapperOptions
+    if gameSettings.get("wrapperOptions"):
+      for wrapperEntry in gameSettings["wrapperOptions"]:
+        wrapperArgs.append(wrapperEntry["exe"])
+        if wrapperEntry.get("args"):
+          wrapperArgs += shlex.split(wrapperEntry["args"])
 
     #showMangohud
-    showMangohud = ""
-    if ifpresent("showMangohud"):
-
-      if game[appname]["showMangohud"]:
-        showMangohud = "mangohud --dlsym "
-
-    #print(showMangohud)
-
+    showMangoHudArgs = []
+    if gameSettings.get("showMangohud"):
+        showMangoHudArgs = ["mangohud", "--dlsym"]
+    wrapperArgs += showMangoHudArgs
 
     #useGameMode
-    useGameMode = ""
-    if ifpresent("useGameMode"): 
-  
-      if game[appname]["useGameMode"]:
-        useGameMode = "gamemoderun "
-
-    #print(useGameMode)
-
-
-    #EAC runtime
-    eacRuntime = ""
-    if ifpresent("eacRuntime"): 
-  
-      if game[appname]["eacRuntime"]:
-        eacRuntime = "PROTON_EAC_RUNTIME=" + configpath.runtimepath + "eac_runtime "
-
-    
-    #battlEye runtime
-    battlEyeRuntime = ""
-    if ifpresent("battlEyeRuntime"): 
-  
-      if game[appname]["battlEyeRuntime"]:
-        battlEyeRuntime = "PROTON_BATTLEYE_RUNTIME=" + configpath.runtimepath + "battleye_runtime "
+    useGameModeArgs = []
+    if gameSettings.get("useGameMode"): 
+        useGameModeArgs = ["gamemoderun"]
+    wrapperArgs += useGameModeArgs
 
 
     #CONFIGURING OTHER PARAMETERS
 
+    #offlineMode
+    offlineModeArgs = []
+    if gameSettings.get("offlineMode") or settings.isoffline:
+      offlineModeArgs.append("--offline")
+
     #language
-    language = ""
-    if ifpresent("language"):
-
-      if game[appname]["language"] == "":
-
+    languageCode = gameSettings.get("language")
+    if not languageCode:
         #Use Heroic's language setting if game setting lang not specified
         with open(configpath.storejsonpath, encoding='utf-8') as l:
-          storejson = json.load(l)
+          configStore = json.load(l)
+        languageCode = configStore.get("language")
 
-        language = "--language " + storejson["language"] + " "
-      else:
-        language = "--language " + game[appname]["language"] + " "
+    languageArgs = ["--language", languageCode] if languageCode else []
+
 
     #launcherArgs
-    launcherArgs = "" #Declared this because of reference assignment error
-    if ifpresent("launcherArgs"):
-
-      if game[appname]["launcherArgs"] == "":
-        launcherArgs = ""
-      else:
-        launcherArgs = game[appname]["launcherArgs"] + " "
-
-      #print(launcherArgs)
-
-    #wrapperOptions
-    wrapperOptions = "LD_PRELOAD= " 
-    if ifpresent("wrapperOptions"):
-
-      for i in game[appname]["wrapperOptions"]:
-        wrapperOptions = wrapperOptions +  i["exe"] + " " + i["args"] + " "
-
-
-    #enviromentOptions
-    enviromentOptions = ""
-    if ifpresent("enviromentOptions"):
-
-      for i in game[appname]["enviromentOptions"]:
-        enviromentOptions = enviromentOptions +  i["key"] + "=" + i["value"] + " "
-
-      #print(enviromentOptions)
+    launcherArgs = []
+    if gameSettings.get("launcherArgs"):
+        launcherArgs += shlex.split(gameSettings["launcherArgs"])
 
 
     #targetExe
-    targetExe = ""
-    if ifpresent("targetExe"):
-
-      if game[appname]["targetExe"] == "":
-        targetExe = ""
-      else:
-        targetExe = '--override-exe "' + game[appname]["targetExe"] + '" '
-
-      #print(targetExe)
-
+    targetExeArgs = []
+    if gameSettings.get("targetExe"):
+        targetExeArgs = ['--override-exe', f"\"{gameSettings['targetExe']}\""]
 
     #Steam Runtime
-    steam_runtime = ""
     steam_runtime_win = False
-    if ifpresent("useSteamRuntime"):
-
-      if game[appname]["useSteamRuntime"]:
+    if gameSettings.get("useSteamRuntime"):
 
         #Scout
         if gametype == "gog-linux":
         
           if configpath.is_steam_flatpak:
 
-            steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh "
+            steamRuntimeBinArgs = [ os.path.expanduser("~/.var/app/com.valvesoftware.Steam/data/Steam/ubuntu12_32/steam-runtime/run.sh") ]
           else:
-            
-            steam_runtime = os.path.expanduser("~") + "/.steam/root/ubuntu12_32/steam-runtime/run.sh "
+            steamRuntimeBinArgs = [ os.path.expanduser("~/.steam/root/ubuntu12_32/steam-runtime/run.sh")]
 
         #Soldier
         else:
@@ -255,13 +166,10 @@ def checkparameters(appname, gamejsonfile, gametype):
 
           if configpath.is_steam_flatpak:
 
-            steam_runtime = os.path.expanduser("~") + "/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/run -- "
+            steamRuntimeBinArgs = [ os.path.expanduser("~/.var/app/com.valvesoftware.Steam/steamapps/common/SteamLinuxRuntime_soldier/run"), "--" ]
           else:
             
-            steam_runtime = os.path.expanduser("~") + "/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/run -- "
-
-      #print(targetExe)
-
+            steamRuntimeBinArgs = [ os.path.expanduser("~/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/run"), "--" ]
 
     #Get GOG game's installed location
     if gametype != "epic":
@@ -275,33 +183,34 @@ def checkparameters(appname, gamejsonfile, gametype):
       goginstalledkeyarray = list(goginstalled['installed'])
 
       #Get install location
-      game_loc = ""
-      for i in goginstalledkeyarray:
+      gogGameLocation = None
+      for game in goginstalledkeyarray:
 
-        if appname == i['appName']:
+        if appname == game['appName']:
 
-          game_loc = '"' + i['install_path'] + '" '
+          gogGameLocation = f"\"{game['install_path']}\""
           break
+      if not gogGameLocation:
+        raise Exception(f"Game {appname} not found in {configpath.goginstalledpath}")
 
+    binaryLaunchArgs = [binary, "launch", appname] if gametype == "epic" else [binary, "launch", gogGameLocation, appname] 
 
-
+    # Append the common arguments for all launchers to the baseArgs
+    baseArgs = wrapperArgs + binaryLaunchArgs + targetExeArgs + offlineModeArgs
     #ADD IF-ELSE FOR GOG(LINUX OR WIN) AND EPIC
     if gametype == "epic" or gametype == "gog-win":
 
+
       #winePrefix
-      winePrefix = ""
-      if ifpresent("winePrefix"):
-        winePrefix = game[appname]["winePrefix"]
-
-      #print(winePrefix)
-
+      winePrefix = gameSettings["winePrefix"]
 
       #wineVersion (IMPACTS LAUNCH COMMAND)
 
       #wine bin & name 
       try:
-        wineVersion_bin = game[appname]["wineVersion"]["bin"]
-        wineVersion_name = game[appname]["wineVersion"]["name"]
+        wineVersion_bin = gameSettings["wineVersion"]["bin"]
+        wineVersion_name = gameSettings["wineVersion"]["name"]
+        wineVersion_type = gameSettings["wineVersion"]["type"]
       except:
         logging.warning("No wineVersion key found. Defaulting wine version to the one used in Heroic's global settings...")
         #Use default wine version used in global settings 
@@ -310,76 +219,74 @@ def checkparameters(appname, gamejsonfile, gametype):
 
         wineVersion_bin = heroicconfig["defaultSettings"]["wineVersion"]["bin"]
         wineVersion_name = heroicconfig["defaultSettings"]["wineVersion"]["name"]
+        wineVersion_type = heroicconfig["defaultSettings"]["wineVersion"]["type"]
+      if wineVersion_type == "wine":
 
-
-
-      #name(IMPORTANT)
-
-      if "Wine" in wineVersion_name:
-
-        bin = "--wine " + wineVersion_bin + " "
-        wineprefix = '--wine-prefix "' + winePrefix + '" '
-        wineVersion_lib = ""
-        wineVersion_lib32 = ""
+        binArgs = ["--wine", wineVersion_bin]
+        winePrefixArgs = ['--wine-prefix', winePrefix]
 
         #preferSystemLibs (custom wine libraries)
-        custom_wine_libs = ""
-        if ifpresent("preferSystemLibs"):
-          if not game[appname]["preferSystemLibs"]:
-            if "Wine" and not "Default" in wineVersion_name:
-              wineVersion_lib = game[appname]["wineVersion"]["lib"]
-              wineVersion_lib32 = game[appname]["wineVersion"]["lib32"]
-              ld_library_path = "LD_LIBRARY_PATH=" + wineVersion_lib + ":" + wineVersion_lib32 + " " 
+        if (gameSettings.get("preferSystemLibs") == False and wineVersion_type == "wine"):
+            # https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1091-L1093
+            if (not os.environ.get("ORIG_LD_LIBRARY_PATH")):
+                environment["ORIG_LD_LIBRARY_PATH"] = os.environ.get("LD_LIBRARY_PATH") if os.environ.get("LD_LIBRARY_PATH") else ''
+            
+            if gameSettings["wineVersion"].get("lib") and gameSettings["wineVersion"].get("lib32"):
+                wineVersion_lib = gameSettings["wineVersion"]["lib"]
+                wineVersion_lib32 = gameSettings["wineVersion"]["lib32"]
+                environment["LD_LIBRARY_PATH"] = f"{wineVersion_lib}:{wineVersion_lib32}"
+                if os.environ.get("LD_LIBARY_PATH"):
+                    environment["LD_LIBRARY_PATH"] = environment["LD_LIBRARY_PATH"].append(f":{os.environ.get('LD_LIBARY_PATH')}")
 
-              #gstreamer path
-              gstp_path_lib = os.path.join(wineVersion_lib, 'gstreamer-1.0')
-              gstp_path_lib32 = os.path.join(wineVersion_lib32, 'gstreamer-1.0')
-              gstp_path = "GST_PLUGIN_SYSTEM_PATH_1_0=" + gstp_path_lib + ":" + gstp_path_lib32 + " "
+                #gstreamer path
+                gstp_path_lib = os.path.join(wineVersion_lib, 'gstreamer-1.0')
+                gstp_path_lib32 = os.path.join(wineVersion_lib32, 'gstreamer-1.0')
+                environment["GST_PLUGIN_SYSTEM_PATH_1_0"] = f"{gstp_path_lib}:{gstp_path_lib32}"
 
-              #winedll path
-              winedll_path_lib = os.path.join(wineVersion_lib, 'wine')
-              winedll_path_lib32 = os.path.join(wineVersion_lib32, 'wine')
-              winedll_path = "WINEDLLPATH=" + winedll_path_lib + ":" + wineVersion_lib32 + " "
-
-              custom_wine_libs = ld_library_path + gstp_path + winedll_path 
+                #winedll path
+                winedll_path_lib = os.path.join(wineVersion_lib, 'wine')
+                winedll_path_lib32 = os.path.join(wineVersion_lib32, 'wine')
+                environment["WINEDLLPATH"] = f"{winedll_path_lib}:{winedll_path_lib32}"
+            else:
+                logging.warning(f"Could not find lib and lib32 for {wineVersion_name}")
 
 
         if gametype == "epic":
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + dxvk_fps + enableEsync[0] + enableFsync[0] + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + eacRuntime + battlEyeRuntime + custom_wine_libs + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + wineprefix + launcherArgs
+          arguments = baseArgs + languageArgs + winePrefixArgs + binArgs + launcherArgs
+
         elif gametype == "gog-win":#Windows GOG
 
-          launchcommand = audioFix + showFps + enableFSR + maxSharpness + dxvk_fps + enableEsync[0] + enableFsync[0] + enableResizableBar + enviromentOptions + nvidiaPrime + wrapperOptions + eacRuntime + battlEyeRuntime + custom_wine_libs + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + wineprefix + "--os windows " + launcherArgs
-      elif "Proton" in wineVersion_name:
-
+          arguments = baseArgs + winePrefixArgs + binArgs + ["--os", "windows"] + launcherArgs
+      elif wineVersion_type == "proton":
         if configpath.is_flatpak == False:
-          steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.steam/steam "
+          environment["STEAM_COMPAT_CLIENT_INSTALL_PATH"] = os.path.join(os.path.expanduser("~"), ".steam/steam")
         else:
-          steamclientinstall = "STEAM_COMPAT_CLIENT_INSTALL_PATH=" + os.path.expanduser("~") + "/.var/app/com.heroicgameslauncher.hgl/.steam/steam "
+           environment["STEAM_COMPAT_CLIENT_INSTALL_PATH"] = os.path.join(os.path.expanduser("~"), ".var/app/com.heroicgameslauncher.hgl/.steam/steam")
         
-        steamcompactdata = 'STEAM_COMPAT_DATA_PATH="' + winePrefix + '" '
-        
+        environment["STEAM_COMPAT_DATA_PATH"] = winePrefix
         #Wrap Proton path (bin) in quotes to avoid errors due to spaces in the path
-        wineVersion_bin = "'" + wineVersion_bin + "'"
+        wineVersion_bin = f"\"{wineVersion_bin}\""
 
         #Check if Steam Soldier runtime is enabled
         if steam_runtime_win:
-          bin = '--no-wine --wrapper "' + steam_runtime + wineVersion_bin + ' waitforexitandrun" '
+          binArgs = ['--no-wine', "--wrapper"] + steamRuntimeBinArgs + [wineVersion_bin, "waitforexitandrun"]
         else:
-          bin = '--no-wine --wrapper "' + wineVersion_bin + ' run" '
+          binArgs = ['--no-wine', "--wrapper", wineVersion_bin, 'run']
 
         #Set Steam AppID
-        steamappid = 'STEAM_COMPAT_APP_ID=0 SteamAppId=0 '
-
+        environment['STEAM_COMPAT_APP_ID'] = "0"
+        environment['SteamAppId'] = "0"
         if gametype == "epic":
 
-          launchcommand = audioFix + showFps + dxvk_fps + enableFSR + maxSharpness + enableEsync[1] + enableFsync[1] + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + wrapperOptions + eacRuntime + battlEyeRuntime + showMangohud + useGameMode + binary + "launch " + appname + " " + language + targetExe + offlineMode + bin + launcherArgs
+          arguments = baseArgs + languageArgs + binArgs + launcherArgs
         elif gametype == "gog-win":#Windows GOG
 
-          launchcommand = audioFix + showFps + dxvk_fps + enableFSR + maxSharpness + enableEsync[1] + enableFsync[1] + enableResizableBar + enviromentOptions + steamappid + nvidiaPrime + steamclientinstall + steamcompactdata + wrapperOptions + eacRuntime + battlEyeRuntime + showMangohud + useGameMode + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + bin + "--os windows " + launcherArgs
+          arguments = baseArgs + binArgs + ["--os", "windows"] + launcherArgs
+
     else:#LINUX GOG
 
-      launchcommand = audioFix + showFps + enviromentOptions + nvidiaPrime + wrapperOptions + showMangohud + useGameMode + steam_runtime + binary + "launch " + game_loc + appname + " " + targetExe + offlineMode + "--platform=linux " + launcherArgs
+      arguments = baseArgs + ["--platform=linux"] + launcherArgs
   except Exception:
 
       logging.critical(traceback.format_exc())
@@ -388,7 +295,8 @@ def checkparameters(appname, gamejsonfile, gametype):
       sys.exit()
 
   #The entire launch command
-  #print(launchcommand)
+  #print(environment)
+  #print(arguments)
 
   #Return as list
-  return [launchcommand, cloudsync]
+  return [environment, arguments, cloudsync]

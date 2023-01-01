@@ -58,7 +58,8 @@ class TestCheckBinary(TestCase):
 
         expected_base_path = "/app/bin/heroic"
         expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary ")
-        os.path.exists.side_effect = lambda x: expected_base_path in x
+        # Path does not exist on host when using flatpak
+        os.path.exists.return_value = False
 
         actual_return_path = checkbinary.getbinary("epic")
         assert expected_return_path == actual_return_path

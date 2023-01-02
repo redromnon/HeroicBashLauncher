@@ -14,8 +14,9 @@ checkzenity = os.system('zenity --version')
 curr_version = "v3.1.1"
 print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
 
+launcherDir = os.path.expanduser('~/Games/Heroic/HeroicBashLauncher')
 
-if("Games/Heroic/" in os.getcwd()):
+if os.path.exists(launcherDir):
     if (os.path.exists(configpath.legendaryinstalledpath) or os.path.exists(configpath.goginstalledpath)) and checkzenity == 0:
 
         #If len of arguments is 1 (no extra arguements), then proceed to create launch files for all games
@@ -48,7 +49,7 @@ if("Games/Heroic/" in os.getcwd()):
 
 
             #Check if AppImage version is being used
-            if(os.path.isdir(os.getcwd() + '/binaries')):
+            if(os.path.isdir(launcherDir + '/binaries')):
                 logging.info("Detected 'binaries' folder. Making the binaries executable.")
                 os.system("chmod +x binaries/legendary")
                 os.system("chmod +x binaries/gogdl")

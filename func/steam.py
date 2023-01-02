@@ -78,7 +78,7 @@ def calculate_last_srno(line):
 
 
 def addtosteam(gamename):
-        userdata_folder = os.path.join(os.path.expanduser("~"), '.steam' , 'steam', 'userdata')
+        userdata_folder = os.path.expanduser("~/.steam/steam/userdata")
 
         try:
 

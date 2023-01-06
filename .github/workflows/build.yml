@@ -29,7 +29,10 @@ jobs:
       - name: List directory in repository
         run: |
           ls /home/runner/work/HeroicBashLauncher/HeroicBashLauncher/main
-          
+      
+      - name: Test
+        run: cd main && python -m unittest discover -s tests
+
       - name: Build
         run: cd main/func && pyinstaller HeroicBashLauncher.py --onefile --strip --name HeroicBashLauncher 
         

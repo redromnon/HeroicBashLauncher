@@ -1,5 +1,5 @@
 #Python
-/func/__pycache__
+__pycache__/
 
 #PyInstaller
 *.spec

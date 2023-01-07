@@ -6,8 +6,6 @@ from io import StringIO
 from unittest import main, mock, TestCase
 from unittest.mock import Mock
 
-from func import configpath
-from func.settings import args
 from func import checkbinary
 
 mock_config_null = json.dumps({ "defaultSettings": { "altLegendaryBin": "" } })

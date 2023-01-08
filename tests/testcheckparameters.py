@@ -41,7 +41,6 @@ MOCK_GAME_CONFIG_MIN_OBJ = {MOCK_APP_NAME: {"winePrefix": f"/path/to/{MOCK_APP_N
 
 # A configuration with all value set/enabled (except preferSystemLibs and useSteamRuntime.)
 MOCK_GAME_CONFIG_FULL_OBJ = {MOCK_APP_NAME: {
-    "audioFix": True,
     "autoSyncSaves": True,
     "battlEyeRuntime": True,
     "DXVKFpsCap": 144,
@@ -50,7 +49,6 @@ MOCK_GAME_CONFIG_FULL_OBJ = {MOCK_APP_NAME: {
     "enableEsync": True,
     "enableFSR": True,
     "enableFsync": True,
-    "enableResizableBar": True,
     "enviromentOptions": [
         {'key': env[0], 'value': env[1]} for env in MOCK_ENVIRONMENT.items()
     ],
@@ -171,8 +169,6 @@ class TestCheckBinary(TestCase):
     def test_getparameters_epic_proton_all_options(self):
         """"Tests an Epic + Wine game using a wineVersion with type 'proton' and all options populated."""
         expected_environment = {
-            # audioFix (deprecated)
-            'PULSE_LATENCY_MSEC': '60',
             # showHud
             'DVXK_HUD': 'fps',
             # enableDXVKFpsLimit
@@ -189,8 +185,6 @@ class TestCheckBinary(TestCase):
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime
             'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
-            # enableResizableBar (deprecatedd)
-            'VKD3D_CONFIG': 'upload_hvv',
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -242,8 +236,6 @@ class TestCheckBinary(TestCase):
     def test_getparameters_epic_proton_steam_runtime_all_options(self):
         """Tests an Epic + Proton game config with useSteamRuntime and all options populated."""
         expected_environment = {
-            # audioFix (deprecated)
-            'PULSE_LATENCY_MSEC': '60',
             # showHud
             'DVXK_HUD': 'fps',
             # enableDXVKFpsLimit
@@ -260,8 +252,6 @@ class TestCheckBinary(TestCase):
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime
             'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
-            # enableResizableBar (deprecatedd)
-            'VKD3D_CONFIG': 'upload_hvv',
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -315,8 +305,6 @@ class TestCheckBinary(TestCase):
     def test_checkparameters_gog_linux(self):
         """Tests a GOG Linux game with all configuration options enabled."""
         expected_environment = {
-            # audioFix (deprecated)
-            'PULSE_LATENCY_MSEC': '60',
             # showHud
             'DVXK_HUD': 'fps',
             # enableDXVKFpsLimit
@@ -333,8 +321,6 @@ class TestCheckBinary(TestCase):
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime
             'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
-            # enableResizableBar (deprecatedd)
-            'VKD3D_CONFIG': 'upload_hvv',
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -355,8 +341,6 @@ class TestCheckBinary(TestCase):
     def test_checkparameters_epic_wine_custom_libs(self):
         """Tests that an Epic + Wine game with useSystemLibs = False returns the expected values."""
         expected_environment = {
-            # audioFix (deprecated)
-            'PULSE_LATENCY_MSEC': '60',
             # showHud
             'DVXK_HUD': 'fps',
             # enableDXVKFpsLimit
@@ -373,8 +357,6 @@ class TestCheckBinary(TestCase):
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime
             'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
-            # enableResizableBar (deprecatedd)
-            'VKD3D_CONFIG': 'upload_hvv',
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',

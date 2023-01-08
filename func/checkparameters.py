@@ -32,11 +32,6 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     # Set environment variables first
 
-    #audioFix
-    # TODO: Remove audioFix - was removed in 2.5.0
-    if gameSettings.get("audioFix"):
-        environment["PULSE_LATENCY_MSEC"] = "60"
-
     #showFps
     if gameSettings.get("showFps"):
         environment["DVXK_HUD"] = "fps"
@@ -76,11 +71,6 @@ def checkparameters(appname, gamejsonfile, gametype):
         environment["PROTON_BATTLEYE_RUNTIME"] = configpath.runtimepath
         battlEyeRuntimeArgs = ["battleye_runtime"]
     wrapperArgs += battlEyeRuntimeArgs
-
-    #enableResizableBar
-    # TODO: Remove. Was removed in https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/1921
-    if gameSettings.get("enableResizableBar"):
-        environment["VKD3D_CONFIG"] = "upload_hvv"
 
 
     #nvidiaPrime

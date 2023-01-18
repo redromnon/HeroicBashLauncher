@@ -45,18 +45,6 @@ def checkparameters(appname, gamejsonfile, gametype):
         environment["WINE_FULLSCREEN_FSR"] = "1"
         environment["WINE_FULLSCREEN_FSR_STRENGTH"] = str(gameSettings.get("maxSharpness"))
 
-    #enableEsync
-    if gameSettings.get("enableEsync"):
-        environment["WINEESYNC"] = "1"
-    else: 
-        environment["PROTON_NO_ESYNC"] = "1"
-
-    #enableFsync (Wine, Proton)
-    if gameSettings.get("enableFsync"):
-        environment["WINEFSYNC"] = "1"
-    else:
-        environment["PROTON_NO_FSYNC"] = "1"
-
     wrapperArgs = []
     #eacRuntime
     eacRuntimeArgs =  []
@@ -210,6 +198,19 @@ def checkparameters(appname, gamejsonfile, gametype):
         wineVersion_bin = heroicconfig["defaultSettings"]["wineVersion"]["bin"]
         wineVersion_name = heroicconfig["defaultSettings"]["wineVersion"]["name"]
         wineVersion_type = heroicconfig["defaultSettings"]["wineVersion"]["type"]
+
+      #enableEsync
+      if gameSettings.get("enableEsync") and wineVersion_type == "wine":
+          environment["WINEESYNC"] = "1"
+      elif not gameSettings.get("enableEsync") and wineVersion_type == "proton":
+          environment["PROTON_NO_ESYNC"] = "1"
+
+      #enableFsync
+      if gameSettings.get("enableFsync") and wineVersion_type == "wine":
+          environment["WINEFSYNC"] = "1"
+      elif not gameSettings.get("enableFsync") and wineVersion_type == "proton":
+          environment["PROTON_NO_FSYNC"] = "1"
+
       if wineVersion_type == "wine":
 
         binArgs = ["--wine", wineVersion_bin]

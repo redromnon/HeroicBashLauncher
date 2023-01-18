@@ -147,7 +147,7 @@ class TestCheckBinary(TestCase):
     @mock.patch("builtins.open", default_mock_open, create=True)
     def test_getparameters_epic_wine_no_args(self):
         """Tests an Epic + Wine game config and store config with "minimal" settings and options selected."""
-        expected_environment = {'PROTON_NO_ESYNC': '1', 'PROTON_NO_FSYNC': '1', 'LD_PRELOAD': ''}
+        expected_environment = {'LD_PRELOAD': ''}
         expected_arguments = [
             MOCK_HEROIC_PATH, 'launch', MOCK_APP_NAME,
             # default language
@@ -177,10 +177,6 @@ class TestCheckBinary(TestCase):
             'WINE_FULLSCREEN_FSR': '1',
             # maxSharpness
             'WINE_FULLSCREEN_FSR_STRENGTH': str(MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['maxSharpness']),
-            # enableEsync
-            'WINEESYNC': '1', 
-            # enableFsync
-            'WINEFSYNC': '1',
             # eacRuntime
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime
@@ -244,10 +240,6 @@ class TestCheckBinary(TestCase):
             'WINE_FULLSCREEN_FSR': '1',
             # maxSharpness
             'WINE_FULLSCREEN_FSR_STRENGTH': str(MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['maxSharpness']),
-            # enableEsync
-            'WINEESYNC': '1', 
-            # enableFsync
-            'WINEFSYNC': '1',
             # eacRuntime
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime
@@ -313,10 +305,6 @@ class TestCheckBinary(TestCase):
             'WINE_FULLSCREEN_FSR': '1',
             # maxSharpness
             'WINE_FULLSCREEN_FSR_STRENGTH': str(MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['maxSharpness']),
-            # enableEsync
-            'WINEESYNC': '1', 
-            # enableFsync
-            'WINEFSYNC': '1',
             # eacRuntime
             'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
             # battlEyeRuntime

@@ -14,14 +14,14 @@ def check_connectivity():
 
 
 #Setup arguments
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="Heroic Bash Launcher helps directly launch any Epic Games Store and GOG game from anywhere without Heroic")
 args = argparse.Namespace()
 def configure_argument_parser():
     global parser
     global args
     parser.add_argument("--silent", action="store_true", help="Run program without GUI")
-    parser.add_argument("--steam", nargs=1, help="Add selected games to Steam")
-    parser.add_argument("--update", nargs=4, help="Update launch script")
+    parser.add_argument("--steam", nargs=1, help="Add selected games to Steam", metavar="gamename")
+    parser.add_argument("--update", nargs=4, help="Update launch script", metavar=("gamename", "appname", "gamejson", "gametype"))
     args = parser.parse_args()
 
 #Declare

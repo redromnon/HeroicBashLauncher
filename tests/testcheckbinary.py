@@ -6,8 +6,6 @@ from io import StringIO
 from unittest import main, mock, TestCase
 from unittest.mock import Mock
 
-from func import configpath
-from func.settings import args
 from func import checkbinary
 
 mock_config_null = json.dumps({ "defaultSettings": { "altLegendaryBin": "" } })
@@ -36,7 +34,7 @@ class TestCheckBinary(TestCase):
     @mock.patch("builtins.open", Mock(return_value=StringIO(mock_config_null)), create=True)
     def test_getbinary_epic_opt(self):
         expected_base_path = "/opt/Heroic"
-        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary ")
+        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary")
         os.path.exists.side_effect = lambda x: expected_base_path in x
 
         actual_return_path = checkbinary.getbinary("epic")
@@ -45,7 +43,7 @@ class TestCheckBinary(TestCase):
 
     @mock.patch("builtins.open", Mock(return_value=StringIO(mock_config_str)), create=True)
     def test_getbinary_epic_from_config(self):
-        expected_return_path = mock_config_obj["defaultSettings"]["altLegendaryBin"] + " "
+        expected_return_path = mock_config_obj["defaultSettings"]["altLegendaryBin"]
         expected_base_path = os.path.dirname(expected_return_path)
         os.path.exists.side_effect = lambda x: expected_base_path in x
 
@@ -57,7 +55,7 @@ class TestCheckBinary(TestCase):
         checkbinary.configpath.is_flatpak = True
 
         expected_base_path = "/app/bin/heroic"
-        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary ")
+        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary")
         # Path does not exist on host when using flatpak
         os.path.exists.return_value = False
 
@@ -67,7 +65,7 @@ class TestCheckBinary(TestCase):
     @mock.patch("builtins.open", Mock(return_value=StringIO(mock_config_null)), create=True)
     def test_getbinary_epic_app(self):
         expected_base_path = "/app/bin/heroic"
-        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary ")
+        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary")
         os.path.exists.side_effect = lambda x: x == expected_base_path or x == os.path.join(expected_base_path, checkbinary.resources_bin_path)
 
         actual_return_path = checkbinary.getbinary("epic")
@@ -80,7 +78,7 @@ class TestCheckBinary(TestCase):
         os.getcwd.return_value = os.path.join(expected_base_path, "GameFiles")
         os.path.exists.side_effect = lambda x: expected_base_path in x
 
-        expected_return_path = os.path.join(expected_base_path, "binaries/legendary ")
+        expected_return_path = os.path.join(expected_base_path, "binaries/legendary")
         actual_return_path = checkbinary.getbinary("epic")
         assert expected_return_path == actual_return_path
 
@@ -90,7 +88,7 @@ class TestCheckBinary(TestCase):
         os.getcwd.return_value = os.path.join(expected_base_path)
         os.path.exists.side_effect = lambda x: x == expected_base_path or x == os.path.join(expected_base_path, "binaries")
 
-        expected_return_path = os.path.join(expected_base_path, "binaries/legendary ")
+        expected_return_path = os.path.join(expected_base_path, "binaries/legendary")
         actual_return_path = checkbinary.getbinary("epic")
         assert expected_return_path == actual_return_path
     
@@ -99,7 +97,7 @@ class TestCheckBinary(TestCase):
         shutil.which.side_effect = lambda x: "/usr/lib64/heroic-games-launcher-bin/heroic" if x == "heroic" else None
         os.path.realpath.side_effect = lambda x: "/usr/lib64/heroic-games-launcher-bin/heroic" if x == "/usr/lib64/heroic-games-launcher-bin/heroic" else x
         expected_base_path = "/usr/lib64/heroic-games-launcher-bin"
-        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary ")
+        expected_return_path = os.path.join(expected_base_path, checkbinary.resources_bin_path, "legendary")
         os.path.exists.side_effect = lambda x: expected_base_path in x
 
         actual_return_path = checkbinary.getbinary("epic")

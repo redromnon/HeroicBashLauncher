@@ -257,13 +257,13 @@ def checkparameters(appname, gamejsonfile, gametype):
         
         environment["STEAM_COMPAT_DATA_PATH"] = winePrefix
         #Wrap Proton path (bin) in quotes to avoid errors due to spaces in the path
-        wineVersion_bin = f"\"{wineVersion_bin}\""
+        wineVersion_bin = f"\'{wineVersion_bin}\'"
 
         #Check if Steam Soldier runtime is enabled
         if steam_runtime_win:
-          binArgs = ['--no-wine', "--wrapper"] + steamRuntimeBinArgs + [wineVersion_bin, "waitforexitandrun"]
+          binArgs = ['--no-wine', '--wrapper "'] + steamRuntimeBinArgs + [wineVersion_bin, 'waitforexitandrun"']
         else:
-          binArgs = ['--no-wine', "--wrapper", wineVersion_bin, 'run']
+          binArgs = ['--no-wine', '--wrapper "', wineVersion_bin, 'run"']
 
         #Set Steam AppID
         environment['STEAM_COMPAT_APP_ID'] = "0"

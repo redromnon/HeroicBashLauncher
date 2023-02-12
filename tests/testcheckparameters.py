@@ -216,8 +216,8 @@ class TestCheckBinary(TestCase):
             '--language', MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["language"],
             # wineVersion.type == Proton
             "--no-wine",
-            "--wrapper", f"\"{MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]['wineVersion']['bin']}\"",
-            "run",
+            '--wrapper "', f"\'{MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]['wineVersion']['bin']}\'",
+            'run"',
             # launcherArgs
             MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['launcherArgs']
         ]
@@ -279,9 +279,9 @@ class TestCheckBinary(TestCase):
             '--language', MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]["language"],
             # wineVersion.type == Proton + useSteamRuntime
             '--no-wine',
-            '--wrapper', '/home/user/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/run', '--',
-            f"\"{MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]['wineVersion']['bin']}\"", 
-            'waitforexitandrun',
+            '--wrapper "', '/home/user/.steam/root/steamapps/common/SteamLinuxRuntime_soldier/run', '--',
+            f"\'{MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]['wineVersion']['bin']}\'", 
+            'waitforexitandrun"',
             # launcherArgs
             MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]['launcherArgs']
         ]

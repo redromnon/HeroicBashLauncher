@@ -127,6 +127,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
     #Steam Runtime
     steam_runtime_win = False
+    steamRuntimeBinArgs = []
     if gameSettings.get("useSteamRuntime"):
 
         #Scout
@@ -276,8 +277,7 @@ def checkparameters(appname, gamejsonfile, gametype):
           arguments = baseArgs + binArgs + ["--os", "windows"] + launcherArgs
 
     else:#LINUX GOG
-
-      arguments = baseArgs + ["--platform=linux"] + launcherArgs
+      arguments = steamRuntimeBinArgs + baseArgs + ["--platform=linux"] + launcherArgs
   except Exception:
 
       logging.critical(traceback.format_exc())

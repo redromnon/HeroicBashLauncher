@@ -153,7 +153,7 @@ class TestCheckBinary(TestCase):
             # default language
             "--language", MOCK_STORE_CONFIG_LANGUAGE_OBJ["language"],
             # default winePrefix
-            '--wine-prefix', MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"],
+            '--wine-prefix', f'\"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"]}\"',
             # default wineVersion.bin
             '--wine',  MOCK_HEROIC_CONFIG_OBJ["defaultSettings"]["wineVersion"]["bin"],
         ]
@@ -188,7 +188,7 @@ class TestCheckBinary(TestCase):
             'LD_PRELOAD': '',
             # proton variables
             'STEAM_COMPAT_CLIENT_INSTALL_PATH': '/home/user/.steam/steam',
-            'STEAM_COMPAT_DATA_PATH': MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"],
+            'STEAM_COMPAT_DATA_PATH': f'\"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"]}\"',
             'STEAM_COMPAT_APP_ID': '0',
             'SteamAppId': '0'
             }
@@ -251,7 +251,7 @@ class TestCheckBinary(TestCase):
             'LD_PRELOAD': '',
             # proton variables
             'STEAM_COMPAT_CLIENT_INSTALL_PATH': '/home/user/.steam/steam',
-            'STEAM_COMPAT_DATA_PATH': MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"],
+            'STEAM_COMPAT_DATA_PATH': f'\"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"]}\"',
             'STEAM_COMPAT_APP_ID': '0',
             'SteamAppId': '0'
             }
@@ -357,7 +357,7 @@ class TestCheckBinary(TestCase):
         }
         # environmentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
-        expected_arguments = ['eac_runtime', 'battleye_runtime', '/my/test/wrapper', '--my', '--test', '--args', 'mangohud', '--dlsym', 'gamemoderun', '/path/to/heroic', 'launch', 'TestGameId', '--override-exe', '"/path/to/override/exe"', '--offline', '--language', 'fr', '--wine-prefix', '/path/to/TestGameId/pfx', '--wine', '/path/to/game/wine/bin/wine', 'launcherArgsValue']
+        expected_arguments = ['eac_runtime', 'battleye_runtime', '/my/test/wrapper', '--my', '--test', '--args', 'mangohud', '--dlsym', 'gamemoderun', '/path/to/heroic', 'launch', 'TestGameId', '--override-exe', '"/path/to/override/exe"', '--offline', '--language', 'fr', '--wine-prefix', '"/path/to/TestGameId/pfx"', '--wine', '/path/to/game/wine/bin/wine', 'launcherArgsValue']
         expected_cloudsync = "/path/to/heroic sync-saves --save-path \"/path/to/saves\" TestGameId -y"
         actual_environment, actual_arguments, actual_cloudsync = checkparameters.checkparameters(
         MOCK_APP_NAME, MOCK_GAME_JSON_PATH, "epic")

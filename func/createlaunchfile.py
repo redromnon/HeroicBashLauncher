@@ -26,7 +26,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     
     # Check/Update parameters
     environment, gameArguments, cloudsync = checkparameters(appname, gamejson, gametype) # returns launchcommand, cloudsync
-    environmentString = " ".join([f"{k}=\"{v}\"" for k, v in environment.items()])
+    environmentString = " ".join([f"{k}={v}" for k, v in environment.items()])
     gameString = " ".join(gameArguments)
     
     #Generating game's file name

@@ -181,7 +181,7 @@ def checkparameters(appname, gamejsonfile, gametype):
 
 
       #winePrefix
-      winePrefix = gameSettings["winePrefix"]
+      winePrefix = f'\"{gameSettings["winePrefix"]}\"'
 
       #wineVersion (IMPACTS LAUNCH COMMAND)
 

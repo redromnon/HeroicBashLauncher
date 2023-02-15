@@ -13,7 +13,7 @@ if __name__ == "__main__":
     settings.configure_argument_parser()
 
     #Version
-    curr_version = "v3.2.0"
+    curr_version = "v3.2.1"
     print("Using Bash Launcher " + curr_version + "\nNOTE - This is an independent project and not affiliated with Heroic Games Launcher.\n")
     checkzenity = os.system('zenity --version')
 

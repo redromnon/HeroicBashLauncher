@@ -141,7 +141,7 @@ class TestCheckBinary(TestCase):
             side_effect=lambda gametype: MOCK_HEROIC_PATH if gametype == "epic" else MOCK_GOGDL_PATH)
 
         # Disable zenity and logging output during testing.
-        checkparameters.args.silent = True
+        #checkparameters.args.silent = True
         checkparameters.logging.disable(checkparameters.logging.CRITICAL)
 
     @mock.patch("builtins.open", default_mock_open, create=True)

@@ -29,7 +29,7 @@ class TestCheckBinary(TestCase):
         checkbinary.configpath = Mock() 
         checkbinary.configpath.is_flatpak = False
 
-        checkbinary.args.silent = True
+        #checkbinary.args.silent = True
 
     @mock.patch("builtins.open", Mock(return_value=StringIO(mock_config_null)), create=True)
     def test_getbinary_epic_opt(self):

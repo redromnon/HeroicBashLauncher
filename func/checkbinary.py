@@ -23,7 +23,7 @@ def getbinary(gametype):
         binary = ""
         
         if gametype != "epic":
-            executable = "gogdl"
+            executable = "gogdl" + f" --auth-config-path {configpath.gogauthpath}"
         else:
             executable = "legendary"
 

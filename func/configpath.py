@@ -55,7 +55,7 @@ legendaryinstalledpath = os.path.join(actual_config_path, "legendary/installed.j
 
 goginstalledpath = os.path.join(actual_config_path, "heroic/gog_store/installed.json")
 
-goglibrarypath = os.path.join(actual_config_path, "heroic/gog_store/library.json")
+goglibrarypath = os.path.join(actual_config_path, "heroic/store_cache/gog_library.json")
 
 heroiclibrarypath = os.path.join(actual_config_path, "heroic/lib-cache/library.json")
 

@@ -4,7 +4,7 @@
 
 import json, logging, os, shutil, sys, traceback
 from func import configpath
-from func.settings import args
+from func import settings
 
 resources_bin_path = "resources/app.asar.unpacked/build/bin/linux"
 
@@ -65,6 +65,6 @@ def getbinary(gametype):
     except Exception:
 
         logging.critical(traceback.format_exc())
-        if not args.silent:
+        if not settings.args.silent:
             os.system('zenity --error --title="Process Failed" --text="\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
         sys.exit()

@@ -5,7 +5,7 @@ import shlex
 from func import configpath
 from func import settings
 from func.checkbinary import getbinary
-from func.settings import args
+from func import settings
 
 def checkparameters(appname, gamejsonfile, gametype):
   """Checks the configuration parameters for the specified appname.
@@ -281,7 +281,7 @@ def checkparameters(appname, gamejsonfile, gametype):
   except Exception:
 
       logging.critical(traceback.format_exc())
-      if not args.silent:
+      if not settings.args.silent:
         os.system('zenity --error --title="Process Failed" --text="\n\nPlease check the game log under GameFiles/logs/ in the HeroicBashLauncher folder for the error and consider reporting it as an issue on GitHub." --width=400')
       sys.exit()
 

@@ -4,7 +4,7 @@ import os, json, logging, sys
 from func import configpath
 from func.checkparameters import checkparameters
 from func.gameName import filegamename
-from func.settings import args
+from func import settings
 
 def createlaunchfile(gamename, appname, gamejson, gametype):
 
@@ -14,7 +14,7 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
             gametimelist = json.load(p)
     else:
         logging.error("timestamp.json not found. Looks like you haven't launched any game from Heroic at all. Please consider doing so.")
-        if not args.silent:
+        if not settings.args.silent:
             os.system('zenity --error --title="Process Failed" --text="timestamp.json not found. Looks like you have not launched any game from Heroic at all. Please consider doing so." --width=200 --timeout=10')
         sys.exit()
 

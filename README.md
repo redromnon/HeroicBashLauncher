@@ -30,7 +30,7 @@ Bash Launcher does exactly this and takes you straight to the game!
 
 ✔️ Creates game launch scripts for installed Epic & GOG games that act as shortcuts
 
-✔️ Completely skips Heroic running in the background and directly launches the games*
+✔️ Completely bypasses Heroic running in the background and eliminates any extra _CPU_ and _memory_ usage*
 
 ✔️ Includes all launch parameters including cloud save-syncing (EPIC GAMES ONLY) set in Heroic's Game Settings
 

@@ -49,17 +49,12 @@ def checkparameters(appname, gamejsonfile, gametype):
     #eacRuntime
     eacRuntimeArgs =  []
     if gameSettings.get("eacRuntime"): 
-        environment["PROTON_EAC_RUNTIME"] = configpath.runtimepath
-        eacRuntimeArgs = ["eac_runtime"]
-    wrapperArgs += eacRuntimeArgs
+        environment["PROTON_EAC_RUNTIME"] = os.path.join(configpath.runtimepath, "eac_runtime")
 
     #battlEyeRuntime
     battlEyeRuntimeArgs = []
     if gameSettings.get("battlEyeRuntime"): 
-        environment["PROTON_BATTLEYE_RUNTIME"] = configpath.runtimepath
-        battlEyeRuntimeArgs = ["battleye_runtime"]
-    wrapperArgs += battlEyeRuntimeArgs
-
+        environment["PROTON_BATTLEYE_RUNTIME"] = os.path.join(configpath.runtimepath, "battleye_runtime")
 
     #nvidiaPrime
     if gameSettings.get("nvidiaPrime"):

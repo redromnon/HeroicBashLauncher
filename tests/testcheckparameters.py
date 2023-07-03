@@ -178,9 +178,9 @@ class TestCheckBinary(TestCase):
             # maxSharpness
             'WINE_FULLSCREEN_FSR_STRENGTH': str(MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['maxSharpness']),
             # eacRuntime
-            'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_EAC_RUNTIME': f"{MOCK_RUNTIME_PATH}/eac_runtime",
             # battlEyeRuntime
-            'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_BATTLEYE_RUNTIME': f"{MOCK_RUNTIME_PATH}/battleye_runtime",
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -196,9 +196,9 @@ class TestCheckBinary(TestCase):
         expected_environment = expected_environment | MOCK_ENVIRONMENT
         expected_arguments = [
             # eacRuntime
-            'eac_runtime',
+            #'eac_runtime',
             # battlEyeRuntime
-            'battleye_runtime',
+            #'battleye_runtime',
             # wrapperOptions
             MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wrapperOptions'][0]['exe'],
             # unpack list of wrapper args
@@ -241,9 +241,9 @@ class TestCheckBinary(TestCase):
             # maxSharpness
             'WINE_FULLSCREEN_FSR_STRENGTH': str(MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['maxSharpness']),
             # eacRuntime
-            'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_EAC_RUNTIME': f"{MOCK_RUNTIME_PATH}/eac_runtime",
             # battlEyeRuntime
-            'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_BATTLEYE_RUNTIME': f"{MOCK_RUNTIME_PATH}/battleye_runtime",
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -259,9 +259,9 @@ class TestCheckBinary(TestCase):
         expected_environment = expected_environment | MOCK_ENVIRONMENT
         expected_arguments = [
             # eacRuntime
-            'eac_runtime',
+            #'eac_runtime',
             # battlEyeRuntime
-            'battleye_runtime',
+            #'battleye_runtime',
             # wrapperOptions
             MOCK_GAME_CONFIG_PROTON_OBJ[MOCK_APP_NAME]['wrapperOptions'][0]['exe'],
             # unpack list of wrapper args
@@ -306,9 +306,9 @@ class TestCheckBinary(TestCase):
             # maxSharpness
             'WINE_FULLSCREEN_FSR_STRENGTH': str(MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['maxSharpness']),
             # eacRuntime
-            'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_EAC_RUNTIME': f"{MOCK_RUNTIME_PATH}/eac_runtime",
             # battlEyeRuntime
-            'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_BATTLEYE_RUNTIME': f"{MOCK_RUNTIME_PATH}/battleye_runtime",
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -317,7 +317,7 @@ class TestCheckBinary(TestCase):
         }
         # environmentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
-        expected_arguments = ['eac_runtime', 'battleye_runtime', '/my/test/wrapper', '--my', '--test', '--args', 'mangohud', '--dlsym', 'gamemoderun', '/path/to/gog-dl', 'launch', '"/path/to/gog/game"', 'TestGameId', '--override-exe', '"/path/to/override/exe"', '--offline', '--platform=linux', 'launcherArgsValue']
+        expected_arguments = ['/my/test/wrapper', '--my', '--test', '--args', 'mangohud', '--dlsym', 'gamemoderun', '/path/to/gog-dl', 'launch', '"/path/to/gog/game"', 'TestGameId', '--override-exe', '"/path/to/override/exe"', '--offline', '--platform=linux', 'launcherArgsValue']
         expected_cloudsync = "/path/to/gog-dl sync-saves --save-path \"/path/to/saves\" TestGameId -y"
         actual_environment, actual_arguments, actual_cloudsync = checkparameters.checkparameters(
             MOCK_APP_NAME, MOCK_GAME_JSON_PATH, "gog-linux")
@@ -342,9 +342,9 @@ class TestCheckBinary(TestCase):
             # enableFsync
             'WINEFSYNC': '1',
             # eacRuntime
-            'PROTON_EAC_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_EAC_RUNTIME': f"{MOCK_RUNTIME_PATH}/eac_runtime",
             # battlEyeRuntime
-            'PROTON_BATTLEYE_RUNTIME': MOCK_RUNTIME_PATH,
+            'PROTON_BATTLEYE_RUNTIME': f"{MOCK_RUNTIME_PATH}/battleye_runtime",
             # nvidiaPrime
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
@@ -357,7 +357,7 @@ class TestCheckBinary(TestCase):
         }
         # environmentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
-        expected_arguments = ['eac_runtime', 'battleye_runtime', '/my/test/wrapper', '--my', '--test', '--args', 'mangohud', '--dlsym', 'gamemoderun', '/path/to/heroic', 'launch', 'TestGameId', '--override-exe', '"/path/to/override/exe"', '--offline', '--language', 'fr', '--wine-prefix', '"/path/to/TestGameId/pfx"', '--wine', '/path/to/game/wine/bin/wine', 'launcherArgsValue']
+        expected_arguments = ['/my/test/wrapper', '--my', '--test', '--args', 'mangohud', '--dlsym', 'gamemoderun', '/path/to/heroic', 'launch', 'TestGameId', '--override-exe', '"/path/to/override/exe"', '--offline', '--language', 'fr', '--wine-prefix', '"/path/to/TestGameId/pfx"', '--wine', '/path/to/game/wine/bin/wine', 'launcherArgsValue']
         expected_cloudsync = "/path/to/heroic sync-saves --save-path \"/path/to/saves\" TestGameId -y"
         actual_environment, actual_arguments, actual_cloudsync = checkparameters.checkparameters(
         MOCK_APP_NAME, MOCK_GAME_JSON_PATH, "epic")

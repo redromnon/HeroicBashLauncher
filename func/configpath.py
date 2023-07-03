@@ -65,7 +65,7 @@ timestamppath = os.path.join(actual_config_path, "heroic/store/timestamp.json")
 
 storejsonpath = os.path.join(actual_config_path, "heroic/store/config.json")
 
-runtimepath = os.path.join(actual_config_path, "heroic/tools/runtimes/")
+runtimepath = os.path.join(actual_config_path, "heroic/tools/runtimes")
 
 # Check if Steam is Flatpak
 is_steam_flatpak =  is_flatpak_installed(STEAM_FLATPAK_APPID)

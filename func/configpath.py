@@ -59,7 +59,7 @@ goglibrarypath = os.path.join(actual_config_path, "heroic/store_cache/gog_librar
 
 gogauthpath = os.path.join(actual_config_path, "heroic/gog_store/auth.json")
 
-heroiclibrarypath = os.path.join(actual_config_path, "heroic/lib-cache/library.json")
+heroiclibrarypath = os.path.join(actual_config_path, "heroic/store_cache/legendary_library.json")
 
 timestamppath = os.path.join(actual_config_path, "heroic/store/timestamp.json")
 

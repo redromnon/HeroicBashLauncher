@@ -82,9 +82,11 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
     #Launches from {simplified_gamename}.sh
     """)
 
+
     #Epic Games Format (Track wineserver before running post-game sync)
     epic_script = f"""
     #Launch game
+    export XDG_CONFIG_HOME={configpath.legendaryconfigdir}
     {cloudsync}
     {environmentString} {gameString}
 
@@ -109,6 +111,8 @@ def createlaunchfile(gamename, appname, gamejson, gametype):
         sleep 3
     done
     """
+
+
     #GOG format (without cloud sync check)
     gog_script = f"""
 

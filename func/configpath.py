@@ -51,7 +51,9 @@ gamesjsonpath = os.path.join(actual_config_path, "heroic/GamesConfig")
 
 heroicconfigpath = os.path.join(actual_config_path, "heroic/config.json")
 
-legendaryinstalledpath = os.path.join(actual_config_path, "legendary/installed.json")
+legendaryinstalledpath = os.path.join(actual_config_path, "heroic/legendaryConfig/legendary/installed.json")
+
+legendaryconfigdir = os.path.join(actual_config_path, "heroic/legendaryConfig")
 
 goginstalledpath = os.path.join(actual_config_path, "heroic/gog_store/installed.json")
 

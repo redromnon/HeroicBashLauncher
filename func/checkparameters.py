@@ -81,7 +81,11 @@ def checkparameters(appname, gamejsonfile, gametype):
     #showMangohud
     showMangoHudArgs = []
     if gameSettings.get("showMangohud"):
-        showMangoHudArgs = ["mangohud", "--dlsym"]
+        
+      if not configpath.is_flatpak:
+        environment["MANGOHUD_CONFIGFILE"] = os.path.join(os.path.expanduser('~'), '.config/MangoHud/MangoHud.conf')
+
+      showMangoHudArgs = ["mangohud", "--dlsym"]
     wrapperArgs += showMangoHudArgs
 
     #useGameMode

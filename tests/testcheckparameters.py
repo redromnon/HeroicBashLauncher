@@ -190,7 +190,9 @@ class TestCheckBinary(TestCase):
             'STEAM_COMPAT_CLIENT_INSTALL_PATH': '/home/user/.steam/steam',
             'STEAM_COMPAT_DATA_PATH': f'\"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"]}\"',
             'STEAM_COMPAT_APP_ID': '0',
-            'SteamAppId': '0'
+            'SteamAppId': '0',
+            # MangoHUD config path
+            'MANGOHUD_CONFIGFILE': '/home/user/.config/MangoHud/MangoHud.conf'
             }
         # enviromentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
@@ -253,7 +255,9 @@ class TestCheckBinary(TestCase):
             'STEAM_COMPAT_CLIENT_INSTALL_PATH': '/home/user/.steam/steam',
             'STEAM_COMPAT_DATA_PATH': f'\"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]["winePrefix"]}\"',
             'STEAM_COMPAT_APP_ID': '0',
-            'SteamAppId': '0'
+            'SteamAppId': '0',
+            # MangoHUD config path
+            'MANGOHUD_CONFIGFILE': '/home/user/.config/MangoHud/MangoHud.conf'
             }
         # enviromentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
@@ -313,7 +317,9 @@ class TestCheckBinary(TestCase):
             'DRI_PRIME': '1',
             '__NV_PRIME_RENDER_OFFLOAD': '1',
             '__GLX_VENDOR_LIBRARY_NAME': 'nvidia',
-            'LD_PRELOAD': ''
+            'LD_PRELOAD': '',
+            # MangoHUD config path
+            'MANGOHUD_CONFIGFILE': '/home/user/.config/MangoHud/MangoHud.conf'
         }
         # environmentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
@@ -354,6 +360,8 @@ class TestCheckBinary(TestCase):
             'LD_LIBRARY_PATH': f"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wineVersion']['lib']}:{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wineVersion']['lib32']}",
             'GST_PLUGIN_SYSTEM_PATH_1_0': f"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wineVersion']['lib']}/gstreamer-1.0:{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wineVersion']['lib32']}/gstreamer-1.0",
             'WINEDLLPATH': f"{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wineVersion']['lib']}/wine:{MOCK_GAME_CONFIG_FULL_OBJ[MOCK_APP_NAME]['wineVersion']['lib32']}/wine",
+            # MangoHUD config path
+            'MANGOHUD_CONFIGFILE': '/home/user/.config/MangoHud/MangoHud.conf'
         }
         # environmentOptions
         expected_environment = expected_environment | MOCK_ENVIRONMENT
